@@ -147,16 +147,6 @@ export default function InductionForm({ employee, isBooklet }) {
                                 checked={selectedChecklistItems.length === checklistItems.length}
                                 indeterminate={selectedChecklistItems.length > 0 && selectedChecklistItems.length < checklistItems.length}
                                 onChange={e =>
-                                    setSelectedChecklistItems(
-                                        e.target.checked ? checklistItems.map(f => f.label) : []
-                                    )
-                                }
-                            /> */}
-                            <Checkbox
-                                label="Select All"
-                                checked={selectedChecklistItems.length === checklistItems.length}
-                                indeterminate={selectedChecklistItems.length > 0 && selectedChecklistItems.length < checklistItems.length}
-                                onChange={e =>
                                     setSelectedChecklistItems(e.target.checked ? checklistItems.map(item => item.label[0]) : [])
                                 }
                             />
@@ -191,7 +181,7 @@ export default function InductionForm({ employee, isBooklet }) {
 
                                     sx={{ mr: 2, mb: 3 }}
                                 />
-                            ))}
+                            ))} */}
 
                             <Box sx={{ display: 'flex', gap: 2, mb: 3, justifyContent: 'center' }} >
                                 <Button variant="solid" onClick={handleDownloadPDF}>Download PDF</Button>

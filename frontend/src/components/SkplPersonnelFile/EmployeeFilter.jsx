@@ -215,19 +215,6 @@ let showGenerate = Object.values(filters).some((v) => v.trim() !== "");
             </Typography>
           </Box>
 
-{/* <Box sx={{ my: 2 }}>
-  <Checkbox
-    checked={selectAllBooklet}
-    onChange={e => setSelectAllBooklet(e.target.checked)}
-    label="Select All Booklet (Download all reports)"
-  />
-</Box>
-
-{selectAllBooklet && (
-  <Button onClick={handleDownloadAllBookletPDF}>Download All Reports PDF</Button>
-)} */}
-
-
           <Card
             variant="outlined"
             sx={{
@@ -259,7 +246,7 @@ let showGenerate = Object.values(filters).some((v) => v.trim() !== "");
     sx={{
       width: "100%", }}
   >
-      <Option value="AllReports">All Reports</Option>
+                  <Option value="AllReports">All Reports</Option>
                   <Option value="CheckList">Check List</Option>
                   <Option value="InductionForm">Induction Form</Option>
                   <Option value="EmployeeInformation">Employee Information</Option>
@@ -355,7 +342,7 @@ let showGenerate = Object.values(filters).some((v) => v.trim() !== "");
   <Button onClick={handleDownloadAllBookletPDF} sx={{ mt: 2 }}>
     Download All Reports PDF
   </Button>
-)}
+ )}
 
 
             {error && (
@@ -566,195 +553,3 @@ const StyledWrapper = styled.div`
 
 `;
 export default EmployeeFilter;
-
- 
-
-
-
-  // <Box sx={{ display: 'flex', minHeight: '100vh' }}>
-  //       <Sidebar sx={{ flexShrink: 0, width: { xs: 60, sm: 220 } }} />
-  //       <Box sx={{ flexGrow: 1, p: 1, bgcolor: 'white', overflowY: 'auto' }}>
-  //         <Header />
-
-  //         <Box
-  //           sx={{
-  //             position: 'sticky',
-  //             top: 0,
-  //             zIndex: 110,
-  //             p: { xs: 1, sm: 2, md: 3 },
-  //             borderRadius: 'md', 
-  //            bgcolor: 'rgb(18, 177, 209)',
-  //             color: '#ffffffff',
-  //             mx: { xs: 2, sm: 4, md: 8, lg: 10 },
-  //             mt: { xs: 1, sm: 2, md: 3 },
-  //           }}
-  //         >
-  //           <Typography
-  //             level={{ xs: "h5", sm: "h4", md: "h3" }}
-  //             fontWeight="lg"
-  //             textAlign="center"
-  //           >
-  //             SKPL — Employee All Reports System
-  //           </Typography>
-  //         </Box>
-           
-
-  //         <Box sx={{ p: 2, bgcolor: '#f9f9f9', borderRadius: 2, my: 2, maxWidth: 1500, mx: 'auto' }}>
-  //           <Select
-  //             value={reportType}
-  //             onChange={(_, value) => setReportType(value)}
-  //             sx={{ mb: 2 }}
-  //             placeholder="Select Report Type"
-  //             required
-  //           >
-  //             <Box >
-  //               <Option value="CheckList">Check List</Option>
-  //               <Option value="InductionForm">Induction Form</Option>
-  //               <Option value="EmployeeInformation">Employee Information</Option>
-
-  //               <Option value="appointmentOrder">Appointment Order</Option>
-  //               <Option value="confirmationOrder">Confirmation Order</Option>
-  //               <Option value="nomination">Nomination</Option>
-  //               <Option value="ServiceRecords"> Service Records</Option>
-  //               <Option value="Form11"> Form11</Option>
-  //               <Option value="letterOfAcceptance"> Letter of acceptance to receive wages through Bank</Option>
-  //               <Option value="AffirmativeStatement"> Affirmative Statement</Option>
-  //               <Option value="FormF"> FormF</Option>
-  //              </Box>
-
-  //           </Select>
-
-  //           <Stack spacing={1} direction={{ xs: "column", sm: "row" }}> 
-
-  //             <Input placeholder="Employee ID" value={filters.empId} onChange={handleChange("empId")} />
-  //             <Input placeholder="Employee Code" value={filters.empCode} onChange={handleChange("empCode")} />
-  //             <Input placeholder="Employee Name" value={filters.empName} onChange={handleChange("empName")} />
-  //             <Input placeholder="Phone Number" value={filters.MobileNo} onChange={handleChange("MobileNo")} />
-  //           </Stack>
-
-  //           <Stack spacing={1} direction={{ xs: "column", sm: "row" }} mt={1}>
-  //             <Input placeholder="Employee Designation" value={filters.Desg} onChange={handleChange("Desg")} />
-  //             <Input placeholder="Employee Department" value={filters.Dept} onChange={handleChange("Dept")} />
-  //             <Input placeholder="Address" value={filters.address} onChange={handleChange("address")} />
-  //            </Stack>
-
-  //           <Stack spacing={2} direction="row" justifyContent="flex-end" mt={2} p={2} >
-  //             <Button onClick={handleClear} variant="outlined" color="neutral">Clear</Button>
-  //             <Button
-  //               onClick={handleSubmit}
-  //               variant="solid"
-  //               loading={loading}
-  //               disabled={!showGenerate || loading}
-  //               sx={{ bgcolor: "#77d7fa" }}
-  //             >
-  //               {loading ? "Loading...." : "Generate Report"}
-  //             </Button>
-  //           </Stack>
-
-  //           {error && (
-  //             <Typography color="danger" fontSize={14} mt={2}>{error}</Typography>
-  //           )}
-
-  //           {/* Report Display */}
-  //           {/* {employee && (
-  //                           <Card sx={{ mt: 4, maxWidth: 1000, mx: "auto", p: 3 }}>
-  //                               <Typography level="h4" mb={2}>
-
-  //                                   {reportType === "appointmentOrder"
-  //                                       ? "Appointment Order Report"
-  //                                       : "Confirmation Order Report"}
-  //                               </Typography>
-  //                               <Sheet sx={{ mb: 2, p: 2 }}>
-
-  //                                   <Typography><b>Employee Name:</b> {employee.EmpName}</Typography>
-  //                                   <Typography><b>Father's Name:</b> {employee.FathersName || "—"}</Typography>
-  //                                   <Typography><b>Permanent Address:</b> {employee.PermanentAddress}</Typography>
-  //                                   <Typography><b>Date:</b> {new Date().toLocaleDateString()}</Typography>
-  //                               </Sheet>
-  //                           </Card>
-  //                       )} */}
-
-  //           {loading && (
-  //             <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", py: 6 }}>
-  //               <Loader />
-  //             </Box>
-  //           )}
-
-  //           {/* {!loading && employee && selectedReports.includes("EmployeeInformation") && (
-  //             <EmployeeInformation employee={employee} />
-  //           )}
-  //           {!loading && employee && selectedReports.includes("CheckList") && (
-  //             <CheckList employee={employee} />
-  //           )}
-  //           {!loading && employee && selectedReports.includes("InductionForm") && (
-  //             <InductionForm employee={employee} />
-  //           )} */}
-
-  //           {!loading && employee && reportType === "CheckList" && (
-  //             <CheckList employee={employee} />
-  //           )}
-  //           {!loading && employee && reportType === "InductionForm" && (
-  //             <InductionForm employee={employee} />
-  //           )}
-  //           {!loading && employee && reportType === "EmployeeInformation" && (
-  //             <EmployeeInformation employee={employee} />
-  //           )}
-
-  //           {!loading && employee && reportType === "appointmentOrder" && (
-  //             <AppointmentOrder employee={employee} />
-  //           )}
-  //           {!loading && employee && reportType === "confirmationOrder" && (
-  //             <ConfirmationOrder employee={employee} />
-  //           )}
-  //           {!loading && employee && reportType === "nomination" && (
-  //             <NominaTion employee={employee} />
-  //           )}
-  //           {!loading && employee && reportType === "letterOfAcceptance" && (
-  //             <LetterOfAcceptance employee={employee} />
-  //           )}
-  //           {!loading && employee && reportType === "AffirmativeStatement" && (
-  //             <AffirmativeStatement employee={employee} />
-  //           )}
-  //           {!loading && employee && reportType === "ServiceRecords" && (
-  //             <ServiceRecords employee={employee} />
-  //           )}
-  //           {!loading && employee && reportType === "FormF" && (
-  //             <FormF employee={employee} />
-  //           )}
-  //           {!loading && employee && reportType === "Form11" && (
-  //             <Form11 employee={employee} />
-  //           )}
-
-  //           {!loading && employee && reportType === "Form2" && (
-  //             <Form2 employee={employee} />
-  //           )}
-
-  //           {/* {!loading && employee && selectedReports.includes("appointmentOrder") && (
-  //             <AppointmentOrder employee={employee} />
-  //           )}
-  //           {!loading && employee && selectedReports.includes("confirmationOrder") && (
-  //             <ConfirmationOrder employee={employee} />
-  //           )}
-  //           {!loading && employee && selectedReports.includes("nomination") && (
-  //             <NominaTion employee={employee} />
-  //           )}
-  //           {!loading && employee && selectedReports.includes("letterOfAcceptance") && (
-  //             <LetterOfAcceptance employee={employee} />
-  //           )}
-  //           {!loading && employee && selectedReports.includes("AffirmativeStatement") && (
-  //             <AffirmativeStatement employee={employee} />
-  //           )}
-  //           {!loading && employee && selectedReports.includes("ServiceRecords") && (
-  //             <ServiceRecords employee={employee} />
-  //           )}
-  //           {!loading && employee && selectedReports.includes("FormF") && (
-  //             <FormF employee={employee} />
-  //           )}
-  //           {!loading && employee && selectedReports.includes("Form11") && (
-  //             <Form11 employee={employee} />
-  //           )} */}
-
-  //         </Box>
-
-  //       </Box>
-  //     </Box>

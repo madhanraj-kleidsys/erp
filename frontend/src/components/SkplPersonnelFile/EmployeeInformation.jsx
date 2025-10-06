@@ -180,7 +180,7 @@ export default function EmployeeInfoSheet({ employee, isBooklet }) {
           <Header />
           {!isBooklet && (
             <>
-              <Checkbox sx={{ mr: 3 }}
+              {/* <Checkbox sx={{ mr: 3 }}
                 label="Select All PERSONAL INFORMATION"
                 checked={selectedFields.length === personalInfoFields.length}
                 indeterminate={selectedFields.length > 0 && selectedFields.length < personalInfoFields.length}
@@ -206,14 +206,15 @@ export default function EmployeeInfoSheet({ employee, isBooklet }) {
                   }}
                   sx={{ mr: 2, mb: 3 }}
                 />
-              ))}
+              ))} 
+
               <br />
               <Box sx={{ height: 2, bgcolor: 'black', width: '100%' }} />
               <br />
 
-              <Box sx={{ display: 'flex', gap: 4, justifyContent: 'space-between' }}>
+             <Box sx={{ display: 'flex', gap: 4, justifyContent: 'space-between' }}>
 
-                {/* Left Side: Select All + contactDetailsFields */}
+         
                 <Box sx={{ flex: 1 }}>
 
                   <Checkbox sx={{ mr: 3 }}
@@ -277,11 +278,12 @@ export default function EmployeeInfoSheet({ employee, isBooklet }) {
                   ))}
 
                 </Box>
+                
               </Box>
 
               <Box sx={{ height: 2, bgcolor: 'black', width: '100%' }} />
               <br />
-
+ */}
               {/* Controls for Download */}
               <Box sx={{ display: 'flex', gap: 2, mb: 3, justifyContent: 'center' }}>
                 <Button variant="solid" onClick={handleDownloadPDF}>Download PDF</Button>

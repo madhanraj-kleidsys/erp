@@ -64,7 +64,7 @@ export default function PersonalFileChecklist({ employee, isBooklet }) {
 
           {!isBooklet && (
             <>
-              <Checkbox
+              {/* <Checkbox
                 label="Select All"
                 checked={selectedChecklistItems.length === checklistItems.length}
                 indeterminate={selectedChecklistItems.length > 0 && selectedChecklistItems.length < checklistItems.length}
@@ -98,7 +98,7 @@ export default function PersonalFileChecklist({ employee, isBooklet }) {
                 />
 
 
-              ))}
+              ))} */}
 
 
 
