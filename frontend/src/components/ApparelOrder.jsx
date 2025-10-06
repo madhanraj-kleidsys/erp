@@ -20,6 +20,8 @@ import Sidebar from './Sidebar';
 import { CssVarsProvider } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
 
+const apiUrl = import.meta.VITE_API_URL || 'http://localhost:3000/api'
+
 const cardSx = {
   p: 2,
   borderRadius: "sm",
@@ -39,7 +41,7 @@ export default function AdmDocumentNumberList({ onBack }) {
   const [selectedRecord, setSelectedRecord] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/approval/getdata")
+    axios.get(`${apiUrl}/approval/getdata`)
       .then((response) => {
         if (response.data.success) {
           setRecords(response.data.data);

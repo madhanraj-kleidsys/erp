@@ -74,8 +74,8 @@ export default function NominaTion({ employee, isBooklet }) {
                             width: "780px",
                             border: "2px solid #000000ff",
                             borderRadius: 2,
-                            mx: "auto",
-                            my: 3,mt:10,mb:48,
+                            mx: "auto", 
+                            my: 3,mt:10,mb:44,
                         
                             boxSizing: "border-box",
                             fontFamily: "'Noto Sans', Arial, sans-serif",

@@ -245,8 +245,6 @@ const apparalOrderHeader = async (req, res) => {
              message: 'Error fetching sales order data',
       error: { message: err.message, code: err.code || 'UNKNOWN_ERROR' }
         })
-        
     }
 };
 module.exports = {apparalOrderHeader};
- 

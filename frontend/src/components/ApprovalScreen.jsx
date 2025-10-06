@@ -205,7 +205,7 @@ export default function ApprovalScreen({ onBack }) {
             {/* <ArrowBack /> */}
           </IconButton>
           <Typography level="h6" fontWeight="lg" sx={{ flexGrow: 1, textAlign: "center" }}>
-            KleidSys Technologies - Approval Management System
+            SKPL - Approval Management System
           </Typography>
           <Box sx={{ width: 40 }} /> {/* space for symmetry */}
         </Box>

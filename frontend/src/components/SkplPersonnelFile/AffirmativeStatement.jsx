@@ -126,7 +126,7 @@ export default function AppointmentOrder({ employee, isBooklet }) {
                             border: "2px solid #000000ff",
                             borderRadius: 2,
                             mx: "auto",
-                            my: 3,mt:3,mb:20,
+                            my: 3,mt:3,mb:15,
                            
                             boxSizing: "border-box",
                             fontFamily: "'Noto Sans', Arial, sans-serif",

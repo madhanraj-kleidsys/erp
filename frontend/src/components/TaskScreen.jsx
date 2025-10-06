@@ -130,7 +130,7 @@ export default function TaskScreen({ onBack, onNavChange }) {
             <ArrowBack />
           </IconButton>
           <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 700 }}>
-            KleidSys Technologies - Task Management System
+            SKPL - Task Management System
           </Typography>
           {isMobile && (
             <IconButton color="inherit" onClick={() => setDrawerOpen(true)}>

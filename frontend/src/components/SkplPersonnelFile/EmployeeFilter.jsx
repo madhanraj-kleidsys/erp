@@ -204,13 +204,14 @@ let showGenerate = Object.values(filters).some((v) => v.trim() !== "");
               bgcolor: "rgb(18, 177, 209)",
               color: "#ffffff",
               mx: { xs: 1, sm: 4, md:1, lg: 2 },
+              // mr:{lg:160},
               mt: { xs: 1, sm: 2, md: 3 },
               borderRadius: 'md',
               boxShadow: "0 3px 6px rgba(0, 0, 0, 0.1)",
             }}
           >
-            <Typography level={{ xs: "h5", sm: "h4", md: "h3" }} sx={{fontSize:20}} fontWeight="lg" textAlign="center">
-              KleidSys Technologies — Employee All Reports System
+            <Typography level={{ xs: "h5", sm: "h4", md: "h3" }} sx={{fontSize:20}} fontWeight="lg" textAlign="left">
+              Employee - Personal File
             </Typography>
           </Box>
 
@@ -262,7 +263,6 @@ let showGenerate = Object.values(filters).some((v) => v.trim() !== "");
                   <Option value="CheckList">Check List</Option>
                   <Option value="InductionForm">Induction Form</Option>
                   <Option value="EmployeeInformation">Employee Information</Option>
-
                   <Option value="appointmentOrder">Appointment Order</Option>
                   <Option value="confirmationOrder">Confirmation Order</Option>
                   <Option value="nomination">Nomination</Option>
@@ -376,13 +376,14 @@ let showGenerate = Object.values(filters).some((v) => v.trim() !== "");
 
           {!loading && employee && reportType === "AllReports" && (
   <Box ref={allReportsRef} sx={{ bgcolor: 'white' }}>
-    <Box className="page-break"><CheckList employee={employee} isBooklet={true} /></Box>
+    {/* className="page-break" */}
+    <Box className="page-break" ><CheckList employee={employee} isBooklet={true} /></Box>
     <Box className="page-break"><InductionForm employee={employee} isBooklet={true} /></Box>
     <Box className="page-break"><EmployeeInformation employee={employee} isBooklet={true} /></Box>
     <Box className="page-break"><AppointmentOrder employee={employee} isBooklet={true} /></Box>
     <Box  ><ConfirmationOrder employee={employee} isBooklet={true} /></Box>
     <Box  ><NominaTion employee={employee}  isBooklet={true} /></Box>
-    <Box  ><LetterOfAcceptance employee={employee} isBooklet={true} /></Box>
+    <Box   ><LetterOfAcceptance employee={employee} isBooklet={true} /></Box>
     <Box ><AffirmativeStatement employee={employee} isBooklet={true} /></Box>
     <Box  ><ServiceRecords employee={employee} isBooklet={true} /></Box>
     <Box  ><Form11 employee={employee} isBooklet={true} /></Box>
@@ -593,7 +594,7 @@ export default EmployeeFilter;
   //             fontWeight="lg"
   //             textAlign="center"
   //           >
-  //             KleidSys Technologies — Employee All Reports System
+  //             SKPL — Employee All Reports System
   //           </Typography>
   //         </Box>
            

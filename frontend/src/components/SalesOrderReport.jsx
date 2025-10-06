@@ -171,7 +171,7 @@ export default function SalesOrdersJoy({ apiUrl }) {
               fontWeight="lg"
               textAlign="center"
             >
-              KleidSys Technologies — Sales Order Report System
+              SKPL — Sales Order Report System
             </Typography>
           </Box>
           

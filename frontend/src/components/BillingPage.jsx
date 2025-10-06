@@ -328,7 +328,7 @@ const BillingPage = () => {
             >
               {/* <Typography level="h3" startDecorator={<ReceiptIcon />}> */}
                         <Typography level="h3" fontWeight="lg" sx={{ flexGrow: 1,color:"#ffffffff", textAlign: "center" }}>
-            KleidSys Technologies - Billing System
+            SKPL - Billing System
               </Typography>
               <Box>
                 <Button
@@ -720,7 +720,7 @@ const BillingPage = () => {
 
                 {/* Bill Header */}
                 <Box sx={{ textAlign: "center", mb: 3 }}>
-                  <Typography level="h5">KleidSys Technologies</Typography>
+                  <Typography level="h5">SKPL</Typography>
                   <Typography level="body2">FashionONE | Garment Division</Typography>
                   <Typography level="body3">
                     Invoice #: INV-{Date.now().toString().slice(-6)}

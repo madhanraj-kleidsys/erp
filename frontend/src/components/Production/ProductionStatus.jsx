@@ -11,6 +11,7 @@ import Sidebar from '../Sidebar';
 
 import { CssVarsProvider } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
+const apiUrl = import.meta.VITE_API_URL || 'http://localhost:3000/api';
 
 const smallCardSx = {
     p: 1.5,
@@ -31,7 +32,7 @@ export default function ProductionStatus() {
     const [productionStatus, setProductionStatus] = useState(null);
 
     useEffect(() => {
-        fetch("http://localhost:3000/api/productionStatus")
+        fetch(`${apiUrl}/productionStatus`)
             .then(res => res.json())
             .then(data => {
                 if (data.success && data.data.length > 0) {
@@ -96,7 +97,7 @@ export default function ProductionStatus() {
                                 fontWeight="lg"
                                 textAlign="center"
                             >
-                                KleidSys Technologies — Production Status System
+                                SKPL — Production Status System
                             </Typography>
                         </Box>
 

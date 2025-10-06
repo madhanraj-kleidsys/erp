@@ -209,7 +209,7 @@ export default function Dashboard({ user, onLogout }) {
         }}
       >
         <Typography level="h6" fontWeight="lg" sx={{ letterSpacing: "0.1em", fontSize: { xs: '0.8rem', sm: '1.4rem' } }}>
-          KleidSys Technologies - FashionONE | SHAKTHI KNITTING PRIVATE LIMITED
+          SKPL - FashionONE | SHAKTHI KNITTING PRIVATE LIMITED
         </Typography>
 
         <IconButton

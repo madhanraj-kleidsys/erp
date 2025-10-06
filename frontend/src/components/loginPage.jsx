@@ -13,6 +13,11 @@ import Logo from "../assets/logo.jpeg";
 import TitleImg from "../assets/title.jpeg";
 
 import styled from 'styled-components';
+// import { AuthContext } from "../AuthContext";
+
+const apiUrl = import.meta.env.VITE_API_URL || `http://localhost:3000/api`;
+
+
 
 export default function LoginPage({ onLogin }) {
   const [form, setForm] = useState({ username: "", password: "" });
@@ -22,13 +27,51 @@ export default function LoginPage({ onLogin }) {
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (!form.username || !form.password) {
+  //     setError("Please enter username and password");
+  //   } else {
+  //     setError("");
+  //     if (onLogin) onLogin({ name: form.username });
+  //   }
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!form.username || !form.password) {
       setError("Please enter username and password");
-    } else {
-      setError("");
-      if (onLogin) onLogin({ name: form.username });
+      return;
+    }
+
+
+    setError("");
+
+    try {
+      const response = await fetch( `${apiUrl}/login`, {   
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username:"admin",
+          // form.username,
+          password:"NovaCore"
+          // form.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || 'Login failed');
+      } else {
+        // Login successful - pass user data and token to parent
+        if (onLogin) onLogin({ user: data.user, token: data.token });
+      }
+    } catch (error) {
+      setError('Network error. Please try again.');
     }
   };
 
@@ -46,39 +89,39 @@ export default function LoginPage({ onLogin }) {
     >
       {/* Left Logo */}
       <StyledWrapper>
-       <Box className="Title-container"
-        component="img"
-        src={Logo}
-        alt="logo"
-        sx={{
-          position: "fixed",
-          bottom: 20,
-          left: 20,
-          maxWidth: 160,
-          height: 80,
-          opacity: 0.7,
-          zIndex: 999,  
-        }}
-      />
-   
-       </StyledWrapper> 
+        <Box className="Title-container"
+          component="img"
+          src={Logo}
+          alt="logo"
+          sx={{
+            position: "fixed",
+            bottom: 20,
+            left: 20,
+            maxWidth: 160,
+            height: 80,
+            opacity: 0.7,
+            zIndex: 999,
+          }}
+        />
+
+      </StyledWrapper>
 
       {/* Right Logo */}
       <StyledWrapper>
-      <Box className="Title-container"
-        component="img"
-        src={Logo}
-        alt="logo"
-        sx={{
-          position: "fixed",
-          bottom: 20,
-          right: 20,
-          maxWidth: 160,
-          height: 80,
-          opacity: 0.7,
-          zIndex: 999,
-        }}
-      />
+        <Box className="Title-container"
+          component="img"
+          src={Logo}
+          alt="logo"
+          sx={{
+            position: "fixed",
+            bottom: 20,
+            right: 20,
+            maxWidth: 160,
+            height: 80,
+            opacity: 0.7,
+            zIndex: 999,
+          }}
+        />
       </StyledWrapper>
 
       <StyledWrapper>
@@ -178,7 +221,7 @@ export default function LoginPage({ onLogin }) {
                 >
                   {error}
                 </Typography>
-              )} 
+              )}
 
               <Button className="login-button"
                 type="submit"
@@ -201,15 +244,15 @@ export default function LoginPage({ onLogin }) {
                 Login
               </Button>
 
-            </Box> 
-          </CardContent> 
-        </div> 
-      </StyledWrapper> 
+            </Box>
+          </CardContent>
+        </div>
+      </StyledWrapper>
     </Box>
- 
+
   );
 }
- 
+
 const StyledWrapper = styled.div`
   .container {
     max-width: 450px;
@@ -401,12 +444,12 @@ const StyledWrapper = styled.div`
 //           borderColor: "neutral.200",
 //         }}
 //       >
-//         <CardContent sx={{ 
-//           display: "flex", 
-//           flexDirection: "column", 
-//           alignItems: "center", 
+//         <CardContent sx={{
+//           display: "flex",
+//           flexDirection: "column",
+//           alignItems: "center",
 //           p: 4,
-//           gap: 2 
+//           gap: 2
 //         }}>
 //           <Box
 //             component="img"
@@ -419,37 +462,37 @@ const StyledWrapper = styled.div`
 //             }}
 //           />
 
-//           {/* <Typography 
-//             level="h4" 
-//             sx={{ 
-//               color: "primary.500", 
-//               fontWeight: "bold", 
+//           {/* <Typography
+//             level="h4"
+//             sx={{
+//               color: "primary.500",
+//               fontWeight: "bold",
 //               textAlign: 'center',
-//               mb: 1 
+//               mb: 1
 //             }}
 //           >
 //             KLEIDSYS LOGIN
 //           </Typography> */}
 
-//           {/* <Typography 
-//             level="body1" 
-//             sx={{ 
-//               color: "neutral.600", 
+//           {/* <Typography
+//             level="body1"
+//             sx={{
+//               color: "neutral.600",
 //               textAlign: 'center',
-//               mb: 3 
+//               mb: 3
 //             }}
 //           >
 //             Enter your credentials to access the system
 //           </Typography> */}
 
-//           <Box 
-//             component="form" 
-//             onSubmit={handleSubmit} 
-//             sx={{ 
+//           <Box
+//             component="form"
+//             onSubmit={handleSubmit}
+//             sx={{
 //               width: "100%",
 //               display: "flex",
 //               flexDirection: "column",
-//               gap: 2 
+//               gap: 2
 //             }}
 //           >
 //             <Input
@@ -479,8 +522,8 @@ const StyledWrapper = styled.div`
 //               onChange={handleChange}
 //               startDecorator={<Lock sx={{ color: "primary.500" }} />}
 //               endDecorator={
-//                 <IconButton 
-//                   variant="plain" 
+//                 <IconButton
+//                   variant="plain"
 //                   onClick={() => setShowPass((p) => !p)}
 //                   sx={{ color: "neutral.500" }}
 //                 >
@@ -496,12 +539,12 @@ const StyledWrapper = styled.div`
 //             />
 
 //             {error && (
-//               <Typography 
-//                 color="danger" 
-//                 fontSize="sm" 
-//                 sx={{ 
+//               <Typography
+//                 color="danger"
+//                 fontSize="sm"
+//                 sx={{
 //                   textAlign: 'center',
-//                   mt: 1 
+//                   mt: 1
 //                 }}
 //               >
 //                 {error}

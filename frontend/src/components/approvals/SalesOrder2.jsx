@@ -112,7 +112,7 @@ function ApprovalList({ apiEndpoint, title }) {
 
             <Box sx={{ p: 2, borderRadius: 'md', bgcolor: '#77d7fa', color: '#032a40', mb: 2 }}>
               <Typography level="h3" fontWeight="lg" textAlign="center">
-                KleidSys Technologies —  {title}
+                SKPL —  {title}
               </Typography>
             </Box>
 
@@ -258,7 +258,7 @@ export function ServInvoice() {
 
 
 export function VendorBill() {
-  return <ApprovalList apiEndpoint={` ${apiurl}/vendorBill`} title="Vendor Bill" />;
+  return <ApprovalList apiEndpoint={` ${apiUrl}/vendorBill`} title="Vendor Bill" />;
 }
 
 
@@ -273,7 +273,7 @@ export function StyleJobWork() {
 
 
 export function ProcureOrder() {
-  return <ApprovalList apiEndpoint={` ${apiurl}/procureOrder`} title="Procure Order" />;
+  return <ApprovalList apiEndpoint={` ${apiUrl}/procureOrder`} title="Procure Order" />;
 }
 
 

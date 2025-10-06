@@ -154,7 +154,6 @@ const appoinmentorder = async (req, res) => {
 			type: QueryTypes.SELECT,
 			raw: true
 		})
-		// console.log(op);
 
 		res.status(200).json({
 			success: true,
@@ -162,7 +161,7 @@ const appoinmentorder = async (req, res) => {
 		})
 	}
 	catch (err) {
-		  console.error(err.message);
+		console.error(err.message);
 		res.status(500).json({
 			success: false,
 			message: 'Error fetching appoinment order data',

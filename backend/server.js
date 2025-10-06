@@ -5,7 +5,6 @@ const cors = require('cors');
 app.use(cors());
 const dotenv = require('dotenv');
 const path = require('path');
-// const { env } = require('process');0
 dotenv.config({path:path.join(__dirname, ".env")});
 
 const corsOptions ={
@@ -15,10 +14,9 @@ const corsOptions ={
 };
 app.use(cors(corsOptions));
 
-const dbConnect = require('./config/db');
+// const dbConnect = require('./config/db');
 
-
- 
+const login = require('./routes/login.js');
 const approval = require('./routes/approval.js');
 const { getSalesOrderData,getSalesOrderById} = require('./routes/salesOrderReport.js');
 const approvalCount = require('./routes/approvalCounts.js');
@@ -28,6 +26,14 @@ const {apparalOrderHeader} = require('./routes/salesOrderBudget/apparalOrderHead
 const appoinmentorder = require('./routes/report/appoinmentorder.js');
 const prdStatus = require('./routes/prdStatus.js');
 
+const prodapparelsewing = require('./routes/dash/ProdApparelSewing.js');
+const {getCitiesByState} = require('./routes/cities/getCitiesByState.js');
+
+const pincodeState = require('./routes/cities/pincodeState.js');
+const apiCity = require('./routes/cities/apiCity.js');
+
+
+app.use('/api',login);
 app.use('/api/approval',approval);
 app.get('/api/approvalCount',approvalCount);
 app.get('/api/sales-order', getSalesOrderData);
@@ -45,6 +51,12 @@ app.get('/api/apparalOrderHeader',apparalOrderHeader);
 
 app.post('/api/appoinmentorder',appoinmentorder);
 app.use('/api',prdStatus);
+app.use('/api/prodapparelsewing',prodapparelsewing);
+app.use('/api/getCitiesByState',getCitiesByState);
+app.use('/api',pincodeState);
+app.use('/api',apiCity);
+
+
 
 // app.use('/api/salesreport',salesOrderReport);
 
@@ -59,9 +71,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 
-const PORT = process.env.DB_PORT;
+const PORT = process.env.PORT;
 const NODE_ENV = process.env.NODE_ENV;
 app.listen(PORT ,'0.0.0.0' ,() =>{
-    console.log(`server listening to ${PORT} AT ${NODE_ENV}`);
+    console.log(`server listening to  AT ${PORT} ${NODE_ENV}`);
     
 });

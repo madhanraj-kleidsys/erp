@@ -75,7 +75,7 @@ export default function letterOfAcceptance({ employee, isBooklet }) {
                             border: "2px solid #000000ff",
                             borderRadius: 2,
                             mx: "auto",
-                            my: 3,mt:10,mb:2,
+                            my: 3,mt:10,mb:6,
                             boxSizing: "border-box",
                             fontFamily: "'Noto Sans', Arial, sans-serif",
                             bgcolor: "#fff", overFlowX: "hidden"

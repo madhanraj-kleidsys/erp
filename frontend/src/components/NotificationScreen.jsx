@@ -120,7 +120,7 @@
 //             <ArrowBack />
 //           </IconButton>
 //           <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 700 }}>
-//             KleidSys Technologies - Notification Center
+//             SKPL - Notification Center
 //           </Typography>
 //           {isMobile && (
 //             <IconButton color="inherit" onClick={() => setDrawerOpen(true)}>
@@ -479,7 +479,7 @@ export default function NotificationScreen({ onBack, onNavChange, user, onLogout
         }}
       >
         <Typography level="h6" fontWeight="lg" sx={{ letterSpacing: "0.1em", fontSize: { xs: '0.8rem', sm: '1rem' } }}>
-          KleidSys Technologies - FashionONE | SHAKTHI KNITTING PRIVATE LIMITED
+          SKPL - FashionONE | SHAKTHI KNITTING PRIVATE LIMITED
         </Typography>
         {/* <IconButton
           variant="outlined"
