@@ -141,20 +141,8 @@
 
 ---
 
-## 📞 Support
-
-- **Version:** 1.0
-- **Last Updated:** October 2025
-- **Created By:** Development Team
-
----
-
 > **Note:** This guide is specifically designed for Windows RDP server deployment using IIS for frontend hosting and PM2 for backend process management.
 
 ## 🤝 Contributing
 
 Feel free to submit issues and enhancement requests!
-
-## 📄 License
-
-This project is licensed under the MIT License.
