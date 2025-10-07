@@ -49,9 +49,9 @@ SELECT
     DATEADD(DAY, N, StartDate) AS ProdDate,
     DailyTarget,
     BUName,
-    DATENAME(MONTH, StartDate) AS MnthName,
-    DATENAME(YEAR, StartDate) AS YearNo,
-    DATENAME(WEEK, StartDate) AS WeekNo
+    DATENAME(MONTH, DATEADD(DAY, N, StartDate)) AS MnthName,
+    DATEPART(YEAR, DATEADD(DAY, N, StartDate)) AS YearNo,
+    DATEPART(WEEK, DATEADD(DAY, N, StartDate)) AS WeekNo
     
 FROM DateSeries
 WHERE YEAR(DATEADD(DAY, N, StartDate)) = :year
