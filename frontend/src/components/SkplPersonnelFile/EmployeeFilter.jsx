@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Box, Stack, Input, Button, Select, Option, Typography, Card, Grid, Divider,Sheet, CardContent ,Checkbox } from "@mui/joy";
+import { Box, Stack, Input, Button, Select, Option, Typography, Card, Grid, Divider, Sheet, CardContent, Checkbox } from "@mui/joy";
 import html2pdf from "html2pdf.js";
 import html2canvas from "html2canvas";
 import Header from '../Header';
@@ -17,7 +17,7 @@ import CheckList from "./CheckList";
 import InductionForm from "./InductionForm";
 import EmployeeInformation from "./EmployeeInformation";
 import Form11 from "./Form11";
-import FormF from "./FormF"; 
+import FormF from "./FormF";
 import styled from 'styled-components';
 
 const apiUrl = import.meta.env.VITE_API_URL || `http://localhost:3000/api`;
@@ -39,48 +39,48 @@ const EmployeeFilter = () => {
   const [employee, setEmployee] = useState(null);
   const [error, setError] = useState("");
 
-const handleDownloadAllBookletPDF = () => {
-  if (!allReportsRef.current || !employee) return;
-  setTimeout(() => {
+  const handleDownloadAllBookletPDF = () => {
+    if (!allReportsRef.current || !employee) return;
+    setTimeout(() => {
 
-    html2pdf()
-      .set({
-        margin:0.2,
-        filename: "Employee_All_Reports_Booklet.pdf",
-        image: { type: "jpeg", quality: 1 },
-        html2canvas: { scale: 2, allowTaint: true, useCORS: true },
-        jsPDF: { unit: "pt", format: "a4", orientation: "portrait" },
-        pagebreak: { mode: ['css', 'legacy'], after: '.page-break' },
-      })
-      .from(allReportsRef.current)
-      .save();
- 
-
-  }, 500); // half second delay, adjust as necessary
-};
+      html2pdf()
+        .set({
+          margin: 0.2,
+          filename: "Employee_All_Reports_Booklet.pdf",
+          image: { type: "jpeg", quality: 1 },
+          html2canvas: { scale: 2, allowTaint: true, useCORS: true },
+          jsPDF: { unit: "pt", format: "a4", orientation: "portrait" },
+          pagebreak: { mode: ['css', 'legacy'], after: '.page-break' },
+        })
+        .from(allReportsRef.current)
+        .save();
 
 
-  
-//   const checklistRef = useRef();
-// const inductionFormRef = useRef();
-// const ServiceRecordsRef = useRef();
-// const appointmentOrderRef = useRef();
-// const confirmationOrderRef = useRef();
-// const nominationRef = useRef();
-// const letterOfAcceptanceRef = useRef();
+    }, 500); // half second delay, adjust as necessary
+  };
 
-// const Form11Ref = useRef();
-// const FormFRef = useRef();
-// const employeeInfoRef = useRef();
-// const AffirmativeStatementRef = useRef(); 
- 
-const allReportsRef = useRef();
 
-{/* In render */}
-<div ref={allReportsRef} style={{ background: "white" }}>
-  <CheckList employee={employee} />
-  {/* <InductionForm employee={employee} /> */}
-  <EmployeeInformation employee={employee} />
+
+  //   const checklistRef = useRef();
+  // const inductionFormRef = useRef();
+  // const ServiceRecordsRef = useRef();
+  // const appointmentOrderRef = useRef();
+  // const confirmationOrderRef = useRef();
+  // const nominationRef = useRef();
+  // const letterOfAcceptanceRef = useRef();
+
+  // const Form11Ref = useRef();
+  // const FormFRef = useRef();
+  // const employeeInfoRef = useRef();
+  // const AffirmativeStatementRef = useRef(); 
+
+  const allReportsRef = useRef();
+
+  {/* In render */ }
+  <div ref={allReportsRef} style={{ background: "white" }}>
+    <CheckList employee={employee} />
+    {/* <InductionForm employee={employee} /> */}
+    <EmployeeInformation employee={employee} />
     <AppointmentOrder employee={employee} />
     <ConfirmationOrder employee={employee} />
     <NominaTion employee={employee} />
@@ -89,7 +89,7 @@ const allReportsRef = useRef();
     <ServiceRecords employee={employee} />
     <Form11 employee={employee} />
     <FormF employee={employee} />
-  
+
   </div>
 
 
@@ -142,7 +142,7 @@ const allReportsRef = useRef();
     setEmployee(null);
     try {
       //"http://localhost:3000/api/appoinmentOrder"
-      const response = await fetch( `${apiUrl}/appoinmentOrder`, {
+      const response = await fetch(`${apiUrl}/appoinmentOrder`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(query),
@@ -163,9 +163,15 @@ const allReportsRef = useRef();
   };
 
 
-let showGenerate = Object.values(filters).some((v) => v.trim() !== "");
+  let showGenerate = Object.values(filters).some((v) => v.trim() !== "");
 
- 
+
+const handleKeyDown = (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    handleSubmit();
+  }
+};
 
   return (
 
@@ -177,183 +183,189 @@ let showGenerate = Object.values(filters).some((v) => v.trim() !== "");
         <Box sx={{ flexGrow: 1, p: 1, overflowY: "auto" }}>
           <Header />
 
-      <Box component="main"
-                     className="MainContent"
-                     sx={{
-                 
-                         pt: {
-                             xs: 'calc(12px + var(--Header-height))',
-                             sm: 'calc(12px + var(--Header-height))',
-                             md: 3,
-                         },
-                         pb: { xs: 2, sm: 2, md: 2 },
-                         flex: 1,
-                         display: 'flex',
-                         flexDirection: 'column',
-                         minWidth: 0,
-                          gap: 1,
-                     }}
-                 >
-      
-          <Box
+          <Box component="main"
+            className="MainContent"
             sx={{
-              position: "sticky",
-              top: 0,
-              zIndex: 110,
-              p: { xs: 2, sm: 3 ,md:3},
-              bgcolor: "rgb(18, 177, 209)",
-              color: "#ffffff",
-              mx: { xs: 1, sm: 4, md:1, lg: 2 },
-              // mr:{lg:160},
-              mt: { xs: 1, sm: 2, md: 3 },
-              borderRadius: 'md',
-              boxShadow: "0 3px 6px rgba(0, 0, 0, 0.1)",
+
+              pt: {
+                xs: 'calc(12px + var(--Header-height))',
+                sm: 'calc(12px + var(--Header-height))',
+                md: 3,
+              },
+              pb: { xs: 2, sm: 2, md: 2 },
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              minWidth: 0,
+              gap: 1,
             }}
           >
-            <Typography level={{ xs: "h5", sm: "h4", md: "h3" }} sx={{fontSize:20}} fontWeight="lg" textAlign="left">
-              Employee - Personal File
-            </Typography>
-          </Box>
 
-          <Card
-            variant="outlined"
-            sx={{
-              mt: 3,
-              // mt: { xs: 1, sm: 2, md: 3 },
-              // p: { xs: 2, sm: 3 ,md:3},
-           mx:"auto",
-              maxWidth: 1620,
-              bgcolor: "white",
-              p: 3,
-              borderRadius: 'md',
-              boxShadow: "0 5px 15px rgba(0, 0, 0, 0.05)",
-            }}
-          >
-            
-            <Grid container spacing={3} alignItems="flex-end">
-              {/* <Grid item xs={12} sm={6} md={6}> */}
-              <Grid item xs={12} sm={6} md={6} sx={{ position: "relative", maxWidth: "100%" }}>
-                <Typography fontWeight="md" mb={1}  sx={{color:"rgba(14, 142, 168, 1)"}}>
-                  Select Report Type
-                </Typography>
-
-              
-             <Select
-    value={reportType}
-    onChange={(_, value) => setReportType(value)}
-    placeholder="Select Report Type"
-    required
-    sx={{
-      width: "100%", }}
-  >
-                  <Option value="AllReports">All Reports</Option>
-                  <Option value="CheckList">Check List</Option>
-                  <Option value="InductionForm">Induction Form</Option>
-                  <Option value="EmployeeInformation">Employee Information</Option>
-                  <Option value="appointmentOrder">Appointment Order</Option>
-                  <Option value="confirmationOrder">Confirmation Order</Option>
-                  <Option value="nomination">Nomination</Option>
-                  <Option value="ServiceRecords"> Service Records</Option>
-                  <Option value="Form11"> Form11</Option>
-                  <Option value="letterOfAcceptance"> Letter of acceptance to receive wages through Bank</Option>
-                  <Option value="AffirmativeStatement"> Affirmative Statement</Option>
-                  <Option value="FormF"> FormF</Option>
- 
-                 </Select>
-              </Grid>
-
-              
-              <Grid item xs={12} sm={6} md={12}>
-                <Typography fontWeight="md" mb={1} sx={{color:"rgba(14, 142, 168, 1)"}}>
-                  Enter Filters
-                </Typography>
-                <Stack direction={{ xs: "column", sm: "row" }} spacing={2} flexWrap="wrap" gap={2}>
-                  <Input
-                    placeholder="Employee ID"
-                    value={filters.empId}
-                    onChange={handleChange("empId")}
-                    sx={{ flex: 1, minWidth: 150 }}
-                    clearable
-                  />
-                  <Input
-                    placeholder="Employee Code"
-                    value={filters.empCode}
-                    onChange={handleChange("empCode")}
-                    sx={{ flex: 1, minWidth: 150 }}
-                    clearable
-                  />
-                  <Input
-                    placeholder="Employee Name"
-                    value={filters.empName}
-                    onChange={handleChange("empName")}
-                    sx={{ flex: 1, minWidth: 150 }}
-                    clearable
-                  />
-                  <Input
-                    placeholder="Phone Number"
-                    value={filters.MobileNo}
-                    onChange={handleChange("MobileNo")}
-                    sx={{ flex: 1, minWidth: 150 }}
-                    clearable
-                  />
-                  <Input
-                    placeholder="Emp Designation"
-                    value={filters.Desg}
-                    onChange={handleChange("Desg")}
-                    sx={{ flex: 1, minWidth: 150 }}
-                    clearable
-                  />
-                  <Input
-                    placeholder="Emp Department"
-                    value={filters.Dept}
-                    onChange={handleChange("Dept")}
-                    sx={{ flex: 1, minWidth: 150 }}
-                    clearable
-                  />
-                  <Input
-                    placeholder="Address"
-                    value={filters.address}
-                    onChange={handleChange("address")}
-                    sx={{ flex: 1, minWidth: 150 }}
-                    clearable
-                  />
-                </Stack>
-              </Grid>
-            </Grid>
-
-            {/* <Divider sx={{ my: 3 }} /> */}
-
-            <Stack direction="row" sx={{mt:2}} spacing={2} justifyContent="flex-end">
-              <Button onClick={handleClear} variant="outlined" color="neutral">
-                Clear
-              </Button>
-              <Button className="no-print"
-                onClick={handleSubmit}
-                variant="solid"
-                loading={loading}
-                disabled={!showGenerate || loading}
-                sx={{ bgcolor: "#12B1D1", "&:hover": { bgcolor: "#0b8cb1" } }}
-              >
-                {loading ? "Loading..." : "Generate Report"}
-              </Button>
-            </Stack>
-
-            {reportType === "AllReports" && employee && (
-  <Button onClick={handleDownloadAllBookletPDF} sx={{ mt: 2 }}>
-    Download All Reports PDF
-  </Button>
- )}
-
-
-            {error && (
-              <Typography color="danger" fontSize={14} mt={2} textAlign="center">
-                {error}
+            <Box
+              sx={{
+                position: "sticky",
+                top: 0,
+                zIndex: 110,
+                p: { xs: 2, sm: 3, md: 3 },
+                bgcolor: "rgb(18, 177, 209)",
+                color: "#ffffff",
+                mx: { xs: 1, sm: 4, md: 1, lg: 2 },
+                // mr:{lg:160},
+                mt: { xs: 1, sm: 2, md: 3 },
+                borderRadius: 'md',
+                boxShadow: "0 3px 6px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <Typography level={{ xs: "h5", sm: "h4", md: "h3" }} sx={{ fontSize: 20 }} fontWeight="lg" textAlign="left">
+                Employee - Personal File
               </Typography>
-            )}
-          </Card>
-                 
-  
-        </Box> 
+            </Box>
+
+            <Card
+              variant="outlined"
+              sx={{
+                mt: 3,
+                // mt: { xs: 1, sm: 2, md: 3 },
+                // p: { xs: 2, sm: 3 ,md:3},
+                mx: "auto",
+                maxWidth: 1620,
+                bgcolor: "white",
+                p: 3,
+                borderRadius: 'md',
+                boxShadow: "0 5px 15px rgba(0, 0, 0, 0.05)",
+              }}
+            >
+
+              <Grid container spacing={3} alignItems="flex-end">
+                {/* <Grid item xs={12} sm={6} md={6}> */}
+                <Grid item xs={12} sm={6} md={6} sx={{ position: "relative", maxWidth: "100%" }}>
+                  <Typography fontWeight="md" mb={1} sx={{ color: "rgba(14, 142, 168, 1)" }}>
+                    Select Report Type
+                  </Typography>
+
+
+                  <Select
+                    value={reportType}
+                    onChange={(_, value) => setReportType(value)}
+                    placeholder="Select Report Type"
+                    required
+                    sx={{
+                      width: "100%",
+                    }}
+                  >
+                    <Option value="AllReports">All Reports</Option>
+                    <Option value="CheckList">Check List</Option>
+                    <Option value="InductionForm">Induction Form</Option>
+                    <Option value="EmployeeInformation">Employee Information</Option>
+                    <Option value="appointmentOrder">Appointment Order</Option>
+                    <Option value="confirmationOrder">Confirmation Order</Option>
+                    <Option value="nomination">Nomination</Option>
+                    <Option value="ServiceRecords"> Service Records</Option>
+                    <Option value="Form11"> Form11</Option>
+                    <Option value="letterOfAcceptance"> Letter of acceptance to receive wages through Bank</Option>
+                    <Option value="AffirmativeStatement"> Affirmative Statement</Option>
+                    <Option value="FormF"> FormF</Option>
+
+                  </Select>
+                </Grid>
+
+
+                <Grid item xs={12} sm={6} md={12}>
+                  <Typography fontWeight="md" mb={1} sx={{ color: "rgba(14, 142, 168, 1)" }}>
+                    Enter Filters
+                  </Typography>
+                  <Stack direction={{ xs: "column", sm: "row" }} spacing={2} flexWrap="wrap" gap={2}>
+                    <Input onKeyDown={handleKeyDown} 
+                      placeholder="Employee ID"
+                      value={filters.empId}
+                      onChange={handleChange("empId")}
+                      sx={{ flex: 1, minWidth: 150 }}
+                      clearable
+                    />
+                    <Input onKeyDown={handleKeyDown} 
+                      placeholder="Employee Code"
+                      value={filters.empCode}
+                      onChange={handleChange("empCode")}
+                      sx={{ flex: 1, minWidth: 150 }}
+                      clearable
+                    />
+                    <Input onKeyDown={handleKeyDown} 
+                      placeholder="Employee Name"
+                      value={filters.empName}
+                      onChange={handleChange("empName")}
+                      sx={{ flex: 1, minWidth: 150 }}
+                      clearable
+                    />
+                    <Input onKeyDown={handleKeyDown} 
+                      placeholder="Phone Number"
+                      value={filters.MobileNo}
+                      onChange={handleChange("MobileNo")}
+                      sx={{ flex: 1, minWidth: 150 }}
+                      clearable
+                    />
+                    <Input onKeyDown={handleKeyDown} 
+                      placeholder="Emp Designation"
+                      value={filters.Desg}
+                      onChange={handleChange("Desg")}
+                      sx={{ flex: 1, minWidth: 150 }}
+                      clearable
+                    />
+                    <Input onKeyDown={handleKeyDown} 
+                      placeholder="Emp Department"
+                      value={filters.Dept}
+                      onChange={handleChange("Dept")}
+                      sx={{ flex: 1, minWidth: 150 }}
+                      clearable
+                    />
+                    <Input onKeyDown={handleKeyDown} 
+                      placeholder="Address"
+                      value={filters.address}
+                      onChange={handleChange("address")}
+                      sx={{ flex: 1, minWidth: 150 }}
+                      clearable
+                    />
+                  </Stack>
+                </Grid>
+              </Grid>
+
+              {/* <Divider sx={{ my: 3 }} /> */}
+
+              <Stack direction="row" sx={{ mt: 2 }} spacing={2} justifyContent="flex-end">
+                <Button onClick={handleClear} variant="outlined" color="neutral">
+                  Clear
+                </Button>
+                
+                <Box component="form" onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
+
+                  <Button type="submit" className="no-print"
+                    // onClick={handleSubmit}
+                    variant="solid"
+                    loading={loading}
+                    disabled={!showGenerate || loading}
+                    sx={{ bgcolor: "#12B1D1", "&:hover": { bgcolor: "#0b8cb1" } }}
+                  >
+                    {loading ? "Loading..." : "Generate Report"}
+                  </Button>
+
+                </Box>
+              </Stack>
+
+              {reportType === "AllReports" && employee && (
+                <Button onClick={handleDownloadAllBookletPDF} sx={{ mt: 2 }}>
+                  Download All Reports PDF
+                </Button>
+              )}
+
+
+              {error && (
+                <Typography color="danger" fontSize={14} mt={2} textAlign="center">
+                  {error}
+                </Typography>
+              )}
+            </Card>
+
+
+          </Box>
 
           {loading && (
             <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", py: 6 }}>
@@ -362,38 +374,38 @@ let showGenerate = Object.values(filters).some((v) => v.trim() !== "");
           )}
 
           {!loading && employee && reportType === "AllReports" && (
-  <Box ref={allReportsRef} sx={{ bgcolor: 'white' }}>
-    {/* className="page-break" */}
-    <Box className="page-break" ><CheckList employee={employee} isBooklet={true} /></Box>
-    <Box className="page-break"><InductionForm employee={employee} isBooklet={true} /></Box>
-    <Box className="page-break"><EmployeeInformation employee={employee} isBooklet={true} /></Box>
-    <Box className="page-break"><AppointmentOrder employee={employee} isBooklet={true} /></Box>
-    <Box  ><ConfirmationOrder employee={employee} isBooklet={true} /></Box>
-    <Box  ><NominaTion employee={employee}  isBooklet={true} /></Box>
-    <Box   ><LetterOfAcceptance employee={employee} isBooklet={true} /></Box>
-    <Box ><AffirmativeStatement employee={employee} isBooklet={true} /></Box>
-    <Box  ><ServiceRecords employee={employee} isBooklet={true} /></Box>
-    <Box  ><Form11 employee={employee} isBooklet={true} /></Box>
-    <Box  ><FormF employee={employee}  isBooklet={true} /></Box>
-  </Box>
+            <Box ref={allReportsRef} sx={{ bgcolor: 'white' }}>
+              {/* className="page-break" */}
+              <Box className="page-break" ><CheckList employee={employee} isBooklet={true} /></Box>
+              <Box className="page-break"><InductionForm employee={employee} isBooklet={true} /></Box>
+              <Box className="page-break"><EmployeeInformation employee={employee} isBooklet={true} /></Box>
+              <Box className="page-break"><AppointmentOrder employee={employee} isBooklet={true} /></Box>
+              <Box  ><ConfirmationOrder employee={employee} isBooklet={true} /></Box>
+              <Box  ><NominaTion employee={employee} isBooklet={true} /></Box>
+              <Box   ><LetterOfAcceptance employee={employee} isBooklet={true} /></Box>
+              <Box ><AffirmativeStatement employee={employee} isBooklet={true} /></Box>
+              <Box  ><ServiceRecords employee={employee} isBooklet={true} /></Box>
+              <Box  ><Form11 employee={employee} isBooklet={true} /></Box>
+              <Box  ><FormF employee={employee} isBooklet={true} /></Box>
+            </Box>
 
-  //   <Box ref={allReportsRef} sx={{ bgcolor: 'white' }}>
-  //   <Box ><CheckList employee={employee} isBooklet={true} /></Box>
-  //   <Box ><InductionForm employee={employee} isBooklet={true} /></Box>
-  //   <Box ><EmployeeInformation employee={employee} isBooklet={true} /></Box>
-  //   <Box ><AppointmentOrder employee={employee} isBooklet={true} /></Box>
-  //   <Box ><ConfirmationOrder employee={employee} isBooklet={true} /></Box>
-  //   <Box ><NominaTion employee={employee}  isBooklet={true} /></Box>
-  //   <Box ><LetterOfAcceptance employee={employee} isBooklet={true} /></Box>
-  //   <Box ><AffirmativeStatement employee={employee} isBooklet={true} /></Box>
-  //   <Box ><ServiceRecords employee={employee} isBooklet={true} /></Box>
-  //   <Box ><Form11 employee={employee} isBooklet={true} /></Box>
-  //   <Box ><FormF employee={employee}  isBooklet={true} /></Box>
-  // </Box>
-)}
+            //   <Box ref={allReportsRef} sx={{ bgcolor: 'white' }}>
+            //   <Box ><CheckList employee={employee} isBooklet={true} /></Box>
+            //   <Box ><InductionForm employee={employee} isBooklet={true} /></Box>
+            //   <Box ><EmployeeInformation employee={employee} isBooklet={true} /></Box>
+            //   <Box ><AppointmentOrder employee={employee} isBooklet={true} /></Box>
+            //   <Box ><ConfirmationOrder employee={employee} isBooklet={true} /></Box>
+            //   <Box ><NominaTion employee={employee}  isBooklet={true} /></Box>
+            //   <Box ><LetterOfAcceptance employee={employee} isBooklet={true} /></Box>
+            //   <Box ><AffirmativeStatement employee={employee} isBooklet={true} /></Box>
+            //   <Box ><ServiceRecords employee={employee} isBooklet={true} /></Box>
+            //   <Box ><Form11 employee={employee} isBooklet={true} /></Box>
+            //   <Box ><FormF employee={employee}  isBooklet={true} /></Box>
+            // </Box>
+          )}
 
 
-{/* {!loading && employee && reportType === "AllReports" && (
+          {/* {!loading && employee && reportType === "AllReports" && (
   <Box ref={allReportsRef} sx={{ bgcolor: 'white' }}>
     <CheckList employee={employee} isBooklet={true} />
     <InductionForm employee={employee} isBooklet={true} />
@@ -409,7 +421,7 @@ let showGenerate = Object.values(filters).some((v) => v.trim() !== "");
   </Box>
 )} */}
 
-     {/* { !selectAllBooklet && (
+          {/* { !selectAllBooklet && (
       <>  */}
           {!loading && employee && reportType === "CheckList" && (
             <CheckList employee={employee} />
@@ -445,12 +457,12 @@ let showGenerate = Object.values(filters).some((v) => v.trim() !== "");
           )}
           {!loading && employee && reportType === "Form11" && (
             <Form11 employee={employee} />
-          )} 
-            {/* </>
+          )}
+          {/* </>
     )} */}
 
-       {/* {selectAllBooklet && ( */}
-      {/* <Box ref={allReportsRef} sx={{ position: 'absolute', top: -9999, left: -9999, pointerEvents: 'none', opacity: 0 }}>
+          {/* {selectAllBooklet && ( */}
+          {/* <Box ref={allReportsRef} sx={{ position: 'absolute', top: -9999, left: -9999, pointerEvents: 'none', opacity: 0 }}>
         <div ref={checklistRef}><CheckList employee={employee} /></div>
         <div ref={inductionFormRef}><InductionForm employee={employee} /></div>
         <div ref={employeeInfoRef}><EmployeeInformation employee={employee} /></div>
@@ -465,7 +477,7 @@ let showGenerate = Object.values(filters).some((v) => v.trim() !== "");
         <div ref={FormFRef}><FormF employee={employee} /></div>
       </Box> */}
 
-    {/* )} */}
+          {/* )} */}
         </Box>
       </Box>
 

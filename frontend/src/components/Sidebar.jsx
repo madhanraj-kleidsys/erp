@@ -224,7 +224,18 @@ export default function Sidebar() {
           onFocus={() => setIsSearchActive(true)}
           onBlur={() => {
             setTimeout(() => setIsSearchActive(false), 150);
-          }} />
+          }} 
+          
+          onKeyDown={(e)=>{
+            if(e.key === 'Enter'){
+              e.preventDefault()
+              if(filteredOtherItems.length > 0){
+                handleNavigation(filteredOtherItems[0].path)
+                setIsSearchActive(false);
+              }
+            }
+          }}
+          />
 
         {/* <List> */}
         {isSearchActive && searchTerm.length > 0 && filteredOtherItems.length > 0 && (
