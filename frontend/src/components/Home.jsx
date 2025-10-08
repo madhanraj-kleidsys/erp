@@ -795,7 +795,7 @@ export default function Home({ user, onLogout }) {
                         onClick={() => setDatePage(datePage + 1)}
                         sx={{ ml: 1 }}
                       >
-                        Next
+                        Next--
                       </Button>
                     </Box>
                   )}
