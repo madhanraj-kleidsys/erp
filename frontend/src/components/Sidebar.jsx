@@ -305,14 +305,14 @@ export default function Sidebar() {
                   </Chip>
                 </ListItem> */}
 
-                  <ListItem sx={{ mt: 0.5 }}>
+                  {/* <ListItem sx={{ mt: 0.5 }}>
                     <ListItemButton onClick={() => handleNavigation('/salesorder2')}>
                       Sales Order 2
                     </ListItemButton>
                     <Chip size="sm" color="success" variant="solid">
                       {approvalMap['SALESOREDR2'] || 0}
                     </Chip>
-                  </ListItem>
+                  </ListItem> */}
 
 
 

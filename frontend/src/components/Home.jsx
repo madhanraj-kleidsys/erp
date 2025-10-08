@@ -341,7 +341,7 @@ export default function Home({ user, onLogout }) {
   const dateTotals = pivotAccumulator.byDate;
 
 
-  const CHUNK_SIZE = 8;
+  const CHUNK_SIZE = 6;
   const [datePage, setDatePage] = useState(0);
 
   const pagedDateKeys = dateKeys.slice(datePage * CHUNK_SIZE, (datePage + 1) * CHUNK_SIZE);
@@ -740,64 +740,67 @@ export default function Home({ user, onLogout }) {
                 </>
               )} */}
 
-       
-              <ResponsiveTableContainer>
-                <StyledTable size="md" variant="plain" borderAxis="bothBetween">
-                  <thead>
-                    <tr>
-                      <th colSpan={1} style={{ textAlign: 'left' , fontSize:'11' }} >Sum of Daily Target</th>
-                      <th colSpan={pagedDateKeys.length} style={{ textAlign: 'center' }}>Column Labels</th>
-                      <th rowSpan={2} style={{ textAlign: 'center' }} > Grand Total</th>
-                    </tr>
-                    <tr>
-                      <th style={{ textAlign: 'left' }}>Business Name</th>
-                      {pagedDateKeys.map((key) => (
-                        <th key={`date-${key}`} style={{ textAlign: 'center' }}>{dateFormat(key)}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {pivotAccumulatorEntries.map(([business, details]) => (
-                      <tr key={`pivot-${business}`}>
-                        <td>{business}</td>
-                        {pagedDateKeys.map((key) => (
-                          <td key={`${business}-${key}`}>{details.dates[key] ?? 0}</td>
+              {pivotAccumulatorEntries.length > 0 && dateKeys.length > 0 && (
+                <>
+                  <ResponsiveTableContainer>
+                    <StyledTable size="md" variant="plain" borderAxis="bothBetween">
+                      <thead>
+                        <tr>
+                          <th colSpan={1} style={{ textAlign: 'left' , fontSize:'11' }} >Sum of Daily Target</th>
+                          <th colSpan={pagedDateKeys.length} style={{ textAlign: 'center' }}>Column Labels</th>
+                          <th rowSpan={2} style={{ textAlign: 'center' }} > Grand Total</th>
+                        </tr>
+                        <tr>
+                          <th style={{ textAlign: 'left' }}>Business Name</th>
+                          {pagedDateKeys.map((key) => (
+                            <th key={`date-${key}`} style={{ textAlign: 'center' }}>{dateFormat(key)}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {pivotAccumulatorEntries.map(([business, details]) => (
+                          <tr key={`pivot-${business}`}>
+                            <td>{business}</td>
+                            {pagedDateKeys.map((key) => (
+                              <td key={`${business}-${key}`}>{details.dates[key] ?? 0}</td>
+                            ))}
+                            <td>{details.total}</td>
+                          </tr>
                         ))}
-                        <td>{details.total}</td>
-                      </tr>
-                    ))}
-                    {pivotAccumulatorEntries.length > 0 && (
-                      <tr>
-                        <td style={{color: '#055a8c'}}>Grand Total</td>
-                        {pagedDateKeys.map((key) => (
-                          <td key={`date-total-${key}`}>{dateTotals[key] ?? 0}</td>
-                        ))}
-                        <td style={{color: "#b71c1c"}}>{pivotGrandTotal}</td>
-                      </tr>
-                    )}
-                  </tbody>
-                </StyledTable>
-
-              </ResponsiveTableContainer>
-              
-              {dateKeys.length > CHUNK_SIZE && (
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 1 ,mt:2}}>
-                  <Button
-                    variant="outlined"
-                    disabled={datePage === 0}
-                    onClick={() => setDatePage(datePage - 1)}
-                  >
-                    Prev
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    disabled={(datePage + 1) * CHUNK_SIZE >= dateKeys.length}
-                    onClick={() => setDatePage(datePage + 1)}
-                    sx={{ ml: 1 }}
-                  >
-                    Next
-                  </Button>
-                </Box>
+                        {pivotAccumulatorEntries.length > 0 && (
+                          <tr>
+                            <td style={{color: '#055a8c'}}>Grand Total</td>
+                            {pagedDateKeys.map((key) => (
+                              <td key={`date-total-${key}`}>{dateTotals[key] ?? 0}</td>
+                            ))}
+                            <td style={{color: "#b71c1c"}}>{pivotGrandTotal}</td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </StyledTable>
+                  </ResponsiveTableContainer>
+                  
+                  {dateKeys.length > CHUNK_SIZE && (
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 1 ,mt:2}}>
+                      <Button
+                        variant="outlined"
+                        disabled={datePage === 0}
+                        onClick={() => setDatePage(datePage - 1)}
+                      >
+                        Prev
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        disabled={(datePage + 1) * CHUNK_SIZE >= dateKeys.length}
+                        onClick={() => setDatePage(datePage + 1)}
+                        sx={{ ml: 1 }}
+                      >
+                        Next
+                      </Button>
+                    </Box>
+                  )}
+                  
+                </>
               )}
             </Container>
           </Box>

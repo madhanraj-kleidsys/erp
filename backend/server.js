@@ -7,12 +7,13 @@ const dotenv = require('dotenv');
 const path = require('path');
 dotenv.config({path:path.join(__dirname, ".env")});
 
-const corsOptions ={
-    origin:[process.env.VITE_URL , `http://localhost:3000`],
-    methods:['GET','POST','DELETE','PUT'],
-    Credentials:true
-};
-app.use(cors(corsOptions));
+// const corsOptions ={
+//     origin:[process.env.VITE_URL , `http://localhost:3000`],
+//     methods:['GET','POST','DELETE','PUT'],
+//     Credentials:true
+// };
+app.use(cors());
+// corsOptions
 
 // const dbConnect = require('./config/db');
 
@@ -73,7 +74,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const PORT = process.env.PORT;
 const NODE_ENV = process.env.NODE_ENV;
-app.listen(PORT ,'0.0.0.0' ,() =>{
+app.listen(3000,'0.0.0.0',() =>{
     console.log(`server listening to  AT ${PORT} ${NODE_ENV}`);
     
 });

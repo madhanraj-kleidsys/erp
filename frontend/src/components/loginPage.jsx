@@ -55,10 +55,8 @@ export default function LoginPage({ onLogin }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username:"admin",
-          // form.username,
-          password:"NovaCore"
-          // form.password,
+          username:form.username,
+          password:form.password,
         }),
       });
 
