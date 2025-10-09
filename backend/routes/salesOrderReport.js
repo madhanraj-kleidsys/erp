@@ -4,8 +4,6 @@ const { QueryTypes } = require('sequelize');
 
 const getSalesOrderData = async (req, res) => {
   try {
-    console.log('Connecting to database...');
-
     // IMPORTANT: do not send any early response here
 
     const query = `

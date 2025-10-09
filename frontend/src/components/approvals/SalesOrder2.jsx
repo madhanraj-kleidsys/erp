@@ -19,10 +19,23 @@ import Sidebar from '../Sidebar';
 import { CssVarsProvider } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import axios from 'axios';
+import styled from 'styled-components';
+const apiUrl = import.meta.env.VITE_API_URL;
+// http://10.10.21.174:3000/api
 
-const apiUrl = import.meta.env.VITE_API_URL || `http://localhost:3000/api`;
-
+// const Loader = () => (
+//   <StyledWrapper>
+//     <div className="loader">
+//       <div />
+//       <div />
+//       <div />
+//       <div />
+//       <div />
+//     </div>
+//   </StyledWrapper>
+// );
 function ApprovalList({ apiEndpoint, title }) {
+  // const [loading, setLoading] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -168,6 +181,24 @@ function ApprovalList({ apiEndpoint, title }) {
 
             </Box>
 
+{/* <Box
+  sx={{
+    flex: 1,
+    overflowY: "auto",
+    p: 2,
+    background: "rgba(255 255 255 / 0.05)",
+    backdropFilter: "blur(10px)",
+  }}
+>
+
+ {loading ? (
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", py: 6 }}>
+              <Loader />
+            </Box>
+        ):(
+    currentPage === 0 && (
+      <> */}
+          
             <Modal open={Boolean(selectedCard)} onClose={() => setSelectedCard(null)}>
               <ModalDialog variant="outlined" color="primary"
                 sx={{
@@ -177,6 +208,7 @@ function ApprovalList({ apiEndpoint, title }) {
                   mx: 2,
                 }}>
                 <ModalClose />
+
                 {selectedCard && (
                   <Grid container spacing={2} color="#101010ff">
                     <Grid xs={12}>
@@ -224,6 +256,7 @@ function ApprovalList({ apiEndpoint, title }) {
                     </Grid>
                   </Grid>
                 )}
+
                 <Box sx={{ display: "flex", gap: 2, mt: 3, flexWrap: 'wrap' }}>
                   <Button variant="solid" color="primary" sx={{ textTransform: "none" }}>
                     View Details
@@ -232,8 +265,12 @@ function ApprovalList({ apiEndpoint, title }) {
                     Close
                   </Button>
                 </Box>
+
               </ModalDialog>
             </Modal>
+{/* </>
+      ) )   }
+</Box> */}
 
           </Sheet>
 
@@ -245,6 +282,85 @@ function ApprovalList({ apiEndpoint, title }) {
   );
 }
 
+const StyledWrapper = styled.div`
+  .loader {
+    height: 30px;
+    display: inline-block;
+  }
+
+  .loader > div {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    box-shadow: 0 0 10px orange;
+    background: #67daeeff;
+    float: left;
+    margin: 5px;
+    transform: scale(2);
+  }
+
+  .loader > div:nth-child(1) {
+    animation: anm-BL-53-move1 1s infinite linear;
+  }
+
+  .loader > div:nth-child(2) {
+    animation: anm-BL-53-move2 1s infinite linear;
+    animation-delay: 0.2s;
+  }
+
+  .loader > div:nth-child(3) {
+    animation: anm-BL-53-move3 1s infinite linear;
+    animation-delay: 0.3s;
+  }
+
+  .loader > div:nth-child(4) {
+    animation: anm-BL-53-move4 1s infinite linear;
+    animation-delay: 0.4s;
+  }
+
+  .loader > div:nth-child(5) {
+    animation: anm-BL-53-move5 1s infinite linear;
+    animation-delay: 0.5s;
+  }
+
+  @keyframes anm-BL-53-move1 {
+    50% {
+      background: #eedf13;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes anm-BL-53-move2 {
+    50% {
+      background: #eedf13;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes anm-BL-53-move3 {
+    50% {
+      background: #eedf13;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes anm-BL-53-move4 {
+    50% {
+      background: #eedf13;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes anm-BL-53-move5 {
+    50% {
+      background:#eedf13;
+      transform: scale(1);
+    }
+  }
+   
+}
+
+`;
 
 
 export function SalesOrder2() {
@@ -258,7 +374,7 @@ export function ServInvoice() {
 
 
 export function VendorBill() {
-  return <ApprovalList apiEndpoint={` ${apiUrl}/vendorBill`} title="Vendor Bill" />;
+  return <ApprovalList apiEndpoint={`${apiUrl}/vendorBill`} title="Vendor Bill" />;
 }
 
 
@@ -273,7 +389,7 @@ export function StyleJobWork() {
 
 
 export function ProcureOrder() {
-  return <ApprovalList apiEndpoint={` ${apiUrl}/procureOrder`} title="Procure Order" />;
+  return <ApprovalList apiEndpoint={`${apiUrl}/procureOrder`} title="Procure Order" />;
 }
 
 

@@ -278,6 +278,7 @@ const handleKeyDown = (e) => {
                     <Input onKeyDown={handleKeyDown} 
                       placeholder="Employee ID"
                       value={filters.empId}
+                      type="number"
                       onChange={handleChange("empId")}
                       sx={{ flex: 1, minWidth: 150 }}
                       clearable
@@ -285,6 +286,7 @@ const handleKeyDown = (e) => {
                     <Input onKeyDown={handleKeyDown} 
                       placeholder="Employee Code"
                       value={filters.empCode}
+                      type="number"
                       onChange={handleChange("empCode")}
                       sx={{ flex: 1, minWidth: 150 }}
                       clearable
@@ -292,12 +294,14 @@ const handleKeyDown = (e) => {
                     <Input onKeyDown={handleKeyDown} 
                       placeholder="Employee Name"
                       value={filters.empName}
+                      type="text"
                       onChange={handleChange("empName")}
                       sx={{ flex: 1, minWidth: 150 }}
                       clearable
                     />
                     <Input onKeyDown={handleKeyDown} 
                       placeholder="Phone Number"
+                      type="number"
                       value={filters.MobileNo}
                       onChange={handleChange("MobileNo")}
                       sx={{ flex: 1, minWidth: 150 }}
@@ -305,6 +309,7 @@ const handleKeyDown = (e) => {
                     />
                     <Input onKeyDown={handleKeyDown} 
                       placeholder="Emp Designation"
+                      type="text"
                       value={filters.Desg}
                       onChange={handleChange("Desg")}
                       sx={{ flex: 1, minWidth: 150 }}
@@ -312,6 +317,7 @@ const handleKeyDown = (e) => {
                     />
                     <Input onKeyDown={handleKeyDown} 
                       placeholder="Emp Department"
+                      type="text"
                       value={filters.Dept}
                       onChange={handleChange("Dept")}
                       sx={{ flex: 1, minWidth: 150 }}
@@ -319,6 +325,7 @@ const handleKeyDown = (e) => {
                     />
                     <Input onKeyDown={handleKeyDown} 
                       placeholder="Address"
+                      type="text"
                       value={filters.address}
                       onChange={handleChange("address")}
                       sx={{ flex: 1, minWidth: 150 }}

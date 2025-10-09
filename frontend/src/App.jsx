@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 // import { ReactRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+// import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+
 
 import { CssBaseline } from "@mui/joy";
 import { CssVarsProvider, extendTheme } from '@mui/joy/styles';

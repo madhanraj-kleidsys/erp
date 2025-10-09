@@ -7,12 +7,13 @@ const dotenv = require('dotenv');
 const path = require('path');
 dotenv.config({path:path.join(__dirname, ".env")});
 
-// const corsOptions ={
-//     origin:[process.env.VITE_URL , `http://localhost:3000`],
-//     methods:['GET','POST','DELETE','PUT'],
-//     Credentials:true
-// };
-app.use(cors());
+const corsOptions ={
+    origin:'*',
+    // [process.env.VITE_URL , `http://localhost:3000`],
+    methods:['GET','POST','DELETE','PUT'],
+    Credentials:true
+};
+app.use(cors(corsOptions));
 // corsOptions
 
 // const dbConnect = require('./config/db');

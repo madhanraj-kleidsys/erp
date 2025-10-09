@@ -43,8 +43,8 @@ function TableSkeleton({ columns = [], rowCount = 6 }) {
 
 
 
-const apiUrl = import.meta.VITE_API_URL || 'http://localhost:3000/api';
-
+const apiUrl = import.meta.env.VITE_API_URL;
+// http://10.10.21.174:3000/api
 const Container = styled(Box)`
   padding: 16px;
   background: #e7ebeeff;
@@ -159,7 +159,7 @@ const months = [
 
 export default function Home({ user, onLogout }) {
   const [year, setYear] = useState(new Date().getFullYear());
-  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [month, setMonth] = useState(new Date().getMonth() +0);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 

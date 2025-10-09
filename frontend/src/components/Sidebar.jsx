@@ -46,7 +46,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import { useContext } from "react";
 import { AuthContext } from "../AuthContext";
-const apiUrl = import.meta.VITE_API_URL || 'http://localhost:3000/api';
+const apiUrl = import.meta.VITE_API_URL ;
 
 
 
@@ -123,7 +123,7 @@ export default function Sidebar() {
   const [approvalData, setApprovalData] = useState({ codes: [], counts: [], totalCount: 0 });
 
   useEffect(() => {
-    axios.get(`${apiUrl}/approvalCount`)
+    axios.get(`http://10.10.21.174:3000/api/approvalCount`)
       .then(({ data }) => {
         setApprovalData({
           codes: data.codes,
@@ -663,8 +663,8 @@ export default function Sidebar() {
           /> */}
 
           <Box sx={{ minWidth: 0, flex: 1 }}>
-            {/* <Typography level="title-sm">Madhanraj</Typography> */}
-            <Typography level="title-sm">{name || 'Madhanraj'}</Typography>
+           
+            <Typography level="title-sm">{name || 'Admin'}</Typography>
 
             <Typography level="body-xs"> {email || "Email not set"} </Typography>
             {/* <Typography>{token || "No token"}</Typography> */}
