@@ -201,17 +201,16 @@ export default function Sidebar() {
           }}
           onClick={() => closeSidebar()}
         />
-
+ 
         <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-          {/* <IconButton variant="soft" color="primary" size="sm"> */}
-          <Avatar
+           <Avatar
             variant="outlined"
             size="sm"
             src="https://images.unsplash.com/photo-1581382575275-97901c2635b7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWFufGVufDB8fDB8fHww"
           />
-          {/* </IconButton> */}
+        
           <Typography level="title-lg">{name || 'admin'}</Typography>
-          <ColorSchemeToggle sx={{ ml: 'auto' }} />
+          {/* <ColorSchemeToggle sx={{ ml: 'auto' }} /> */}
         </Box>
 
 
@@ -657,11 +656,11 @@ export default function Sidebar() {
 
 
         <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-          <Avatar
+          {/* <Avatar
             variant="outlined"
             size="sm"
             src="https://images.unsplash.com/photo-1581382575275-97901c2635b7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWFufGVufDB8fDB8fHww"
-          />
+          /> */}
 
           <Box sx={{ minWidth: 0, flex: 1 }}>
             {/* <Typography level="title-sm">Madhanraj</Typography> */}

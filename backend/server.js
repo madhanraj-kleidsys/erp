@@ -32,6 +32,7 @@ const {getCitiesByState} = require('./routes/cities/getCitiesByState.js');
 
 const pincodeState = require('./routes/cities/pincodeState.js');
 const apiCity = require('./routes/cities/apiCity.js');
+const employeeSearch = require('./routes/employeeSearch.js');
 
 
 app.use('/api',login);
@@ -56,6 +57,7 @@ app.use('/api/prodapparelsewing',prodapparelsewing);
 app.use('/api/getCitiesByState',getCitiesByState);
 app.use('/api',pincodeState);
 app.use('/api',apiCity);
+app.get('/api/employee-search', employeeSearch);
 
 
 
