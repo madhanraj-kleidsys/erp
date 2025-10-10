@@ -11,7 +11,11 @@ import Sidebar from "./components/Sidebar.jsx";
 import Header from "./components/Header.jsx";
 
 import LoginPage from "./components/loginPage.jsx";
+
+
 import Home from "./components/Home.jsx";
+import ProductionDashboard from "./components/ProductionDashboard.jsx"
+
 import Approvals from "./components/ApprovalScreen.jsx";
 import Notifications from "./components/NotificationScreen.jsx";
 import Tasks from "./components/TaskScreen.jsx";
@@ -95,15 +99,15 @@ export default function App() {
   //   setToken(token);
   // };
 
-const handleLogin = ({ user, token }) => {
-  console.log("handleLogin called with:", user, token);
-  setUser(user);
-  setToken(token);
-  setAuth(true);          // <-- Add this line
-  localStorage.setItem("token", token);
-  localStorage.setItem("name", user?.name || '!name');
-  localStorage.setItem("email", user?.email || '!email ');
-};
+  const handleLogin = ({ user, token }) => {
+    console.log("handleLogin called with:", user, token);
+    setUser(user);
+    setToken(token);
+    setAuth(true);          // <-- Add this line
+    localStorage.setItem("token", token);
+    localStorage.setItem("name", user?.name || '!name');
+    localStorage.setItem("email", user?.email || '!email ');
+  };
 
 
 
@@ -149,6 +153,15 @@ const handleLogin = ({ user, token }) => {
                 </ProtectedRoute>
               }
             />
+
+            {/* <Route
+              path="/"
+              element={
+                <ProtectedRoute auth={auth}>
+                  <ProductionDashboard user={user} onLogout={handleLogout} />
+                </ProtectedRoute>
+              }
+            /> */}
 
             <Route
               path="/dashboard"
