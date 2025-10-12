@@ -46,7 +46,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import { useContext } from "react";
 import { AuthContext } from "../AuthContext";
-const apiUrl = import.meta.VITE_API_URL ;
+const apiUrl = import.meta.env.VITE_API_URL ||'http://localhost:3000/api';
 
 
 
@@ -123,7 +123,7 @@ export default function Sidebar() {
   const [approvalData, setApprovalData] = useState({ codes: [], counts: [], totalCount: 0 });
 
   useEffect(() => {
-    axios.get(`http://10.10.21.174:3000/api/approvalCount`)
+    axios.get(`${apiUrl}/approvalCount`)
       .then(({ data }) => {
         setApprovalData({
           codes: data.codes,
@@ -281,6 +281,18 @@ export default function Sidebar() {
                 <HomeRoundedIcon />
                 <ListItemContent>
                   <Typography level="title-sm">Home</Typography>
+                </ListItemContent>
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem>
+              <ListItemButton
+                selected={isActive('/p')}
+                onClick={() => handleNavigation('/p')}
+              >
+                <DashboardRoundedIcon />
+                <ListItemContent>
+                  <Typography level="title-sm">p</Typography>
                 </ListItemContent>
               </ListItemButton>
             </ListItem>

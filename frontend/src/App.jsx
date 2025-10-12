@@ -154,14 +154,14 @@ export default function App() {
               }
             />
 
-            {/* <Route
-              path="/"
+            <Route
+              path="/p"
               element={
                 <ProtectedRoute auth={auth}>
                   <ProductionDashboard user={user} onLogout={handleLogout} />
                 </ProtectedRoute>
               }
-            /> */}
+            />
 
             <Route
               path="/dashboard"

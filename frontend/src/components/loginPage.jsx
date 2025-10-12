@@ -27,51 +27,51 @@ export default function LoginPage({ onLogin }) {
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (!form.username || !form.password) {
-  //     setError("Please enter username and password");
-  //   } else {
-  //     setError("");
-  //     if (onLogin) onLogin({ name: form.username });
-  //   }
-  // };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!form.username || !form.password) {
       setError("Please enter username and password");
-      return;
-    }
-
-
-    setError("");
-
-    try {
-      const response = await fetch( `${apiUrl}/login`, {   
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username:form.username,
-          password:form.password,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setError(data.message || 'Login failed');
-      } else {
-        // Login successful - pass user data and token to parent
-        if (onLogin) onLogin({ user: data.user, token: data.token });
-      }
-    } catch (error) {
-      setError('Network error. Please try again.');
+    } else {
+      setError("");
+      if (onLogin) onLogin({ name: form.username });
     }
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   if (!form.username || !form.password) {
+  //     setError("Please enter username and password");
+  //     return;
+  //   }
+
+
+  //   setError("");
+
+  //   try {
+  //     const response = await fetch( `${apiUrl}/login`, {   
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         username:form.username,
+  //         password:form.password,
+  //       }),
+  //     });
+
+  //     const data = await response.json();
+
+  //     if (!response.ok) {
+  //       setError(data.message || 'Login failed');
+  //     } else {
+  //       // Login successful - pass user data and token to parent
+  //       if (onLogin) onLogin({ user: data.user, token: data.token });
+  //     }
+  //   } catch (error) {
+  //     setError('Network error. Please try again.');
+  //   }
+  // };
 
   return (
     <Box
@@ -217,7 +217,7 @@ export default function LoginPage({ onLogin }) {
                     mt: 1
                   }}
                 >
-                  {error}
+                  {error} hoe
                 </Typography>
               )}
 

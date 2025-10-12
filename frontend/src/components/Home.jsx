@@ -1214,8 +1214,8 @@ const ProductionDashboard = () => {
         planning: calculateFocusWeek(selectedWeek, 2),
       },
       riskAlert: {
-        focus: calculateFocusWeek(selectedWeek, 1),
-        planning: calculateFocusWeek(selectedWeek, 1),
+        focus: calculateFocusWeek(selectedWeek, 2),
+        planning: calculateFocusWeek(selectedWeek, 2),
       }
     };
   };
@@ -1674,6 +1674,8 @@ const ProductionDashboard = () => {
                   ))}
                 </Grid>
               </Box>
+
+              
             </Box>
           </Box>
         </Box>
