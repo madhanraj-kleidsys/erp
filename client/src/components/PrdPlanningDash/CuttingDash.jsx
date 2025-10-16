@@ -108,10 +108,10 @@ const keyframes = `
 `;
 
 const LATE_STARTS = [
-  { day: "Monday", delay: 2, risk: "Critical",sone:"Late starts in this process may increase overall risk" },
-  { day: "Tuesday", delay: 1.5, risk: "Warning",sone:"should be carefully monitored" },
-  { day: "Wednesday", delay: 1.2, risk: "Warning",sone:"avoid further delays." },
-  { day: "Thursday", delay: 1.8, risk: "Critical" },
+  { day: "Monday", delay: 2, risk: "Critical", sone: "Late starts in this process may increase overall risk" },
+  { day: "Tuesday", delay: 1.5, risk: "Warning", sone: "should be carefully monitored" },
+  { day: "Wednesday", delay: 1.2, risk: "Warning", sone: "avoid further delays." },
+  { day: "Thursday", delay: 1.8, risk: "Critical", sone: "immediate Action Required" },
 ];
 
 // Total units at delivery risk from these late starts
@@ -191,18 +191,20 @@ export default function CuttingDashboard({ selectedWeek = "W40" }) {
               </Box>
             </Sheet>
             <style>{keyframes}</style>
-            <Box sx={{ minHeight: "100vh", p: { xs: 2, sm: 3, md: 1 } }}>
+
+            <Box sx={{ minHeight: "100vh", p: { xs: 2, sm: 3, md: 3 } }}>
 
               {/* KPI Cards - Animated */}
               {/* KPI Cards - Professional & Compact */}
-              <Grid container spacing={2.5} sx={{ mb: 1}}>
+              <Grid container spacing={2.5} sx={{ mb: 1 }}>
                 {/* Cut Plan vs Actual */}
                 <Grid xs={12} sm={6} lg={3}>
                   <Card
                     sx={{
                       p: 2.5,
                       height: "100%",
-                      background: "linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #312e81 100%)", // Professional navy blue
+                      background: "linear-gradient(135deg, #a0b0e0ff 0%, #2f2accc6 100%)",
+                      //  background: "linear-gradient(135deg, #E8F5E8 0%, #4CAF50 100%)",
                       backgroundSize: "200% 200%",
                       animation: "gradientShift 10s ease infinite",
                       transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
@@ -249,7 +251,7 @@ export default function CuttingDashboard({ selectedWeek = "W40" }) {
                             height: "100%",
                             width: `${actualPercent}%`,
                             background: "linear-gradient(90deg, #059669 0%, #047857 100%)",
-                            borderRadius: 1,
+                            borderRadius: 5,
                             transition: "width 1s ease-out",
                           }}
                         />
@@ -264,7 +266,7 @@ export default function CuttingDashboard({ selectedWeek = "W40" }) {
                         </Chip>
                       </Box>
                     </Box>
-                    
+
                   </Card>
                 </Grid>
 
@@ -1034,149 +1036,379 @@ export default function CuttingDashboard({ selectedWeek = "W40" }) {
                   </Card>
                 </Grid> */}
 
+
+                {/* YELLOW AKWARD BOXES  */}  {/* YELLOW AKWARD BOXES  */}     {/* YELLOW AKWARD BOXES  */}
+
+                {/* <Grid xs={12} lg={12}>
+                  <Card sx={{
+                    p: 2,
+                    borderRadius: 8,
+                    background: "linear-gradient(135deg, #fee2e2 0%, #fde68a 100%)",  
+                    backdropFilter: "blur(8px)",
+                    boxShadow: "0 2px 16px rgba(239,68,68,0.15)",
+                    position: "relative",
+                  }}> */}
+                {/* Animated Warning header */}
+                {/* <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
+                      <WarningIcon sx={{
+                        fontSize: 22,
+                        color: "#ef4444",
+                        animation: "pulse 1.4s infinite alternate",
+                      }} />
+                      <Typography level="title-md" sx={{
+                        fontWeight: 700,
+                        color: "#de1b1b",
+                        textShadow: "0 2px 18px #fde68a",
+                        animation: "slideRight 0.8s cubic-bezier(.54,.41,.57,.69)"
+                      }}>
+                        Risk Alert: Late Starts
+                      </Typography>
+                    </Box> */}
+
+
+                {/* YELLOW AKWARD BOXES  */}
+                {/* <Box sx={{ mb: 2 }}>
+                      {LATE_STARTS.map(({ day, delay, risk,sone }, index) => (
+                        <Box
+                          key={day}
+                          sx={{
+                            p: 1.2,
+                            mb: 1,
+                            background: risk === 'Critical'
+                              ? "linear-gradient(90deg, #fee2e2 60%, #ffe4e6 100%)"
+                              : "linear-gradient(90deg, #fef9c3 60%, #fef3c7 100%)",
+                            borderRadius: 4,
+                            border: risk === 'Critical' ? "1.5px solid #ef4444" : "1.5px solid #f59e0b",
+                            boxShadow: risk === 'Critical'
+                              ? "0 2px 8px #ef444433"
+                              : "none",
+                            transition: "all 0.3s",
+                            animation: `fadeIn 0.3s ${index * 0.16}s backwards`
+                          }}
+                        >
+                          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                            <Typography level="body-sm" sx={{
+                              color: "#27272a",
+                              fontWeight: 700,
+                              fontSize: 13
+                            }}>{day}</Typography>
+                            <Chip
+                              size="sm"
+                              sx={{
+                                bgcolor: risk === 'Critical' ? "#ef4444" : "#f59e0b",
+                                color: "#fff",
+                                fontWeight: 600,
+                                boxShadow: risk === 'Critical' ? "0 0 8px #ef4444" : "",
+                                animation: "pulse 2s infinite alternate"
+                              }}
+                            >{risk}</Chip>
+                          </Box>
+                          <Box sx={{ display: "flex", justifyContent:"space-between",alignItems: "center", gap: 1, mt: 1 }}>
+                            <Box sx={{
+                              p: 1,
+                              bgcolor: "rgba(255,255,255,0.95)",
+                              borderRadius: 2,
+                              textAlign: "center",
+                              boxShadow: "0 1px 4px #f59e0b30"
+                            }}>
+                              <Typography level="body-xs" sx={{ color: "#ef4444", fontWeight: 600 }}>
+                                Delay Hours
+                              </Typography>
+                              <Typography level="h5" sx={{ color: "#27272a", fontWeight: 700, fontSize: 15 }}>
+                                {delay}h
+                              </Typography>
+                            </Box>
+
+                             <Typography level="body-sm" sx={{
+                              color: "#c71111ff",
+                              fontWeight: 700,
+                              fontSize: 15
+                            }}>{sone}</Typography>
+
+
+                            <TrendingDownIcon sx={{
+                              fontSize: 19,
+                              color: risk === 'Critical' ? "#ef4444" : "#f59e0b",
+                              animation: "shake 1.8s infinite alternate"
+                            }} />
+                          </Box>
+                        </Box>
+                      ))}
+                    </Box> */}
+
+
+                {/* Strong Alert box with animation */}
+                {/* <Box sx={{
+                      p: 1.5,
+                      bgcolor: "linear-gradient(90deg,#f87171 45%,#fde68a 100%)",
+                      borderRadius: 5,
+                      textAlign: "center",
+                      boxShadow: "0 1px 6px #ef444420",
+                      fontWeight: 700,
+                      color: "#fff",
+                      animation: "fadeAlert 1.5s cubic-bezier(.13,.45,.23,.68)"
+                    }}>
+                      <Typography level="body-xs" sx={{ fontWeight: 700, fontSize: 13 }}>
+                        ⚠️ Immediate action required! Late starts are putting {UNITS_AT_RISK} units at risk of delayed delivery.
+                      </Typography>
+                    </Box> */}
+
+                {/* Impact Analysis */}
+                {/* <Box sx={{ mt: 2 }}>
+                      <Typography level="body-xs" sx={{ color: "#3f3f46", mb: 1, fontWeight: 700, fontSize: 13 }}>
+                        Impact Analysis
+                      </Typography>
+                      <Grid container spacing={1}>
+                        <Grid xs={6}>
+                          <Box sx={{
+                            p: 1,
+                            bgcolor: "#fee2e2",
+                            borderRadius: 2,
+                            textAlign: "center"
+                          }}>
+                            <Typography level="h5" sx={{ color: "#de1b1b", fontWeight: 800, fontSize: 16 }}>
+                              {TOTAL_DELAY_HOURS}h
+                            </Typography>
+                            <Typography level="body-xs" sx={{ color: "#b91c1c", fontWeight: 600, fontSize: 12 }}>
+                              Total Delay
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid xs={6}>
+                          <Box sx={{
+                            p: 1,
+                            bgcolor: "#fde68a",
+                            borderRadius: 2,
+                            textAlign: "center"
+                          }}>
+                            <Typography level="h5" sx={{ color: "#f59e0b", fontWeight: 800, fontSize: 16 }}>
+                              {UNITS_AT_RISK}
+                            </Typography>
+                            <Typography level="body-xs" sx={{ color: "#b45309", fontWeight: 600, fontSize: 12 }}>
+                              Units at Risk
+                            </Typography>
+                          </Box>
+                        </Grid>
+                      </Grid>
+                    </Box> */}
+
+
+
                 <Grid xs={12} lg={12}>
-  <Card sx={{
-    p: 2,
-    borderRadius: 8,
-    background: "linear-gradient(135deg, #fee2e2 0%, #fde68a 100%)", // soft red/yellow
-    backdropFilter: "blur(8px)",
-    boxShadow: "0 2px 16px rgba(239,68,68,0.15)",
-    position: "relative",
-  }}>
-    {/* Animated Warning header */}
-    <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-      <WarningIcon sx={{
-        fontSize: 22,
-        color: "#ef4444",
-        animation: "pulse 1.4s infinite alternate",
-      }} />
-      <Typography level="title-md" sx={{
-        fontWeight: 700,
-        color: "#de1b1b",
-        textShadow: "0 2px 18px #fde68a",
-        animation: "slideRight 0.8s cubic-bezier(.54,.41,.57,.69)"
-      }}>
-        Risk Alert: Late Starts
-      </Typography>
-    </Box>
+                  <Card sx={{
+                    p: 3,
+                    borderRadius: 12,
+                    // background: "linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)",
+                    background:"#000000cd",
+                    //  "linear-gradient(180deg , rgba(230, 164, 164, 0.91)  , rgba(210, 16, 16, 1) 50% )",
+                    border: "1px solid #e2e8f0",
+                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
+                    position: "relative",
+                  }}>
+                    {/* Header with clean design */}
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
+                      <Box sx={{
+                        width: 55,
+                        height: 55,
+                        borderRadius: "50%",
+                        background: "#FFF",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center"
+                      }}>
+                        <WarningIcon sx={{
+                          fontSize: 39,
+                          color: "#ff0000ff",
+                          animation: "pulse 0.5s infinite"
+                        }} />
+                      </Box>
+                      <Box>
+                        <Typography level="h3" sx={{
+                          // title-lg body-lg
+                          fontWeight: 700,
+                          color: "#ff0000ff",
+                          mb: 0.5 ,  animation: "pulse 0.5s infinite"
+                        }}>
+                          Risk Alert - Late Starts ||  Production Risk Alert
+                        </Typography>
 
-    <Box sx={{ mb: 2 }}>
-      {LATE_STARTS.map(({ day, delay, risk }, index) => (
-        <Box
-          key={day}
-          sx={{
-            p: 1.2,
-            mb: 1,
-            background: risk === 'Critical'
-              ? "linear-gradient(90deg, #fee2e2 60%, #ffe4e6 100%)"
-              : "linear-gradient(90deg, #fef9c3 60%, #fef3c7 100%)",
-            borderRadius: 4,
-            border: risk === 'Critical' ? "1.5px solid #ef4444" : "1.5px solid #f59e0b",
-            boxShadow: risk === 'Critical'
-              ? "0 2px 8px #ef444433"
-              : "none",
-            transition: "all 0.3s",
-            animation: `fadeIn 0.3s ${index * 0.16}s backwards`
-          }}
-        >
-          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <Typography level="body-sm" sx={{
-              color: "#27272a",
-              fontWeight: 700,
-              fontSize: 13
-            }}>{day}</Typography>
-            <Chip
-              size="sm"
-              sx={{
-                bgcolor: risk === 'Critical' ? "#ef4444" : "#f59e0b",
-                color: "#fff",
-                fontWeight: 600,
-                boxShadow: risk === 'Critical' ? "0 0 8px #ef4444" : "",
-                animation: "pulse 2s infinite alternate"
-              }}
-            >{risk}</Chip>
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}>
-            <Box sx={{
-              p: 1,
-              bgcolor: "rgba(255,255,255,0.95)",
-              borderRadius: 2,
-              textAlign: "center",
-              boxShadow: "0 1px 4px #f59e0b30"
-            }}>
-              <Typography level="body-xs" sx={{ color: "#ef4444", fontWeight: 600 }}>
-                Delay Hours
-              </Typography>
-              <Typography level="h5" sx={{ color: "#27272a", fontWeight: 700, fontSize: 15 }}>
-                {delay}h
-              </Typography>
-            </Box>
-            <TrendingDownIcon sx={{
-              fontSize: 19,
-              color: risk === 'Critical' ? "#ef4444" : "#f59e0b",
-              animation: "shake 1.8s infinite alternate"
-            }} />
-          </Box>
-        </Box>
-      ))}
-    </Box>
+                        <Typography level="body-xs" sx={{ color: "#ffffffff" }}>
+                          Late starts detected across multiple processes
+                        </Typography>
+                      </Box>
+                    </Box>
 
-    {/* Strong Alert box with animation */}
-    <Box sx={{
-      p: 1.5,
-      bgcolor: "linear-gradient(90deg,#f87171 45%,#fde68a 100%)",
-      borderRadius: 5,
-      textAlign: "center",
-      boxShadow: "0 1px 6px #ef444420",
-      fontWeight: 700,
-      color: "#fff",
-      animation: "fadeAlert 1.5s cubic-bezier(.13,.45,.23,.68)"
-    }}>
-      <Typography level="body-xs" sx={{ fontWeight: 700, fontSize: 13 }}>
-        ⚠️ Immediate action required! Late starts are putting {UNITS_AT_RISK} units at risk of delayed delivery.
-      </Typography>
-    </Box>
+                    {/* Alert Items */}
+                    <Box sx={{ mb: 1 }}>
+                      {LATE_STARTS.map(({ day, delay, risk, sone }, index) => (
+                        <Box
+                          key={day}
+                          sx={{
+                            p: 1,
+                            mb: 1,
+                            background: "#ffffff",
+                            borderRadius: 8,
+                            border: risk === 'Critical'
+                              ? "2px solid #dc2626"
+                              : "2px solid #f59e0b",
+                            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.05)",
+                            transition: "all 0.3s ease",
+                            "&:hover": {
+                              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                              transform: "translateY(-1px)"
+                            }
+                          }}
+                        >
+                          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", }}>
+                            <Typography level="title-sm" sx={{
+                              color: "#111827",
+                              fontWeight: 600
+                            }}>
+                              {day}
+                            </Typography>
+                            <Chip
+                              size="sm"
+                              variant="solid"
+                              color={risk === 'Critical' ? 'danger' : 'warning'}
+                              sx={{ fontWeight: 600 }}
+                            >
+                              {risk}
+                            </Chip>
+                          </Box>
 
-    {/* Impact Analysis */}
-    <Box sx={{ mt: 2 }}>
-      <Typography level="body-xs" sx={{ color: "#3f3f46", mb: 1, fontWeight: 700, fontSize: 13 }}>
-        Impact Analysis
-      </Typography>
-      <Grid container spacing={1}>
-        <Grid xs={6}>
-          <Box sx={{
-            p: 1,
-            bgcolor: "#fee2e2",
-            borderRadius: 2,
-            textAlign: "center"
-          }}>
-            <Typography level="h5" sx={{ color: "#de1b1b", fontWeight: 800, fontSize: 16 }}>
-              {TOTAL_DELAY_HOURS}h
-            </Typography>
-            <Typography level="body-xs" sx={{ color: "#b91c1c", fontWeight: 600, fontSize: 12 }}>
-              Total Delay
-            </Typography>
-          </Box>
-        </Grid>
-        <Grid xs={6}>
-          <Box sx={{
-            p: 1,
-            bgcolor: "#fde68a",
-            borderRadius: 2,
-            textAlign: "center"
-          }}>
-            <Typography level="h5" sx={{ color: "#f59e0b", fontWeight: 800, fontSize: 16 }}>
-              {UNITS_AT_RISK}
-            </Typography>
-            <Typography level="body-xs" sx={{ color: "#b45309", fontWeight: 600, fontSize: 12 }}>
-              Units at Risk
-            </Typography>
-          </Box>
-        </Grid>
-      </Grid>
-    </Box>
-  </Card>
-</Grid>
+                          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                            <Box sx={{
+                              p: 1.5,
+                              bgcolor: risk === 'Critical' ? "#fef2f2" : "#fefbf3",
+                              borderRadius: 6,
+                              textAlign: "center",
+                              border: risk === 'Critical' ? "1px solid #fecaca" : "1px solid #fed7aa"
+                            }}>
+                              <Typography level="body-xs" sx={{
+                                color: risk === 'Critical' ? "#dc2626" : "#d97706",
+                                fontWeight: 600,
+                                mb: 0.5
+                              }}>
+                                Delay Hours
+                              </Typography>
+                              <Typography level="h4" sx={{
+                                color: "#111827",
+                                fontWeight: 700
+                              }}>
+                                {delay}h
+                              </Typography>
+                            </Box>
+
+                            <Typography level="body-sm" sx={{
+                              color: "#dc2626",
+                              fontWeight: 600,
+                              fontSize: 14,
+                              textAlign: "center",
+                              flex: 1
+                            }}>
+                              {sone}
+                            </Typography>
+
+                            <Box sx={{
+                              width: 32,
+                              height: 32,
+                              borderRadius: "50%",
+                              bgcolor: risk === 'Critical' ? "#fef2f2" : "#fefbf3",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center"
+                            }}>
+                              <TrendingDownIcon sx={{
+                                fontSize: 16,
+                                color: risk === 'Critical' ? "#dc2626" : "#d97706"
+                              }} />
+                            </Box>
+                          </Box>
+                        </Box>
+                      ))}
+                    </Box>
+
+                    {/* Alert Banner */}
+                    <Box sx={{
+                      p: 2,
+                      bgcolor: "#dc2626",
+                      borderRadius: 8,
+                      textAlign: "center",
+                      mb: 1
+                    }}>
+                      <Typography level="body-sm" sx={{
+                        fontWeight: 600,
+                        color: "#ffffff"
+                      }}>
+                        🚨 Immediate Action Required: {UNITS_AT_RISK} units at risk of delayed delivery
+                      </Typography>
+                    </Box>
+
+                    {/* Impact Analysis */}
+                    <Box>
+                      <Typography level="title-sm" sx={{
+                        color: "#ffffffff",
+                        mb: 1,
+                        fontWeight: 700
+                      }}>
+                        Impact Analysis
+                      </Typography>
+                      <Grid container spacing={2}>
+                        <Grid xs={6}>
+                          <Box sx={{
+                            p: 2,
+                            bgcolor: "#ffffff",
+                            border: "2px solid #fee2e2",
+                            borderRadius: 8,
+                            textAlign: "center"
+                          }}>
+                            <Typography level="h3" sx={{
+                              color: "#dc2626",
+                              fontWeight: 800,
+                              mb: 0.5
+                            }}>
+                              {TOTAL_DELAY_HOURS}h
+                            </Typography>
+                            <Typography level="body-xs" sx={{
+                              color: "#6b7280",
+                              fontWeight: 600
+                            }}>
+                              Total Delay
+                            </Typography>
+                          </Box>
+                        </Grid>
+                        <Grid xs={6}>
+                          <Box sx={{
+                            p: 2,
+                            bgcolor: "#ffffff",
+                            border: "2px solid #fed7aa",
+                            borderRadius: 8,
+                            textAlign: "center"
+                          }}>
+                            <Typography level="h3" sx={{
+                              color: "#d97706",
+                              fontWeight: 800,
+                              mb: 0.5
+                            }}>
+                              {UNITS_AT_RISK}
+                            </Typography>
+                            <Typography level="body-xs" sx={{
+                              color: "#6b7280",
+                              fontWeight: 600
+                            }}>
+                              Units at Risk
+                            </Typography>
+                          </Box>
+                        </Grid>
+                      </Grid>
+                    </Box>
+                  </Card>
+                </Grid>
+
+
+
+                {/* </Card>
+                </Grid> */}
 
               </Grid>
 
@@ -1185,7 +1417,7 @@ export default function CuttingDashboard({ selectedWeek = "W40" }) {
                 <Grid xs={12} sm={6} md={3}>
                   <Box sx={{
                     p: 3,
-                    background: "rgba(33, 199, 228, 0.3)",
+                    background: "rgba(14, 204, 237, 0.12)",
                     backdropFilter: "blur(10px)",
                     border: "1px solid rgba(6, 182, 212, 0.3)",
                     borderRadius: 3,
@@ -1195,10 +1427,10 @@ export default function CuttingDashboard({ selectedWeek = "W40" }) {
                       transform: "translateY(-4px)"
                     }
                   }}>
-                    <Typography level="body-xs" sx={{ color: "#02d9ffff", stroke:"#000",mb: 1, fontWeight: 600 }}>
+                    <Typography level="body-xs" sx={{ color: "#02d9ffff", stroke: "#000", mb: 1, fontWeight: 600 }}>
                       EFFICIENCY RATE
                     </Typography>
-                    <Typography level="h2" sx={{ color: "#fff", fontWeight: 800 }}>
+                    <Typography level="h2" sx={{ color: "#fff", WebkitTextStroke: '0.8px black', fontWeight: 800 }}>
                       87%
                     </Typography>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}>
@@ -1226,7 +1458,7 @@ export default function CuttingDashboard({ selectedWeek = "W40" }) {
                     <Typography level="body-xs" sx={{ color: "#f59e0b", mb: 1, fontWeight: 600 }}>
                       DEFECT RATE
                     </Typography>
-                    <Typography level="h2" sx={{ color: "#fff", fontWeight: 800 }}>
+                    <Typography level="h2" sx={{ color: "#fff", WebkitTextStroke: '0.9px black', fontWeight: 800 }}>
                       2.3%
                     </Typography>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}>
@@ -1254,7 +1486,7 @@ export default function CuttingDashboard({ selectedWeek = "W40" }) {
                     <Typography level="body-xs" sx={{ color: "#8b5cf6", mb: 1, fontWeight: 600 }}>
                       AVG CUTTING TIME
                     </Typography>
-                    <Typography level="h2" sx={{ color: "#fff", fontWeight: 800 }}>
+                    <Typography level="h2" sx={{ color: "#fff", WebkitTextStroke: '0.8px black', fontWeight: 800 }}>
                       3.2h
                     </Typography>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}>
@@ -1282,7 +1514,7 @@ export default function CuttingDashboard({ selectedWeek = "W40" }) {
                     <Typography level="body-xs" sx={{ color: "#22c55e", mb: 1, fontWeight: 600 }}>
                       ON-TIME DELIVERY
                     </Typography>
-                    <Typography level="h2" sx={{ color: "#fff", fontWeight: 800 }}>
+                    <Typography level="h2" sx={{ color: "#fff", WebkitTextStroke: '0.8px black', fontWeight: 800 }}>
                       94%
                     </Typography>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}>

@@ -89,14 +89,16 @@ export default function FabricStoreDashboard({ selectedWeek = "W40" }) {
 
             <Box sx={{ display: "flex", minHeight: "100dvh" }}>
                 <Sidebar />
-                <Box sx={{ flexGrow: 1, p: 2 }}>
+                <Box sx={{ flexGrow: 1, p: 1 }}>
                     <Header />
-                    <Box sx={{
+                    {/* <Box sx={{
                         position: 'sticky',
                         top: 0,
-                        zIndex: 110,
-                        // pt: 1, pb: 2, flex: 1, display: "flex", flexDirection: "column", minWidth: 0, gap: 2 
-                    }}>
+                        zIndex: 110, */}
+                    {/* // pt: 1, pb: 2, flex: 1, display: "flex", flexDirection: "column", minWidth: 0, gap: 2  */}
+                    {/* }}> */}
+                    <Box sx={{ pt: 1, pb: 1, flex: 1, display: "flex", flexDirection: "column", minWidth: 0, gap: 2 }}>
+
                         {/* Title Bar */}
                         <Sheet
                             sx={{
@@ -104,15 +106,21 @@ export default function FabricStoreDashboard({ selectedWeek = "W40" }) {
                                 justifyContent: "space-between",
                                 alignItems: "center",
                                 px: { xs: 2, md: 4 },
-                                p: { xs: 3, md: 3 },
+                                p: { xs: 3, md: 2 },
                                 borderRadius: 12,
                                 background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)",
                                 color: "#ffffff"
                             }}>
-                            <Box>
-                                <Typography level="h3" sx={{ fontWeight: 700, color: "#fff" }}>
-                                    Fabric Store Dashboard
-                                </Typography>
+                            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }} >
+                                <InventoryIcon sx={{ color: "#fff", fontSize: 35, animation: "float 4s ease-in-out infinite" }} />
+                                <Box>
+                                    <Typography level="h3" sx={{ fontWeight: 700, color: "#fff" }}>
+                                        Fabric Store Dashboard
+                                    </Typography>
+                                    <Typography level="body-sm" sx={{ opacity: 0.8, color: "#fff" }}>
+                                        Monitor Fabric Store and Inspection Status
+                                    </Typography>
+                                </Box>
                             </Box>
 
                             <Box sx={{

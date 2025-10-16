@@ -627,7 +627,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PendingIcon from '@mui/icons-material/Pending';
 import LinearProgress from '@mui/joy/LinearProgress';
-
+ 
 import poPdf from '../../assets/po.pdf';
 
 import Header from "../Header";
@@ -780,20 +780,25 @@ export default function App({ selectedWeek = "W40" }) {
               justifyContent: "space-between",
               alignItems: "center",
               px: { xs: 2, md: 4 },
-              p: { xs: 3, md: 3 },
-              borderRadius: 16,
+              p: { xs: 3,md:2 },
+              borderRadius: 12,
               background: "#10b4f0ff",
               color: "#ffffff",
               boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
             }}>
-              <Box>
-                <Typography level="h3" sx={{ fontWeight: 800, mb: 1, color: "#fff" }}>
-                  Sourcing Dashboard
-                </Typography>
-                {/* <Typography level="body-sm" sx={{ opacity: 0.9, color: "#fff" }}>
-                Comprehensive view of sourcing operations and delivery tracking
-              </Typography> */}
+              <Box sx={{ display: "flex", aligntems: "center", gap: 2 }} >
+                <TrendingUp sx={{ fontSize: 36, color: "#ffffffff", mt:1,animation: "float 4s ease-in-out infinite" }} />
+                <Box>
+                  <Typography level="h3" sx={{ fontWeight: 800,  color: "#fff", }}>
+                    Sourcing Dashboard
+                  </Typography>
+                  <Typography level="body-sm" sx={{ opacity: 0.9, color: "#fff" }}>
+                    Comprehensive view of sourcing operations and delivery tracking
+                  </Typography>
+                </Box>
               </Box>
+
+
               <Box sx={{
                 display: "flex",
                 gap: { xs: 2, sm: 4 },
@@ -836,7 +841,7 @@ export default function App({ selectedWeek = "W40" }) {
                       boxShadow: "0 25px 50px -12px rgba(16, 185, 129, 0.25)",
                     },
                   }}>
-                    <CardContent sx={{   pl:2, pr: 2, pb: 1 }}>
+                    <CardContent sx={{ pl: 2, pr: 2, pb: 1 }}>
                       <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
                         <TrendingUp sx={{ fontSize: 32, mr: 2, color: "#065F46" }} />
                         <Typography level="title-lg" sx={{ fontWeight: 700, color: "#065F46" }}>
@@ -862,7 +867,7 @@ export default function App({ selectedWeek = "W40" }) {
                         </Typography>
                       </Box>
 
-                       {/* <LinearProgress determinate value={287 / (287 + 56) * 100} color="success" sx={{ mt: 19, ml: 1, mr: 1 }} />   */}
+                      {/* <LinearProgress determinate value={287 / (287 + 56) * 100} color="success" sx={{ mt: 19, ml: 1, mr: 1 }} />   */}
 
                       <Box sx={{ width: "100%", height: 8, bgcolor: "rgba(255, 255, 255, 1)", borderRadius: 5, overflow: "hidden" }}>
                         <Box
@@ -880,13 +885,13 @@ export default function App({ selectedWeek = "W40" }) {
                     </CardContent>
                   </Card>
 
-          
+
 
                 </Grid>
 
                 {/* PO Drill Down - Enhanced */}
                 <Grid xs={12} md={3}>
-                <Card sx={{
+                  <Card sx={{
                     height: "90%",
                     background: "linear-gradient(135deg, #DBEAFE 0%, #3B82F6 100%)",
                     border: "none",
@@ -940,8 +945,8 @@ export default function App({ selectedWeek = "W40" }) {
                         </Button>
                       </Box>
                     </CardContent>
-                  </Card>  
-         
+                  </Card>
+
 
                 </Grid>
 
@@ -959,7 +964,7 @@ export default function App({ selectedWeek = "W40" }) {
                       boxShadow: "0 25px 50px -12px rgba(139, 92, 246, 0.25)",
                     },
                   }}>
-                    <CardContent sx={{   pb: 4 }}>
+                    <CardContent sx={{ pb: 4 }}>
                       <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
                         <Category sx={{ fontSize: 32, mr: 2, color: "#5B21B6" }} />
                         <Typography level="title-lg" sx={{ fontWeight: 700, color: "#5B21B6" }}>
@@ -999,7 +1004,7 @@ export default function App({ selectedWeek = "W40" }) {
                       </Card>
                     </CardContent>
                   </Card>
-                  
+
 
                 </Grid>
 
@@ -1018,7 +1023,7 @@ export default function App({ selectedWeek = "W40" }) {
                     },
                   }}>
                     {/* pt: 2, pl: 4, pr: 4, */}
-                    <CardContent sx={{  pb: 4 }}>
+                    <CardContent sx={{ pb: 4 }}>
                       <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
                         <Warning sx={{ fontSize: 32, mr: 2, color: "#92400E" }} />
                         <Typography level="title-lg" sx={{ fontWeight: 700, color: "#92400E" }}>
@@ -1055,7 +1060,7 @@ export default function App({ selectedWeek = "W40" }) {
                       </Grid>
                     </CardContent>
                   </Card>
-         
+
 
                 </Grid>
 
