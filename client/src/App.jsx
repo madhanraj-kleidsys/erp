@@ -16,7 +16,10 @@ import LoginPage from "./components/loginPage.jsx";
 import Home from "./components/Home.jsx";
 import ProductionDashboard from "./components/ProductionDashboard.jsx"
 import SourcingDash from "./components/PrdPlanningDash/SourcingDash.jsx";
-
+import FabricDash from "./components/PrdPlanningDash/FabricDash.jsx";
+import CuttingDashboard from "./components/PrdPlanningDash/CuttingDash.jsx";
+import VaprintingDash from "./components/PrdPlanningDash/VaprintingDash.jsx";
+import RiskSummary from "./components/PrdPlanningDash/RiskSummary.jsx";
 
 import Approvals from "./components/ApprovalScreen.jsx";
 import Notifications from "./components/NotificationScreen.jsx";
@@ -173,7 +176,40 @@ export default function App() {
                 </ProtectedRoute>
               }
             />
-            
+
+            <Route
+              path="/FabricDash"
+              element={
+                <ProtectedRoute auth={auth}>
+                  <FabricDash />
+                </ProtectedRoute>
+              } />
+
+            <Route
+              path="/CuttingDashboard"
+              element={
+                <ProtectedRoute auth={auth}>
+                  <CuttingDashboard />
+                </ProtectedRoute>
+              } />
+
+            <Route
+              path="/vaprinting"
+              element={
+                <ProtectedRoute auth={auth}>
+                  <VaprintingDash />
+                </ProtectedRoute>
+              } />
+
+              <Route 
+              path="/risksummary"
+              element={
+                <ProtectedRoute auth={auth} >
+                  <RiskSummary />
+                </ProtectedRoute>
+              }
+              />
+
             <Route
               path="/dashboard"
               element={

@@ -46,7 +46,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import { useContext } from "react";
 import { AuthContext } from "../AuthContext";
-const apiUrl = import.meta.env.VITE_API_URL ||'http://localhost:3000/api';
+const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
 
 
@@ -78,8 +78,8 @@ export default function Sidebar() {
   const location = useLocation();
   const [currentPage, setCurrentPage] = useState("");
   const { user, token, onLogout } = useContext(AuthContext);
- 
-    const [name, setName] = useState('');
+
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
   useEffect(() => {
@@ -91,9 +91,9 @@ export default function Sidebar() {
     setEmail(storedEmail || 'No email');
   }, []);
 
-  
- 
- 
+
+
+
   const [searchTerm, setSearchTerm] = useState("");
   const [isSearchActive, setIsSearchActive] = useState(false);
 
@@ -147,7 +147,7 @@ export default function Sidebar() {
 
   return (
     <>
-    
+
       <Sheet
         className="Sidebar"
         sx={{
@@ -201,14 +201,14 @@ export default function Sidebar() {
           }}
           onClick={() => closeSidebar()}
         />
- 
+
         <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-           <Avatar
+          <Avatar
             variant="outlined"
             size="sm"
             src="https://images.unsplash.com/photo-1581382575275-97901c2635b7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWFufGVufDB8fDB8fHww"
           />
-        
+
           <Typography level="title-lg">{name || 'admin'}</Typography>
           {/* <ColorSchemeToggle sx={{ ml: 'auto' }} /> */}
         </Box>
@@ -223,18 +223,18 @@ export default function Sidebar() {
           onFocus={() => setIsSearchActive(true)}
           onBlur={() => {
             setTimeout(() => setIsSearchActive(false), 150);
-          }} 
-          
-          onKeyDown={(e)=>{
-            if(e.key === 'Enter'){
+          }}
+
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
               e.preventDefault()
-              if(filteredOtherItems.length > 0){
+              if (filteredOtherItems.length > 0) {
                 handleNavigation(filteredOtherItems[0].path)
                 setIsSearchActive(false);
               }
             }
           }}
-          />
+        />
 
         {/* <List> */}
         {isSearchActive && searchTerm.length > 0 && filteredOtherItems.length > 0 && (
@@ -297,17 +297,62 @@ export default function Sidebar() {
               </ListItemButton>
             </ListItem>
 
-             <ListItem>
+            <ListItem>
               <ListItemButton
                 selected={isActive('/sourcing')}
                 onClick={() => handleNavigation('/sourcing')}
               >
                 <DashboardRoundedIcon />
                 <ListItemContent>
-                  <Typography level="title-sm">sourcing</Typography>
+                  <Typography level="title-sm">Sourcing</Typography>
                 </ListItemContent>
               </ListItemButton>
             </ListItem>
+
+            <ListItem>
+              <ListItemButton
+                selected={isActive('/FabricDash')}
+                onClick={() => handleNavigation('/FabricDash')}>
+                <DashboardRoundedIcon />
+                <ListItemContent>
+                  <Typography level="title-sm">Fabric Dash</Typography>
+                </ListItemContent>
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem>
+              <ListItemButton
+                selected={isActive('/CuttingDashboard')}
+                onClick={() => handleNavigation('/CuttingDashboard')}>
+                <DashboardRoundedIcon />
+                <ListItemContent>
+                  <Typography level="title-sm">Cutting Dashboard</Typography>
+                </ListItemContent>
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem>
+              <ListItemButton
+                selected={isActive('/vaprinting')}
+                onClick={() => handleNavigation('/vaprinting')}>
+                <DashboardRoundedIcon />
+                <ListItemContent>
+                  <Typography level="title-sm">VAP ( Printing )</Typography>
+                </ListItemContent>
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem>
+              <ListItemButton 
+              selected={isActive('/risksummary')}
+              onClick={()=> handleNavigation('/risksummary')}>
+                <QuestionAnswerRoundedIcon />
+                <ListItemContent>
+                  <Typography level='title-lg' > risk summary</Typography>
+                </ListItemContent>
+              </ListItemButton>
+            </ListItem>
+
 
             <ListItem nested>
               <Toggler
@@ -420,7 +465,7 @@ export default function Sidebar() {
 
               </Toggler>
             </ListItem>
- 
+
             {/* <ListItem>
             <ListItemButton
               selected={isActive('/dashboard')}

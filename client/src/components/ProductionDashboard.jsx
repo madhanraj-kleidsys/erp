@@ -37,7 +37,6 @@ import Sidebar from './Sidebar';
 
 import { CssVarsProvider } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 // Custom theme with professional colors
 const theme = extendTheme({
