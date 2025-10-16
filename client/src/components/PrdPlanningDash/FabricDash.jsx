@@ -91,7 +91,12 @@ export default function FabricStoreDashboard({ selectedWeek = "W40" }) {
                 <Sidebar />
                 <Box sx={{ flexGrow: 1, p: 2 }}>
                     <Header />
-                    <Box sx={{ pt: 3, pb: 2, flex: 1, display: "flex", flexDirection: "column", minWidth: 0, gap: 2 }}>
+                    <Box sx={{
+                        position: 'sticky',
+                        top: 0,
+                        zIndex: 110,
+                        // pt: 1, pb: 2, flex: 1, display: "flex", flexDirection: "column", minWidth: 0, gap: 2 
+                    }}>
                         {/* Title Bar */}
                         <Sheet
                             sx={{
@@ -99,7 +104,7 @@ export default function FabricStoreDashboard({ selectedWeek = "W40" }) {
                                 justifyContent: "space-between",
                                 alignItems: "center",
                                 px: { xs: 2, md: 4 },
-                                p: { xs: 3, md: 4 },
+                                p: { xs: 3, md: 3 },
                                 borderRadius: 12,
                                 background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)",
                                 color: "#ffffff"
@@ -134,17 +139,17 @@ export default function FabricStoreDashboard({ selectedWeek = "W40" }) {
                             </Box>
                         </Sheet>
 
-                        <Box sx={{ minHeight: "100vh", bgcolor: "#f1f5f9", p: { xs: 2, sm: 3, md: 4 } }}>
+                        <Box sx={{ minHeight: "100vh", bgcolor: "#f1f5f9", p: { xs: 2, sm: 3, md: 3 } }}>
 
                             {/* KPI Cards */}
-                            <Grid container spacing={3} sx={{ mb: 4 }}>
-                                {/* Fabric Received Status */}
+                            {/* <Grid container spacing={3} sx={{ mb: 2 }}>
+                                Fabric Received Status
 
                                 <Grid xs={12} sm={6} lg={3}>
                                     <Card
                                         sx={{
-                                            p: 3,
-                                            height: "100%", borderRadius: 16,
+                                            p: 1.5,
+                                            height: "100%", borderRadius: 8,
                                             background: "linear-gradient(135deg, #10b981 0%, #059669 100%)", // Green gradient for success/completion
                                             transition: "all 0.3s ease",
                                             "&:hover": {
@@ -153,13 +158,13 @@ export default function FabricStoreDashboard({ selectedWeek = "W40" }) {
                                             },
                                         }}
                                     >
-                                        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 3 }}>
-                                            <InventoryIcon sx={{ color: "#fff", fontSize: 28 }} />
+                                        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
+                                            <InventoryIcon sx={{ color: "#fff", fontSize: 18 }} />
                                             <Typography level="title-md" sx={{ fontWeight: 600, color: "#fff" }}>
                                                 Fabric Status
                                             </Typography>
                                         </Box>
-                                        <Box sx={{ display: "flex", justifyContent: "space-around", mb: 3 }}>
+                                        <Box sx={{ display: "flex", justifyContent: "space-around", mb: 1 }}>
                                             <Box sx={{ textAlign: "center" }}>
                                                 <Typography level="h1" sx={{ fontWeight: 700, color: "#fff", mb: 0.5 }}>
                                                     {FABRIC_STATUS[0].value}
@@ -168,7 +173,7 @@ export default function FabricStoreDashboard({ selectedWeek = "W40" }) {
                                                     Fabric Received
                                                 </Typography>
                                             </Box>
-                                            <Box sx={{ width: '2px', bgcolor: 'rgba(255,255,255,0.3)', mx: 2 }} /> {/* Divider */}
+                                            <Box sx={{ width: '2px', bgcolor: 'rgba(255,255,255,0.3)', mx: 2 }} />  
                                             <Box sx={{ textAlign: "center" }}>
                                                 <Typography level="h1" sx={{ fontWeight: 700, color: "#fff", mb: 0.5 }}>
                                                     {FABRIC_STATUS[1].value}
@@ -195,7 +200,7 @@ export default function FabricStoreDashboard({ selectedWeek = "W40" }) {
                                     </Card>
                                 </Grid>
 
-                                {/* Inspection Completed */}
+                                Inspection Completed
                                 <Grid xs={12} sm={6} lg={3}>
                                     <Card
                                         sx={{
@@ -230,16 +235,14 @@ export default function FabricStoreDashboard({ selectedWeek = "W40" }) {
                                             borderRadius: 2
                                         }}>
                                             <TrendingUpIcon sx={{ color: "#fff", fontSize: 20 }} />
-                                            <Typography level="body-sm" sx={{ color: "#fff", fontWeight: 600 }}>
+                                            <Typography level="sm" sx={{ color: "#fff", fontWeight: 600 }}>
                                                 12% increase this week
                                             </Typography>
                                         </Box>
                                     </Card>
                                 </Grid>
 
-
-
-                                {/* Balance to Receive */}
+                                Balance to Receive
                                 <Grid xs={12} sm={6} lg={3}>
                                     <Card
                                         sx={{
@@ -281,7 +284,7 @@ export default function FabricStoreDashboard({ selectedWeek = "W40" }) {
                                     </Card>
                                 </Grid>
 
-                                {/* Drill Down */}
+                                Drill Down
                                 <Grid xs={12} sm={6} lg={3}>
                                     <Card sx={{ p: 3, height: "100%", borderRadius: 16, }}>
                                         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 3 }}>
@@ -339,11 +342,211 @@ export default function FabricStoreDashboard({ selectedWeek = "W40" }) {
                                         </Box>
                                     </Card>
                                 </Grid>
+
+                            </Grid> */}
+
+                            <Grid container spacing={1} sx={{ mb: 2 }}>
+                                {/* Fabric Received Status */}
+                                <Grid xs={12} sm={6} lg={3}>
+                                    <Card
+                                        sx={{
+                                            p: 1.5,
+                                            height: "100%",
+                                            borderRadius: 8,
+                                            background: "linear-gradient(135deg,#10b981 0%,#059669 100%)",
+                                            transition: "all 0.3s ease",
+                                            "&:hover": {
+                                                transform: "translateY(-2px)",
+                                                boxShadow: "0 8px 16px rgba(16,185,129,0.24)",
+                                            },
+                                        }}
+                                    >
+                                        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
+                                            <InventoryIcon sx={{ color: "#fff", fontSize: 20 }} />
+                                            <Typography level="body-sm" sx={{ fontWeight: 600, color: "#fff", fontSize: 13 }}>
+                                                Fabric Status
+                                            </Typography>
+                                        </Box>
+                                        <Box sx={{ display: "flex", justifyContent: "space-around", mb: 1 }}>
+                                            <Box textAlign="center">
+                                                <Typography level="h4" sx={{ fontWeight: 600, color: "#fff", mb: 0.3, fontSize: 15 }}>
+                                                    {FABRIC_STATUS[0].value}
+                                                </Typography>
+                                                <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.8)", fontSize: 11 }}>
+                                                    Fabric Received
+                                                </Typography>
+                                            </Box>
+                                            <Box sx={{ width: '1px', bgcolor: 'rgba(255,255,255,0.3)', mx: 1 }} />
+                                            <Box textAlign="center">
+                                                <Typography level="h4" sx={{ fontWeight: 600, color: "#fff", mb: 0.3, fontSize: 15 }}>
+                                                    {FABRIC_STATUS[1].value}
+                                                </Typography>
+                                                <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.8)", fontSize: 11 }}>
+                                                    Pending Receipt
+                                                </Typography>
+                                            </Box>
+                                        </Box>
+                                        <Box sx={{ width: "100%", height: 6, bgcolor: "rgba(255,255,255,0.33)", borderRadius: 3 }}>
+                                            <Box sx={{
+                                                width: `${receivedPercent}%`,
+                                                height: "100%",
+                                                bgcolor: "#fff",
+                                                borderRadius: 3,
+                                                transition: "width 0.5s"
+                                            }} />
+                                        </Box>
+                                        <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.87)", mt: 0.5, fontSize: 11 }}>
+                                            {receivedPercent}% Received
+                                        </Typography>
+                                    </Card>
+                                </Grid>
+
+                                {/* Inspection Completed */}
+                                <Grid xs={12} sm={6} lg={3}>
+                                    <Card
+                                        sx={{
+                                            p: 1.5,
+                                            height: "100%",
+                                            borderRadius: 8,
+                                            background: "linear-gradient(135deg,#f59e0b 0%,#d97706 100%)",
+                                            transition: "all 0.3s ease",
+                                            "&:hover": {
+                                                transform: "translateY(-2px)",
+                                                boxShadow: "0 8px 16px rgba(245,158,11,0.2)",
+                                            },
+                                        }}
+                                    >
+                                        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
+                                            <CheckCircleIcon sx={{ color: "#fff", fontSize: 20 }} />
+                                            <Typography level="body-sm" sx={{ fontWeight: 600, color: "#fff", fontSize: 13 }}>
+                                                Inspection Status
+                                            </Typography>
+                                        </Box>
+                                        <Typography level="h4" sx={{ color: "#fff", fontWeight: 700, mb: 0.5, fontSize: 17 }}>
+                                            {INSPECTION_COMPLETED}
+                                        </Typography>
+                                        <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", mb: 1, fontSize: 11 }}>
+                                            Total Inspections Completed
+                                        </Typography>
+                                        <Box sx={{
+                                            display: "flex", alignItems: "center", gap: 0.8, p: 1, bgcolor: "rgba(255,255,255,0.15)", borderRadius: 1
+                                        }}>
+                                            <TrendingUpIcon sx={{ color: "#fff", fontSize: 17 }} />
+                                            <Typography level="body-xs" sx={{ color: "#fff", fontWeight: 600, fontSize: 11 }}>
+                                                12% increase this week
+                                            </Typography>
+                                        </Box>
+                                    </Card>
+                                </Grid>
+
+                                {/* Balance to Receive */}
+                                <Grid xs={12} sm={6} lg={3}>
+                                    <Card
+                                        sx={{
+                                            p: 1.5,
+                                            height: "100%",
+                                            borderRadius: 8,
+                                            background: "linear-gradient(135deg,#3b82f6 0%,#2563eb 100%)",
+                                            transition: "all 0.3s ease",
+                                            "&:hover": {
+                                                transform: "translateY(-2px)",
+                                                boxShadow: "0 8px 16px rgba(59,130,246,0.2)",
+                                            },
+                                        }}
+                                    >
+                                        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
+                                            <CategoryIcon sx={{ color: "#fff", fontSize: 20 }} />
+                                            <Typography level="body-sm" sx={{ fontWeight: 600, color: "#fff", fontSize: 13 }}>
+                                                Balance to Receive
+                                            </Typography>
+                                        </Box>
+                                        <Typography level="h4" sx={{ color: "#fff", fontWeight: 700, mb: 0.5, fontSize: 17 }}>
+                                            {BALANCE_TO_RECEIVE}
+                                        </Typography>
+                                        <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", mb: 1, fontSize: 11 }}>
+                                            Units Pending Receipt
+                                        </Typography>
+                                        <Box sx={{
+                                            display: "flex", alignItems: "center", gap: 0.8, p: 1, bgcolor: "rgba(255,255,255,0.15)", borderRadius: 1
+                                        }}>
+                                            <CalendarTodayIcon sx={{ color: "#fff", fontSize: 16 }} />
+                                            <Typography level="body-xs" sx={{ color: "#fff", fontWeight: 600, fontSize: 11 }}>
+                                                Expected by W45
+                                            </Typography>
+                                        </Box>
+                                    </Card>
+                                </Grid>
+
+                                {/* Drill Down */}
+                                <Grid xs={12} sm={6} lg={3}>
+                                    <Card sx={{ p: 1.5, height: "100%", borderRadius: 8 }}>
+                                        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
+                                            <AssessmentIcon sx={{ color: "#8b5cf6", fontSize: 20 }} />
+                                            <Typography level="body-sm" sx={{ fontWeight: 600, fontSize: 13 }}>
+                                                Drill Down
+                                            </Typography>
+                                        </Box>
+                                        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+                                            <Box>
+                                                <Typography level="body-xs" sx={{ mb: 0.4, fontWeight: 600, color: "neutral.700", fontSize: 11 }}>
+                                                    Customer
+                                                </Typography>
+                                                <Select
+                                                    value={customer}
+                                                    size="sm"
+                                                    onChange={(e, val) => setCustomer(val)}
+                                                    sx={{ width: "100%", fontSize: 11 }}
+                                                >
+                                                    {CUSTOMERS.map(c => <Option key={c} value={c}>{c}</Option>)}
+                                                </Select>
+                                            </Box>
+                                            <Box>
+                                                <Typography level="body-xs" sx={{ mb: 0.4, fontWeight: 600, color: "neutral.700", fontSize: 11 }}>
+                                                    Article
+                                                </Typography>
+                                                <Select
+                                                    value={article}
+                                                    size="sm"
+                                                    onChange={(e, val) => setArticle(val)}
+                                                    sx={{ width: "100%", fontSize: 11 }}
+                                                >
+                                                    {ARTICLES.map(a => <Option key={a} value={a}>{a}</Option>)}
+                                                </Select>
+                                            </Box>
+                                            <Box>
+                                                <Typography level="body-xs" sx={{ mb: 0.4, fontWeight: 600, color: "neutral.700", fontSize: 11 }}>
+                                                    Fabric PO
+                                                </Typography>
+                                                <Select
+                                                    value={fabricPO}
+                                                    size="sm"
+                                                    onChange={(e, val) => setFabricPO(val)}
+                                                    sx={{ width: "100%", fontSize: 11 }}
+                                                >
+                                                    {FABRIC_PO.map(f => <Option key={f} value={f}>{f}</Option>)}
+                                                </Select>
+                                            </Box>
+                                            <Button
+                                                variant="solid"
+                                                size="sm"
+                                                sx={{
+                                                    bgcolor: "#8b5cf6",
+                                                    fontSize: 12,
+                                                    fontWeight: 600,
+                                                    "&:hover": { bgcolor: "#7c3aed" }
+                                                }}
+                                            >
+                                                Open Fabric PO
+                                            </Button>
+                                        </Box>
+                                    </Card>
+                                </Grid>
                             </Grid>
 
 
+
                             {/* Charts Section */}
-                            <Grid container spacing={3}>
+                            <Grid container spacing={1}>
                                 {/* Fabric Inward Progress lg={4} */}
                                 <Grid xs={12} lg={6} >
                                     <Card sx={{ p: 3, height: "100%" }}>

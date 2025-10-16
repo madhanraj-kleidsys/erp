@@ -772,7 +772,7 @@ export default function App({ selectedWeek = "W40" }) {
         <Sidebar />
         <Box sx={{ flexGrow: 1, p: 1 }}>
           <Header />
-          <Box sx={{ pt: 3, pb: 1, flex: 1, display: "flex", flexDirection: "column", minWidth: 0, gap: 2 }}>
+          <Box sx={{ pt: 1, pb: 1, flex: 1, display: "flex", flexDirection: "column", minWidth: 0, gap: 2 }}>
 
             {/* Enhanced Title Bar */}
             <Sheet sx={{
@@ -780,11 +780,10 @@ export default function App({ selectedWeek = "W40" }) {
               justifyContent: "space-between",
               alignItems: "center",
               px: { xs: 2, md: 4 },
-              p: { xs: 3, md: 4 },
+              p: { xs: 3, md: 3 },
               borderRadius: 16,
               background: "#10b4f0ff",
               color: "#ffffff",
-
               boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
             }}>
               <Box>

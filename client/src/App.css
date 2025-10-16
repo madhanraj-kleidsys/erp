@@ -49,3 +49,24 @@
     display: none !important;
   }
 } */
+
+@keyframes pulse {
+  from { opacity: 0.7; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1.08); }
+}
+@keyframes shake {
+  from { transform: rotate(-6deg); }
+  to { transform: rotate(6deg); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1.0); }
+}
+@keyframes fadeAlert {
+  from { opacity: 0; transform: scale(1.12); }
+  to { opacity: 1; transform: scale(1.0); }
+}
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-25px); }
+  to { opacity: 1; transform: translateX(0px); }
+}
