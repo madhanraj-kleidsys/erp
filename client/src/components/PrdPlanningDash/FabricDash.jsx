@@ -1,4 +1,5 @@
 import React from "react";
+import {useLocation} from "react-router-dom";
 import {
     Box, Grid, Typography, Card, Select, Option, Button, Sheet
 } from "@mui/joy";
@@ -20,6 +21,7 @@ import Header from "../Header";
 import Sidebar from "../Sidebar";
 import { CssVarsProvider, extendTheme } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
+import ReplyIcon from '@mui/icons-material/Reply';
 
 const theme = extendTheme({
     colorSchemes: {
@@ -73,12 +75,18 @@ const SUPPLIER_PENDING = [
     { supplier: "BHIMARAJ SUNANI DRIMMING & CHECKING CONTRACT", value: 22, color: "#b910a2ff" },
     { supplier: "Other", value: 12, color: "#64748b" },
 ];
+// { selectedWeek = "W40" }
+export default function FabricStoreDashboard() {
+const location = useLocation();
+const {selectedWeek} = location.state || {selectedWeek: "default err" };
+const weekNumber = parseInt(selectedWeek.replace(/\D/g,""),10);
+const deliveryWeekNumber = weekNumber + 3;
+const deliveryWeek = `W${deliveryWeekNumber}`;
 
-export default function FabricStoreDashboard({ selectedWeek = "W40" }) {
     const [customer, setCustomer] = React.useState(CUSTOMERS[0]);
     const [article, setArticle] = React.useState(ARTICLES[0]);
     const [fabricPO, setFabricPO] = React.useState(FABRIC_PO[0]);
-    const deliveryWeek = "W43";
+    // const deliveryWeek = "W43";
 
     const totalFabric = FABRIC_STATUS[0].value + FABRIC_STATUS[1].value;
     const receivedPercent = ((FABRIC_STATUS[0].value / totalFabric) * 100).toFixed(1);
@@ -112,8 +120,19 @@ export default function FabricStoreDashboard({ selectedWeek = "W40" }) {
                                 color: "#ffffff"
                             }}>
                             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }} >
+                              <button onClick={()=> window.history.back()} style={{border:'none',display:'flex',alignItems:'center',background:"none"}} >
+                                <ReplyIcon sx={{ fontSize: 50, color: "#fff", marginRight: 0.5,cursor:"pointer" }} />
+                              </button>
+
                                 <InventoryIcon sx={{ color: "#fff", fontSize: 35, animation: "float 4s ease-in-out infinite" }} />
-                                <Box>
+                             
+                                <Box sx={{
+                                    display:"flex",
+                                    flexDirection:"column",
+                                    alignItems:"center",
+                                    justifyContent:"center",
+                                    gap:1,width:"100%"
+                                }}>
                                     <Typography level="h3" sx={{ fontWeight: 700, color: "#fff" }}>
                                         Fabric Store Dashboard
                                     </Typography>

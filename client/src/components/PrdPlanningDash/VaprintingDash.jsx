@@ -1,5 +1,6 @@
 import React from "react";
 // VAP Load Activity
+import { useLocation } from "react-router-dom";
 import {
     Box,
     Grid,
@@ -26,6 +27,7 @@ import Header from "../Header";
 import Sidebar from "../Sidebar";
 import { CssVarsProvider, extendTheme } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
+import ReplyIcon from '@mui/icons-material/Reply';
 
 const theme = extendTheme({
     colorSchemes: {
@@ -96,13 +98,19 @@ const DELAY_TRACKER = [
     { customer: "H&M", style: "Logo Print", delay: "4 days", risk: "High" },
     { customer: "WALMART", style: "All-Over Print", delay: "1 day", risk: "Low" },
 ];
+// { selectedWeek = "W40" }
+export default function VAPDashboard() {
+    const location = useLocation();
+    const { selectedWeek } = location.state || { selectedWeek: "default val eror" };
+    const weekNumber = parseInt(selectedWeek.replace(/\D/g, ""), 10);
+    const deliveryWeekNumber = weekNumber + 2;
+    const deliveryWeek = `W${deliveryWeekNumber}`;
 
-export default function VAPDashboard({ selectedWeek = "W40" }) {
     const [customer, setCustomer] = React.useState(CUSTOMERS[0]);
     const [style, setStyle] = React.useState(STYLES[0]);
     const [processDate, setProcessDate] = React.useState(PROCESS_DATES[0]);
 
-    const deliveryWeek = "W42";
+    // const deliveryWeek = "W42";
     const completionRate = (PRINTING_STATUS.completed / (PRINTING_STATUS.completed + PRINTING_STATUS.inProgress + PRINTING_STATUS.pending + PRINTING_STATUS.delayed)) * 100;
 
     return (
@@ -127,8 +135,18 @@ export default function VAPDashboard({ selectedWeek = "W40" }) {
                                 color: "#ffffff"
                             }}>
                             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                                <button onClick={() => window.history.back()} style={{ border: 'none', display: 'flex', alignItems: 'center', background: "none" }} >
+                                    <ReplyIcon sx={{ fontSize: 50, color: "#fff", marginRight: 0.5, cursor: "pointer" }} />
+                                </button>
                                 <PrintIcon sx={{ fontSize: 32, color: "#ffffffff", mr: 1 }} />
-                                <Box>
+                                <Box sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    gap: 1,
+                                    width: "100%"
+                                }}>
                                     <Typography level="h3" sx={{ fontWeight: 700, color: "#fff" }}>
                                         VAP Printing Dashboard
                                     </Typography>
@@ -241,7 +259,7 @@ export default function VAPDashboard({ selectedWeek = "W40" }) {
                                         border: "none",
                                         boxShadow: "0 8px 24px rgba(244, 67, 54, 0.12)"
                                     }}>
-                                        <CardContent sx={{ p: 2}}>
+                                        <CardContent sx={{ p: 2 }}>
                                             <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                                                 <WarningIcon sx={{ fontSize: 32, color: "#C62828", mr: 1 }} />
                                                 <Typography level="title-md" sx={{ fontWeight: 700, color: "#B71C1C" }}>
@@ -314,7 +332,7 @@ export default function VAPDashboard({ selectedWeek = "W40" }) {
                                         boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
                                         borderRadius: 3
                                     }}>
-                                        <CardContent sx={{ p: 1,pt:1 }}>
+                                        <CardContent sx={{ p: 1, pt: 1 }}>
                                             <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
                                                 <PieChartIcon sx={{ fontSize: 28, color: "#3B82F6", mr: 2 }} />
                                                 <Typography level="title-lg" sx={{ fontWeight: 700 }}>
@@ -352,7 +370,7 @@ export default function VAPDashboard({ selectedWeek = "W40" }) {
                                         boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
                                         borderRadius: 3
                                     }}>
-                                        <CardContent sx={{ p: 1,pt:1 }}>
+                                        <CardContent sx={{ p: 1, pt: 1 }}>
                                             <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
                                                 <CalendarViewWeekIcon sx={{ fontSize: 28, color: "#10B981", mr: 2 }} />
                                                 <Typography level="title-lg" sx={{ fontWeight: 700 }}>
@@ -711,7 +729,7 @@ export default function VAPDashboard({ selectedWeek = "W40" }) {
                                 boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
                                 borderRadius: 3
                             }}>
-                                <CardContent sx={{ p: 1,pt:1 }}>
+                                <CardContent sx={{ p: 1, pt: 1 }}>
                                     <Box sx={{ display: "flex", alignItems: "center", mb: 1, }}>
                                         <ScheduleIcon sx={{ fontSize: 28, color: "#ff0000ff", mr: 2 }} />
                                         <Typography level="title-lg" sx={{

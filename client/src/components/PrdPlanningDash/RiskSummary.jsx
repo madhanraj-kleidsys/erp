@@ -31,6 +31,7 @@ import ContentCut from "@mui/icons-material/ContentCut";
 import Download from "@mui/icons-material/Download";
 import Header from "../Header";
 import Sidebar from "../Sidebar";
+import ReplyIcon from '@mui/icons-material/Reply';
 import { CssVarsProvider, extendTheme } from "@mui/joy/styles";
 
 import {
@@ -236,6 +237,9 @@ export default function RiskExceptionDashboard({ selectedWeek = "W44" }) {
 
                         {/* Dramatic Header */}
                         <Sheet sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
                             background: "linear-gradient(135deg, #DC2626 0%)",
                             borderRadius: 16,
                             // p: 2,
@@ -254,36 +258,49 @@ export default function RiskExceptionDashboard({ selectedWeek = "W44" }) {
                                 bottom: 0,
                             }
                         }}>
-                            <Box sx={{ position: "relative", zIndex: 1 }}>
-                                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                                    <Box>
-                                        {/* <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}> */}
-
-                                        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-
-                                            <DangerousOutlined sx={{ fontSize: 40, mr: 1, mt: 2, color: "#fff", animation: "float 4s ease-in-out infinite" }} />
-                                            <Typography level="h1" sx={{ fontWeight: 900, fontSize: "1.8rem", color: "#ffffff" }}>
-                                                Risk & Exception Summary
-                                            </Typography>
-                                        </Box>
-                                        <Typography level="body-xs" sx={{ pl: 8, opacity: 2, color: "#ffffffff" }}>
-                                            Critical alerts and process exceptions requiring immediate attention
-                                        </Typography>
-                                    </Box>
-
-                                    <Box sx={{ display: "flex", gap: 2 }}>
-                                        <IconButton sx={{ bgcolor: "rgba(255, 255, 255, 1)", color: "#000" }}>
-                                            <Refresh />
-                                        </IconButton>
-                                        <IconButton sx={{ bgcolor: "rgba(255, 255, 255, 1)" }}>
-                                            <FilterList />
-                                        </IconButton>
-                                        <IconButton sx={{ bgcolor: "rgba(255, 255, 255, 1)" }}>
-                                            <Download />
-                                        </IconButton>
-                                    </Box>
+                            {/* <Box sx={{ position: "relative", zIndex: 1 }}>
+                                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}> */}
+                            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                                {/* <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}> */}
+                                <button onClick={() => window.history.back()} style={{ border: 'none', display: 'flex', alignItems: 'center', background: "none" }} >
+                                    <ReplyIcon sx={{ fontSize: 50, color: "#fff", marginRight: 0.5, cursor: "pointer" }} />
+                                </button>
+                                <DangerousOutlined sx={{ fontSize: 40, mr: 1, color: "#fff", animation: "float 4s ease-in-out infinite" }} />
+                                <Box sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    gap: 1,
+                                    width: "100%"
+                                }}>
+                                    <Typography level="h1" sx={{ fontWeight: 900, fontSize: "1.8rem", color: "#ffffff" }}>
+                                        Risk & Exception Summary
+                                    </Typography>
+                                    {/* </Box> */}
+                                    <Typography level="body-xs" sx={{ opacity: 2, color: "#ffffffff" }}>
+                                        Critical alerts and process exceptions requiring immediate attention
+                                    </Typography>
                                 </Box>
                             </Box>
+
+                            <Box sx={{
+                                display: "flex",
+                                gap: { xs: 2, sm: 4 },
+                                flexWrap: "wrap"
+                            }}>
+                                <IconButton sx={{ bgcolor: "rgba(255, 255, 255, 1)", color: "#000" }}>
+                                    <Refresh />
+                                </IconButton>
+                                <IconButton sx={{ bgcolor: "rgba(255, 255, 255, 1)" }}>
+                                    <FilterList />
+                                </IconButton>
+                                <IconButton sx={{ bgcolor: "rgba(255, 255, 255, 1)" }}>
+                                    <Download />
+                                </IconButton>
+                            </Box>
+                            {/* </Box>
+                            </Box> */}
                         </Sheet>
 
                         {/* Animated Risk Summary Cards */}

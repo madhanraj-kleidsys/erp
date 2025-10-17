@@ -1,4 +1,5 @@
 import React from "react";
+import {useLocation} from "react-router-dom";
 import {
   Box,
   Grid, Sheet,
@@ -19,6 +20,7 @@ import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import TrendingDownIcon from "@mui/icons-material/TrendingDown";
 import FlashOnIcon from "@mui/icons-material/FlashOn";
 import SpeedIcon from "@mui/icons-material/Speed";
+import ReplyIcon from '@mui/icons-material/Reply';
 import {
   BarChart,
   Bar,
@@ -60,7 +62,7 @@ const READY_PANELS = 800;
 const REQUIREMENT_PANELS = 1000;
 const BALANCE_TO_CUT = 200;
 
-const LINES = ["Line 1", "Line 2", "Line 3"];
+const LINES = ["Bloomsburg", "Flamingo", "bllomsburg"];
 const BLOCKS = ["Block A", "Block B"];
 const STYLES = ["Athletic", "Casual"];
 const COLORS = ["Red", "Blue", "Grey"];
@@ -119,13 +121,21 @@ const UNITS_AT_RISK = 130;
 
 // Sum of delay hours
 const TOTAL_DELAY_HOURS = 6.5;
+// { selectedWeek = "W40" }
+export default function CuttingDashboard() {
+  const location = useLocation();
+  const {selectedWeek} = location.state || {selectedWeek: "default err"};
+  const weekNumber = parseInt(selectedWeek.replace(/\D/g,""),10);
+  const deliveryWeekNumber = weekNumber + 2;
+  const deliveryWeek = `W${deliveryWeekNumber}`;
 
-export default function CuttingDashboard({ selectedWeek = "W40" }) {
+
+
   const [line, setLine] = React.useState(LINES[0]);
   const [block, setBlock] = React.useState(BLOCKS[0]);
   const [style, setStyle] = React.useState(STYLES[0]);
   const [color, setColor] = React.useState(COLORS[0]);
-  const deliveryWeek = "W42";
+  // const deliveryWeek = "W42";
 
   const actualPercent = ((CUT_PLAN_ACTUAL[1].value / CUT_PLAN_ACTUAL[0].value) * 100).toFixed(1);
   const readyPercent = ((READY_PANELS / REQUIREMENT_PANELS) * 100).toFixed(1);
@@ -156,8 +166,18 @@ export default function CuttingDashboard({ selectedWeek = "W40" }) {
                 // animation: "gradientShift 8s ease infinite",
               }}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                 <button onClick={() => window.history.back()} style={{ border: 'none', display: 'flex', alignItems: 'center', background: "none" }} >
+                  <ReplyIcon sx={{ fontSize: 50, color: "#fff", marginRight: 0.5, cursor: "pointer" }} />
+                </button>
                 <ContentCutIcon sx={{ fontSize: 35, color: "#fff", animation: "float 4s ease-in-out infinite" }} />
-                <Box>
+                <Box sx={{
+                     display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",       
+                  justifyContent: "center",
+                  gap: 1,                  
+                  width: "100%"
+                }}>
                   <Typography level="h3" sx={{ fontWeight: 700, color: "#fff" }}>
                     Cutting Dashboard
                   </Typography>
@@ -1199,8 +1219,8 @@ export default function CuttingDashboard({ selectedWeek = "W40" }) {
                     p: 3,
                     borderRadius: 12,
                     // background: "linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)",
-                    background:"#000000cd",
-                    //  "linear-gradient(180deg , rgba(230, 164, 164, 0.91)  , rgba(210, 16, 16, 1) 50% )",
+                    background:"linear-gradient(180deg , rgba(233, 194, 97, 1)  , rgba(237, 212, 49, 1) 50% )",
+                    // background:"linear-gradient(180deg , rgba(230, 164, 164, 0.91)  , rgba(210, 16, 16, 1) 50% )",
                     border: "1px solid #e2e8f0",
                     boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
                     position: "relative",

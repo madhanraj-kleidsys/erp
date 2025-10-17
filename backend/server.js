@@ -35,6 +35,9 @@ const pincodeState = require('./routes/cities/pincodeState.js');
 const apiCity = require('./routes/cities/apiCity.js');
 const employeeSearch = require('./routes/employeeSearch.js');
 
+const homeDashboard = require('./routes/home/homeDashboard.js');
+const dummyApi = require('./routes/home/dummyApi.js');
+
 
 app.use('/api',login);
 app.use('/api/approval',approval);
@@ -59,8 +62,8 @@ app.use('/api/getCitiesByState',getCitiesByState);
 app.use('/api',pincodeState);
 app.use('/api',apiCity);
 app.get('/api/employee-search', employeeSearch);
-
-
+app.get('/api/homedashboard',homeDashboard);
+app.get('/dummy',dummyApi);
 
 // app.use('/api/salesreport',salesOrderReport);
 
@@ -79,5 +82,4 @@ const PORT = process.env.PORT;
 const NODE_ENV = process.env.NODE_ENV;
 app.listen(3000,'0.0.0.0',() =>{
     console.log(`server listening to  AT ${PORT} ${NODE_ENV}`);
-    
 });

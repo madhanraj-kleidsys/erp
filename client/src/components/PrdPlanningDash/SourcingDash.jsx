@@ -600,6 +600,7 @@
 
 
 import React from "react";
+import { useLocation } from "react-router-dom";
 import {
   Box,
   Grid,
@@ -627,13 +628,15 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PendingIcon from '@mui/icons-material/Pending';
 import LinearProgress from '@mui/joy/LinearProgress';
- 
+
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import poPdf from '../../assets/po.pdf';
 
 import Header from "../Header";
 import Sidebar from "../Sidebar";
 import { CssVarsProvider, extendTheme } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
+import ReplyIcon from '@mui/icons-material/Reply';
 import {
   BarChart,
   Bar,
@@ -759,10 +762,21 @@ const ESCALATIONS = [
   },
 ];
 
-export default function App({ selectedWeek = "W40" }) {
+export default function App() {
+
+  const location = useLocation();
+  const { selectedWeek } = location.state || { selectedWeek: "default val eror" };
+  const weekNumber = parseInt(selectedWeek.replace(/\D/g, ""), 10);
+  const deliveryWeekNumber = weekNumber + 4;
+  const deliveryWeek = `W${deliveryWeekNumber}`;
+
+  // const weekNumber = parseInt(selectedWeek.replace(/\D/g, ""), 10);
+  // const deliveryWeekNumber = weekNumber + 4;
+  // const deliveryWeek = `W${deliveryWeekNumber}`;
+
   const [customer, setCustomer] = React.useState(CUSTOMERS[0]);
   const [style, setStyle] = React.useState(STYLES[0]);
-  const deliveryWeek = "W44";
+  // const deliveryWeek = {selectedWeek} + 4;  
 
   return (
     <CssVarsProvider theme={theme}>
@@ -780,16 +794,29 @@ export default function App({ selectedWeek = "W40" }) {
               justifyContent: "space-between",
               alignItems: "center",
               px: { xs: 2, md: 4 },
-              p: { xs: 3,md:2 },
+              p: { xs: 3, md: 2 },
               borderRadius: 12,
               background: "#10b4f0ff",
               color: "#ffffff",
               boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
             }}>
               <Box sx={{ display: "flex", aligntems: "center", gap: 2 }} >
-                <TrendingUp sx={{ fontSize: 36, color: "#ffffffff", mt:1,animation: "float 4s ease-in-out infinite" }} />
-                <Box>
-                  <Typography level="h3" sx={{ fontWeight: 800,  color: "#fff", }}>
+                <button onClick={() => window.history.back()} style={{ border: 'none', display: 'flex', alignItems: 'center', background: "none" }} >
+                  <ReplyIcon sx={{ fontSize: 50, color: "#fff", marginRight: 0.5, cursor: "pointer" }} />
+                </button>
+                <TrendingUp sx={{ fontSize: 35, color: "#ffffffff", mt: 1, animation: "float 4s ease-in-out infinite" }} />
+                {/* <button onClick={() => window.history.back()} style={{ border: 'none', display: 'flex', alignItems: 'center', background: "#10b4f0ff" }}>
+                  <ArrowBackIcon sx={{ fontSize: 44, color: "#fff", marginRight: 0.5 }} />
+                </button> */}
+                <Box sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",       
+                  justifyContent: "center",
+                  gap: 1,                  
+                  width: "100%"
+                }}>
+                  <Typography level="h3" sx={{ fontWeight: 700, color: "#fff", }}>
                     Sourcing Dashboard
                   </Typography>
                   <Typography level="body-sm" sx={{ opacity: 0.9, color: "#fff" }}>

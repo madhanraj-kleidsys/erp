@@ -864,6 +864,7 @@
 // `;
 
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Card,
@@ -917,29 +918,262 @@ const theme = extendTheme({
 });
 
 const customers = [
-  "H&M",
-  "WALMART",
+  "H&M HENNES & MAURITZ GBC AB",
+  "VINGINO",
   "GROUPE AUCHAN",
-  "MAX HOLDINGS",
-  "KMART AUSTRALIA",
+  "MAX HOLDINGS - INVESTMENTS LTD",
+  "KMART AUSTRALIA LIMITED",
 ];
+// const stylesByCustomer = {
+//   "H&M HENNES & MAURITZ GBC AB": ["Basic T-Shirt", "Denim Jacket", "Summer Dress", "Casual Pants"],
+//   "VINGINO": ["Polo Shirt", "Cargo Pants", "Hoodie", "Jeans"],
+//   "GROUPE AUCHAN": ["Formal Shirt", "Blazer", "Trousers", "Skirt"],
+//   "MAX HOLDINGS - INVESTMENTS LTD": [
+//     "Designer Top",
+//     "Premium Jeans",
+//     "Silk Scarf",
+//     "Leather Jacket",
+//   ],
+//   "KMART AUSTRALIA LIMITED": [
+//     "Kids T-Shirt",
+//     "School Uniform",
+//     "Baby Onesie",
+//     "Sports Wear",
+//   ],
+// };
 const stylesByCustomer = {
-  "H&M": ["Basic T-Shirt", "Denim Jacket", "Summer Dress", "Casual Pants"],
-  "WALMART": ["Polo Shirt", "Cargo Pants", "Hoodie", "Jeans"],
-  "GROUPE AUCHAN": ["Formal Shirt", "Blazer", "Trousers", "Skirt"],
-  "MAX HOLDINGS": [
-    "Designer Top",
-    "Premium Jeans",
-    "Silk Scarf",
-    "Leather Jacket",
+  "H&M HENNES & MAURITZ GBC AB": [
+    "ASTERTANK",
+    "AZURLSTOP",
+    "BELLATEE",
+    "BERTILSSKB5PACK",
+    "BOSSTOP",
+    "CHARLIETEE",
+    "CILLA",
+    "CILLALSTEE",
+    "DF",
+    "EQDD",
+    "EQLICMINDYLSTEE",
+    "EQLICPALMITA3PACK",
+    "EQMARSTEE",
+    "EQPANDORATEE",
+    "EQSUETEE",
+    "EQVALERIETOP",
+    "GSRT",
+    "JAML",
+    "JOANNA",
+    "JUNELSTOP",
+    "LICBEATRIZDRESS",
+    "LICMARSTEE",
+    "LICPALMITA3PACK",
+    "LICPIPERLSTOP",
+    "LICSOFIADRESS",
+    "LICSUSANTEE",
+    "LOLACETANK",
+    "LOTTIETEE",
+    "MANTATUBETOP",
+    "MARSTEE",
+    "MIA",
+    "MIALSTSHIRT",
+    "MISTLSTOP",
+    "MOLLYLSTOP",
+    "PENELOPEPRINTEDTEE",
+    "RNRGTS",
+    "SABRINALONGSLEEVE",
+    "SUELOWPRICETEE",
+    "TOB3PACK",
+    "TPBSSSB"
   ],
-  "KMART AUSTRALIA": [
-    "Kids T-Shirt",
-    "School Uniform",
-    "Baby Onesie",
-    "Sports Wear",
+  "VINGINO": [
+    "BOYSTANK2PACK"
   ],
+  "GROUPE AUCHAN": [
+    "S26WKNTEE0009",
+    "S26WKNTEE0031"
+  ],
+  "MAX HOLDINGS - INVESTMENTS LTD": [
+    "1203B",
+    "1204B",
+    "1217B",
+    "1217BB",
+    "1219B",
+    "1276B",
+    "B25KGOBCTT158",
+    "B25KGOBCTT173",
+    "B25KGOBCTT174",
+    "B25KGOFSTOP385",
+    "B25WBSBC1211",
+    "B25WBSBC1414",
+    "B25WCTFEKT126J",
+    "B26KGOBCTT17",
+    "B26KGOBCTT18",
+    "B26KGOBCTT76",
+    "B26KGOBCTT77",
+    "B26KGOBCTT95",
+    "B26KGOBCTT97",
+    "B26KGOBCTT98",
+    "B26KGOFSBOT290",
+    "B26KGOFSCHTOP2038",
+    "B26KGOFSCHTOP2039",
+    "B26KGOFSSET783",
+    "B26KGOFSTOP290",
+    "B26KGYBCTGTDTR133",
+    "B26WBSBC1203",
+    "B26WBSBC1204",
+    "B26WBSBC1211",
+    "B26WBSBC1212",
+    "B26WBSBC1217",
+    "B26WBSBC1513",
+    "B26WBSBC1801",
+    "B26WMFEECOM116",
+    "B26WMFEECOM156",
+    "BSLEG",
+    "C24WBSBCECOM1219",
+    "C25KGOBCCHTOP1007",
+    "C25KGOBCLEG422",
+    "C25KGOBCTT24",
+    "C25KGOBCTT31",
+    "C25KGOBCTT35",
+    "C25KGOBCTT39",
+    "C25KGOBCTT42",
+    "C25KGOBCTT51",
+    "C25KGOBCTT58",
+    "C25KGOBCTT59",
+    "C25KGOBCTT60",
+    "C25KGOFSCHDR2025",
+    "C25KGOFSCHTOP2027",
+    "C25KGOFSCHTOP2028",
+    "C25KGOFSCHTOP2037",
+    "C25KGOFSCHTOP2129",
+    "C25KGOFSCHTOP2130",
+    "C25KGOFSCHTOP2134",
+    "C25KGOFSTOP211",
+    "C25KGOFSTOP212",
+    "C25KGOFSTOP217",
+    "C25KGOFSTOP232",
+    "C25KGOFSTOP272",
+    "C25KGOFSTOP297EX",
+    "C25KGOFSTOP322",
+    "C25KGYBCTGT232",
+    "C25KGYBCTGT233",
+    "C25KGYBCTGT296",
+    "C25KGYBCTGT299",
+    "C25KGYBCTGT306",
+    "C25KGYBCTGT307",
+    "C25KGYBCTGT341A",
+    "C25KGYBCTGT386",
+    "C25KGYBCTGT387",
+    "C25KGYBCTGT401",
+    "C25KGYBCTGT418",
+    "C25KGYBCTGT445EEX",
+    "C25KGYFETGC218",
+    "C25KGYFETGC219",
+    "C25KGYFETGC220",
+    "C25KGYFETGC222",
+    "C25KGYFETGC239",
+    "C25KGYFETGC241",
+    "C25KGYFETGC242",
+    "C25KGYFETGC298",
+    "C25KGYFETGC437",
+    "C25KGYFETGC439EEX",
+    "C25KGYFETGCDTR222",
+    "C25KGYFETGCDTR436",
+    "C25WBSBC1203",
+    "C25WBSBC1204",
+    "C25WBSBC1211",
+    "C25WBSBC1212",
+    "C25WBSBC1217",
+    "C25WBSBC1414B",
+    "C25WBSBC1513",
+    "C25WBSBC1801",
+    "C25WBSBCTR1217",
+    "C25WBSBCTR3014",
+    "C25WBSBCTR3016",
+    "C25WCTFEKT127A",
+    "C25WCTFEKT127B",
+    "C25WCTFEKT127C",
+    "C25WCTFEKT127G",
+    "C25WCTFEKT127H",
+    "C25WCTFEKT127I",
+    "C25WCTFEKT127L",
+    "C25WCTFEKT127R",
+    "C25WCTFEKT127U",
+    "C25WCTFEKT127V",
+    "C25WCTFEKT128B",
+    "C25WCTFEKT128D",
+    "C25WCTFEKT128G",
+    "C25WCTFEKT128L",
+    "C25WCTFEKT128M",
+    "C25WCTFEKT128N",
+    "C25WCTFEKT128P",
+    "C25WCTFEKT129B",
+    "C25WCTFEKT129E",
+    "C25WCTFEKTRT120",
+    "C25WCTFEKTRT120D",
+    "C25WCTFEKTRT120L",
+    "C25WCTFEKTRT120P",
+    "C25WCTFEKTRT120Q",
+    "C25WCTFEKTRT120U",
+    "C25WCTFEKTRT120X",
+    "C25WCTFEKTRT120Y",
+    "C25WCTFEKTRT121N",
+    "C25WMFEECOM115",
+    "C25WMFEECOM116",
+    "C25WMFEECOM117",
+    "C25WMFEECOM155",
+    "C25WUBNFEOMV403",
+    "C25WUBNFEOMV404",
+    "C25WUBNFEOMV416",
+    "C25WUBNFEOMV417",
+    "C25WUBNFETRI406",
+    "C25WUBNFETRI407",
+    "C25WUBNFETRI412",
+    "C25WUBNFETRI413",
+    "C25WUBNFETRI414",
+    "C25WUBNFETRI415",
+    "C25WUBNFETRI416",
+    "C25WUBNFSATE400",
+    "C25WUBNFSATE403",
+    "C25WUBNFSATE404",
+    "C25WUBNFSATE405",
+    "C25WUBNFSATE406",
+    "C25WUBNFSECOM201",
+    "C25WUBNFSECOM202",
+    "LDCS",
+    "TGTNOOSLEGGING"
+  ],
+  "KMART AUSTRALIA LIMITED": [
+    "026NS26LSL014",
+    "06NS26DPL080",
+    "06NS26DPL102",
+    "06NS26DPL325",
+    "06NS26DPL485",
+    "06NS26DPL705",
+    "06NS26LSL372",
+    "06NS26LSL397",
+    "06NS26SSH768",
+    "06NS26SSS033",
+    "06NS26SSS168",
+    "06NS26SSS196",
+    "06NS26SSS2146",
+    "06NS26SSS290",
+    "06NSTSKA7393",
+    "06S24KSS001",
+    "06S26DPL102",
+    "06W24LEG009",
+    "08NS25SSS191",
+    "08NS26SSS146",
+    "08NS26SSS162",
+    "08NS26SSS282",
+    "08NS26SSS513",
+    "08NS26SSS685",
+    "08NSTSKTDJ10",
+    "08S24KSS001",
+    "26NS26SSS790",
+    "26NSTLKXPWIY"
+  ]
 };
+
 
 const processes = [
   "All",
@@ -1047,7 +1281,7 @@ const mockDataByFilters = {
 const generateWeeks = () => {
   const weeks = [];
   for (let i = 1; i <= 52; i++) {
-    weeks.push(`W${i.toString().padStart(2, "0")}`);
+    weeks.push(`${i.toString().padStart(2, "0")}`);
   }
   return weeks;
 };
@@ -1221,6 +1455,7 @@ const RiskBadge = ({ count, color }) => (
 );
 
 const ProductionDashboard = () => {
+  const navigate = useNavigate();
   const [selectedWeek, setSelectedWeek] = useState(getCurrentWeek());
   const [selectedCustomer, setSelectedCustomer] = useState(customers[0]);
   const [selectedStyle, setSelectedStyle] = useState(
@@ -1249,34 +1484,7 @@ const ProductionDashboard = () => {
   };
 
   const currentData = getCurrentData();
-
-  // const getPlanningWeeks = () => {
-  //   return {
-  //     sourcing: {
-  //       focus: calculateFocusWeek(selectedWeek, 4),
-  //       planning: calculateFocusWeek(selectedWeek, 3),
-  //     },
-  //     fabricStore: {
-  //       focus: calculateFocusWeek(selectedWeek, 3),
-  //       planning: calculateFocusWeek(selectedWeek, 3),
-  //     },
-
-  //     cutting: {
-  //       focus: calculateFocusWeek(selectedWeek, 2),
-  //       planning: calculateFocusWeek(selectedWeek, 2),
-  //     },
-  //     vapPrinting: {
-  //       focus: calculateFocusWeek(selectedWeek,2),
-  //       planning: calculateFocusWeek(selectedWeek, 2),
-  //     }
-  //     // ,
-  //     // riskAlert: {
-  //     //   focus: calculateFocusWeek(selectedWeek, 1),
-  //     //   planning: calculateFocusWeek(selectedWeek, 1),
-  //     // }
-  //   };
-  // };
-
+  
   const getPlanningWeeks = () => {
     const weekNum = parseInt(selectedWeek.substring(1));
     return {
@@ -1306,6 +1514,16 @@ const ProductionDashboard = () => {
       return ["Sourcing", "Fabric Store", "Cutting", "VAP / Printing"];
     }
     return [selectedProcess];
+  };
+
+
+  const handleCardClick = (processRoute) => {
+    navigate(processRoute, { state: { selectedWeek } });
+  };
+
+  //RISK DASH ROUTES ROUTER --->
+  const handleClickRoute = (processRoute) => {
+    navigate(processRoute);
   };
 
   return (
@@ -1418,29 +1636,7 @@ const ProductionDashboard = () => {
                 },
               }}
             >
-
-
-              {/* <Drawer
-                anchor="left"  
-                open={filterOpen}
-                onClose={() => setFilterOpen(false)}
-                slotProps={{
-                  backdrop: {
-                    sx: {
-                      zIndex: 1401, // higher than MUI AppBar/NavBar (default 1100)
-                      backdropFilter: 'none !important',
-                      background: 'rgba(0,0,0,0.12)'
-                    },
-                  },
-                  content: {
-                    sx: {
-                      width: 270,
-                      backgroundColor: 'white',
-                      zIndex: 600,  // ensure Drawer content stays on top as well
-                    }
-                  }
-                }}
-              > */}
+ 
 
               <Box sx={{ p: 3 }}>
                 <Box
@@ -2001,117 +2197,11 @@ const ProductionDashboard = () => {
                     const statusConfig = getStatusConfig(process.status);
 
                     return (
-                      // <Grid key={process.name} xs={12} sm={6} md={3}>
-                      //   <Card
-                      //     sx={{
-                      //       background: "white", cursor: 'pointer',
-                      //       border: `2px solid ${processColors.primary}20`,
-                      //       boxShadow: `0 4px 12px ${processColors.primary}15`,
-                      //       transition: "all 0.3s ease",
-                      //       height: "100%",
-                      //       "&:hover": {
-                      //         transform: "translateY(-5px)",
-                      //         boxShadow: `0 12px 24px ${processColors.primary}25`,
-                      //         borderColor: processColors.primary,
-                      //       },
-                      //     }}
-                      //   >
-                      //       <Box
-                      //         sx={{
-                      //           width: 44,
-                      //           height: 44,
-                      //           borderRadius: "16px",
-                      //           background: `linear-gradient(135deg, ${processColors.primary} 0%, ${processColors.secondary} 100%)`,
-                      //           display: "flex",
-                      //           alignItems: "center",
-                      //           justifyContent: "center",
-                      //           color: "white",
-                      //           margin: "0 auto",
-                      //           mb: 1,
-                      //         }}
-                      //       >
-                      //         {getProcessIconOg(process.name)}
-                      //       </Box>
-                      //     <CardContent sx={{ textAlign: "center" }}>
-                      //     {/* <CardContent sx={{ textAlign: "center" }}> */}
-                      //       {/* Icon */}
-
-
-                      //       {/* Process Name */}
-                      //       <Typography
-                      //         level="title-md"
-                      //         sx={{
-                      //           color: processColors.text,
-                      //           fontWeight: 700,
-                      //           mb: 2,
-                      //         }}
-                      //       >
-                      //         {process.name}
-                      //       </Typography>
-
-                      //       {/* Orders Count */}
-                      //       <Typography
-                      //         level="h1"
-                      //         sx={{
-                      //           color: processColors.primary,
-                      //           fontWeight: 700,
-                      //           mb: 1,
-                      //         }}
-                      //       >
-                      //         {process.orders}
-                      //       </Typography>
-
-                      //       {/* Risk Badge */}
-                      //       <Box sx={{ display: "flex", justifyContent: "center", gap: 1, mb: 2 }}>
-                      //         <Chip
-                      //           size="sm"
-                      //           sx={{
-                      //             backgroundColor: statusConfig.bgColor,
-                      //             color: statusConfig.color,
-                      //             fontWeight: 700,
-                      //             fontSize: "0.75rem",
-                      //           }}
-                      //         >
-                      //           {process.risk} At Risk
-                      //         </Chip>
-                      //       </Box>
-
-                      //       {/* Progress Bar */}
-                      //       <Box>
-                      //         <Box sx={{ display: "flex", justifyContent: "center", mb: 1 }}>
-                      //           <Typography
-                      //             level="body-sm"
-                      //             sx={{
-                      //               color: processColors.text,
-                      //               fontWeight: 700,
-                      //             }}
-                      //           >
-                      //             {process.progress}%
-                      //           </Typography>
-                      //         </Box>
-
-                      //         <LinearProgress
-                      //           determinate
-                      //           value={process.progress}
-                      //           sx={{
-                      //             "--LinearProgress-thickness": "8px",
-                      //             "--LinearProgress-progressColor": getLinearBarColor(processColors.primary),
-                      //             // "--LinearProgress-progressColor":getLinearBarColor(process.progress),
-                      //             borderRadius: "4px",
-                      //             backgroundColor: `${processColors.primary}20`,
-                      //           }}
-                      //         />
-
-                      //       </Box>
-
-                      //     </CardContent>
-                      //   </Card>
-                      // </Grid>
                       <Grid key={process.name} xs={12} sm={6} md={3}>
                         <Card
                           sx={{
                             background: "white",
-                            cursor: 'pointer',
+                            cursor: "pointer",
                             border: `2px solid ${processColors.primary}20`,
                             boxShadow: `0 4px 12px ${processColors.primary}15`,
                             transition: "all 0.3s ease",
@@ -2121,6 +2211,12 @@ const ProductionDashboard = () => {
                               boxShadow: `0 12px 24px ${processColors.primary}25`,
                               borderColor: processColors.primary,
                             },
+                          }}
+                          onClick={() => {
+                            if (process.name === "Sourcing") handleCardClick("/sourcing");
+                            else if (process.name === "Fabric Store") handleCardClick("/FabricDash");
+                            else if (process.name === "Cutting") handleCardClick("/CuttingDashboard");
+                            else if (process.name === "VAP / Printing") handleCardClick("/vaprinting");
                           }}
                         >
                           <CardContent>
@@ -2180,10 +2276,7 @@ const ProductionDashboard = () => {
                               <Box sx={{ display: "flex", justifyContent: "center", mb: 1 }}>
                                 <Typography
                                   level="body-sm"
-                                  sx={{
-                                    color: processColors.text,
-                                    fontWeight: 700,
-                                  }}
+                                  sx={{ color: processColors.text, fontWeight: 700 }}
                                 >
                                   {process.progress}%
                                 </Typography>
@@ -2193,7 +2286,9 @@ const ProductionDashboard = () => {
                                 value={process.progress}
                                 sx={{
                                   "--LinearProgress-thickness": "8px",
-                                  "--LinearProgress-progressColor": getLinearBarColor(processColors.primary),
+                                  "--LinearProgress-progressColor": getLinearBarColor(
+                                    processColors.primary
+                                  ),
                                   borderRadius: "4px",
                                   backgroundColor: `${processColors.primary}20`,
                                 }}
@@ -2207,12 +2302,21 @@ const ProductionDashboard = () => {
                   })}
               </Grid>
 
+
               {/* Risk Alert Section */}
               <Card
                 sx={{
                   background: "linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)",
                   border: "2px solid #ef4444",
-                  boxShadow: "0 8px 20px rgba(239, 68, 68, 0.2)",
+                  boxShadow: "0 8px 20px rgba(239, 68, 68, 0.2)", cursor: 'pointer',
+                  "&:hover": {
+                    transform: "translateY(-5px)",
+                    boxShadow: `0 12px 24px #475569 25`,
+                    borderColor: '#1fc87e',
+                  },
+                }}
+                onClick={() => {
+                  handleClickRoute('/risksummary');
                 }}
               >
                 <CardContent>
