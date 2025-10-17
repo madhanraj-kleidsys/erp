@@ -146,3 +146,24 @@
 ## 🤝 Contributing
 
 Feel free to submit issues and enhancement requests!
+
+query :
+
+DECLARE @WkNo AS DECIMAL(20,2) = 41
+select count(*) from VuDashBoardData
+where weekno = (@WkNo+3)
+
+
+select Buyer,
+StyleCode,
+OCNo,
+Combo,
+Size,
+OPDQty,
+TtlCutQty,
+VAPDCQty,
+VAPSRNQty,
+VAPBalQty,
+WeekNo,
+LstWeekNo,
+WeekYear from VuDashBoardData
