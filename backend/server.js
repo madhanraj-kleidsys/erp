@@ -62,7 +62,7 @@ app.use('/api/getCitiesByState',getCitiesByState);
 app.use('/api',pincodeState);
 app.use('/api',apiCity);
 app.get('/api/employee-search', employeeSearch);
-app.get('/api/homedashboard',homeDashboard);
+app.post('/api/homedashboard',homeDashboard);
 app.get('/dummy',dummyApi);
 
 // app.use('/api/salesreport',salesOrderReport);
