@@ -1,5 +1,5 @@
 import React from "react";
-import {useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
   Box,
   Grid, Sheet,
@@ -124,8 +124,8 @@ const TOTAL_DELAY_HOURS = 6.5;
 // { selectedWeek = "W40" }
 export default function CuttingDashboard() {
   const location = useLocation();
-  const {selectedWeek} = location.state || {selectedWeek: "default err"};
-  const weekNumber = parseInt(selectedWeek.replace(/\D/g,""),10);
+  const { selectedWeek } = location.state || { selectedWeek: "default err" };
+  const weekNumber = parseInt(selectedWeek.replace(/\D/g, ""), 10);
   const deliveryWeekNumber = weekNumber + 2;
   const deliveryWeek = `W${deliveryWeekNumber}`;
 
@@ -166,16 +166,16 @@ export default function CuttingDashboard() {
                 // animation: "gradientShift 8s ease infinite",
               }}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                 <button onClick={() => window.history.back()} style={{ border: 'none', display: 'flex', alignItems: 'center', background: "none" }} >
+                <button onClick={() => window.history.back()} style={{ border: 'none', display: 'flex', alignItems: 'center', background: "none" }} >
                   <ReplyIcon sx={{ fontSize: 50, color: "#fff", marginRight: 0.5, cursor: "pointer" }} />
                 </button>
                 <ContentCutIcon sx={{ fontSize: 35, color: "#fff", animation: "float 4s ease-in-out infinite" }} />
                 <Box sx={{
-                     display: "flex",
+                  display: "flex",
                   flexDirection: "column",
-                  alignItems: "center",       
+                  alignItems: "center",
                   justifyContent: "center",
-                  gap: 1,                  
+                  gap: 1,
                   width: "100%"
                 }}>
                   <Typography level="h3" sx={{ fontWeight: 700, color: "#fff" }}>
@@ -1213,16 +1213,15 @@ export default function CuttingDashboard() {
                     </Box> */}
 
 
-
                 <Grid xs={12} lg={12}>
                   <Card sx={{
                     p: 3,
                     borderRadius: 12,
-                    // background: "linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)",
-                    background:"linear-gradient(180deg , rgba(233, 194, 97, 1)  , rgba(237, 212, 49, 1) 50% )",
-                    // background:"linear-gradient(180deg , rgba(230, 164, 164, 0.91)  , rgba(210, 16, 16, 1) 50% )",
-                    border: "1px solid #e2e8f0",
-                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
+// background: "linear-gradient(135deg, #4e928eff 0%, #14b8a6 50%, #5eead4 100%)"
+// background: "linear-gradient(135deg, #468092ff 0%, #06b6d4 50%, #67e8f9 100%)"
+ background: "linear-gradient(135deg, #54a28dff 0%, #059669 50%, #10b981 100%)",
+                    border: "1px solid rgba(254, 202, 202, 0.3)",
+                    boxShadow: "0 4px 20px rgba(220, 38, 38, 0.4)",
                     position: "relative",
                   }}>
                     {/* Header with clean design */}
@@ -1231,33 +1230,37 @@ export default function CuttingDashboard() {
                         width: 55,
                         height: 55,
                         borderRadius: "50%",
-                        background: "#FFF",
+                        background: "rgba(255, 255, 255, 0.95)",
                         display: "flex",
                         alignItems: "center",
-                        justifyContent: "center"
+                        justifyContent: "center",
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.2)"
                       }}>
                         <WarningIcon sx={{
                           fontSize: 39,
-                          color: "#ff0000ff",
+                          color: "#dc2626",
                           animation: "pulse 0.5s infinite"
                         }} />
                       </Box>
                       <Box>
                         <Typography level="h3" sx={{
-                          // title-lg body-lg
                           fontWeight: 700,
-                          color: "#ff0000ff",
-                          mb: 0.5 ,  animation: "pulse 0.5s infinite"
+                          color: "#ff0000ff", // Changed from red to white for better contrast
+                          mb: 0.5,
+                          animation: "pulse 0.5s infinite",
+                          textShadow: "0 2px 4px rgba(255, 255, 255, 0.3)"
                         }}>
-                          Risk Alert - Late Starts ||  Production Risk Alert
+                          Risk Alert - Late Starts || Production Risk Alert
                         </Typography>
 
-                        <Typography level="body-xs" sx={{ color: "#ffffffff" }}>
+                        <Typography level="body-xs" sx={{
+                          color: "#fef2f2",  
+                          fontWeight: 500
+                        }}>
                           Late starts detected across multiple processes
                         </Typography>
                       </Box>
                     </Box>
-
                     {/* Alert Items */}
                     <Box sx={{ mb: 1 }}>
                       {LATE_STARTS.map(({ day, delay, risk, sone }, index) => (
@@ -1364,65 +1367,70 @@ export default function CuttingDashboard() {
                       </Typography>
                     </Box>
 
+
                     {/* Impact Analysis */}
                     <Box>
-                      <Typography level="title-sm" sx={{
-                        color: "#ffffffff",
-                        mb: 1,
-                        fontWeight: 700
-                      }}>
-                        Impact Analysis
-                      </Typography>
-                      <Grid container spacing={2}>
-                        <Grid xs={6}>
-                          <Box sx={{
-                            p: 2,
-                            bgcolor: "#ffffff",
-                            border: "2px solid #fee2e2",
-                            borderRadius: 8,
-                            textAlign: "center"
-                          }}>
-                            <Typography level="h3" sx={{
-                              color: "#dc2626",
-                              fontWeight: 800,
-                              mb: 0.5
+
+                      <Box>
+                        <Typography level="title-sm" sx={{
+                          color: "#ffffffff",
+                          mb: 1,
+                          fontWeight: 700
+                        }}>
+                          Impact Analysis
+                        </Typography>
+                        <Grid container spacing={2}>
+                          <Grid xs={6}>
+                            <Box sx={{
+                              p: 2,
+                              bgcolor: "#ffffff",
+                              border: "2px solid #fee2e2",
+                              borderRadius: 8,
+                              textAlign: "center"
                             }}>
-                              {TOTAL_DELAY_HOURS}h
-                            </Typography>
-                            <Typography level="body-xs" sx={{
-                              color: "#6b7280",
-                              fontWeight: 600
+                              <Typography level="h3" sx={{
+                                color: "#dc2626",
+                                fontWeight: 800,
+                                mb: 0.5
+                              }}>
+                                {TOTAL_DELAY_HOURS}h
+                              </Typography>
+                              <Typography level="body-xs" sx={{
+                                color: "#6b7280",
+                                fontWeight: 600
+                              }}>
+                                Total Delay
+                              </Typography>
+                            </Box>
+                          </Grid>
+                          <Grid xs={6}>
+                            <Box sx={{
+                              p: 2,
+                              bgcolor: "#ffffff",
+                              border: "2px solid #fed7aa",
+                              borderRadius: 8,
+                              textAlign: "center"
                             }}>
-                              Total Delay
-                            </Typography>
-                          </Box>
+                              <Typography level="h3" sx={{
+                                color: "#d97706",
+                                fontWeight: 800,
+                                mb: 0.5
+                              }}>
+                                {UNITS_AT_RISK}
+                              </Typography>
+                              <Typography level="body-xs" sx={{
+                                color: "#6b7280",
+                                fontWeight: 600
+                              }}>
+                                Units at Risk
+                              </Typography>
+                            </Box>
+                          </Grid>
                         </Grid>
-                        <Grid xs={6}>
-                          <Box sx={{
-                            p: 2,
-                            bgcolor: "#ffffff",
-                            border: "2px solid #fed7aa",
-                            borderRadius: 8,
-                            textAlign: "center"
-                          }}>
-                            <Typography level="h3" sx={{
-                              color: "#d97706",
-                              fontWeight: 800,
-                              mb: 0.5
-                            }}>
-                              {UNITS_AT_RISK}
-                            </Typography>
-                            <Typography level="body-xs" sx={{
-                              color: "#6b7280",
-                              fontWeight: 600
-                            }}>
-                              Units at Risk
-                            </Typography>
-                          </Box>
-                        </Grid>
-                      </Grid>
+                      </Box>
                     </Box>
                   </Card>
+
                 </Grid>
 
 
@@ -1547,7 +1555,6 @@ export default function CuttingDashboard() {
                 </Grid>
               </Grid>
             </Box>
-
           </Box>
         </Box>
       </Box>
