@@ -249,19 +249,18 @@ export default function RiskExceptionDashboard({ selectedWeek = "W44" }) {
                             position: "relative",
                             overflow: "hidden",
                             boxShadow: "0 25px 50px -12px rgba(220, 38, 38, 0.4)",
-                            "&::before": {
-                                content: '""',
-                                position: "absolute",
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                bottom: 0,
-                            }
+                            // "&::before": {
+                            //     content: '""',
+                            //     position: "absolute",
+                            //     top: 0,
+                            //     left: 0,
+                            //     right: 0,
+                            //     bottom: 0,
+                            // }
                         }}>
                             {/* <Box sx={{ position: "relative", zIndex: 1 }}>
                                 <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}> */}
                             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                                {/* <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}> */}
                                 <button onClick={() => window.history.back()} style={{ border: 'none', display: 'flex', alignItems: 'center', background: "none" }} >
                                     <ReplyIcon sx={{ fontSize: 50, color: "#fff", marginRight: 0.5, cursor: "pointer" }} />
                                 </button>
