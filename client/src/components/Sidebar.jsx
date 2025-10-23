@@ -825,11 +825,11 @@ export default function Sidebar() {
     { label: "Sales Order Report", path: "/salesorderreport" },
     { label: "SKPL Personnel File", path: "/SKPL-Personnel-File" },
     { label: "Production Status", path: "/productionStatus" },
-    { label: "Sourcing", path: "/sourcing" },
-    { label: "Fabric Store", path: "/FabricDash" },
-    { label: "Cuttings", path: "/CuttingDashboard" },
-    { label: "VAP (printings)", path: "/vaprinting" },
-    { label: "Risk Summary", path: "/risksummary" }
+    // { label: "Sourcing", path: "/sourcing" },
+    // { label: "Fabric Store", path: "/FabricDash" },
+    // { label: "Cuttings", path: "/CuttingDashboard" },
+    // { label: "VAP (printings)", path: "/vaprinting" },
+    // { label: "Risk Summary", path: "/risksummary" }
   ];
 
   const filteredOtherItems = otherItems.filter(item =>
