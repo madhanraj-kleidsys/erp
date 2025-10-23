@@ -1217,9 +1217,9 @@ export default function CuttingDashboard() {
                   <Card sx={{
                     p: 3,
                     borderRadius: 12,
-// background: "linear-gradient(135deg, #4e928eff 0%, #14b8a6 50%, #5eead4 100%)"
-// background: "linear-gradient(135deg, #468092ff 0%, #06b6d4 50%, #67e8f9 100%)"
- background: "linear-gradient(135deg, #54a28dff 0%, #059669 50%, #10b981 100%)",
+// background: "linear-gradient(135deg, #4e928eff 0%, #14b8a6 50%, #5eead4 100%)",
+background: "linear-gradient(135deg, #5eaec7ff 0%, #06b6d4 50%, #67e8f9 100%)",
+//  background: "linear-gradient(135deg, #54a28dff 0%, #059669 50%, #10b981 100%)",
                     border: "1px solid rgba(254, 202, 202, 0.3)",
                     boxShadow: "0 4px 20px rgba(220, 38, 38, 0.4)",
                     position: "relative",
@@ -1247,7 +1247,7 @@ export default function CuttingDashboard() {
                           fontWeight: 700,
                           color: "#ff0000ff", // Changed from red to white for better contrast
                           mb: 0.5,
-                          animation: "pulse 0.5s infinite",
+                          animation: "pulse 0.8s infinite",
                           textShadow: "0 2px 4px rgba(255, 255, 255, 0.3)"
                         }}>
                           Risk Alert - Late Starts || Production Risk Alert
@@ -1514,7 +1514,7 @@ export default function CuttingDashboard() {
                     <Typography level="body-xs" sx={{ color: "#8b5cf6", mb: 1, fontWeight: 600 }}>
                       AVG CUTTING TIME
                     </Typography>
-                    <Typography level="h2" sx={{ color: "#fff", WebkitTextStroke: '0.8px black', fontWeight: 800 }}>
+                    <Typography level="h2" sx={{ color: "#fff", WebkitTextStroke: '0.9px black', fontWeight: 800 }}>
                       3.2h
                     </Typography>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}>

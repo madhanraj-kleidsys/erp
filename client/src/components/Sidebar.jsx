@@ -862,39 +862,45 @@ export default function Sidebar() {
           sx={{
             alignItems: 'stretch',
             position: 'fixed',
-            left:0,
+            left: 0,
             top: '50%',
             transform: 'translateY(-50%)',
             zIndex: 10001,
-            bgcolor: '#1013d64b',
-            color: '#fff',
+            bgcolor: '#19139b98',
+            color: '#ffffffff',
             borderRadius: '0 8px 8px 0',
-            width:50,   
-            height: 200, 
+            width: 39,
+            height: 200,
             borderTopRightRadius: 8,
             borderBottomRightRadius: 8,
             display: 'flex',
             justifyContent: 'center',
             cursor: 'pointer',
             '&:hover': {
-              bgcolor: '#b0ade998',
+              bgcolor: '#b0ade9e3',
+              color:'#000'
             }
           }}
         >
-             <Typography
-      sx={{
-        writingMode: 'vertical-rl',   
-        transform: 'rotate(180deg)',
-        fontSize: 18,
-        color: '#000000ff',
-        mt: 1, ml:1,mr:-1,
-        userSelect: 'none',
-        whiteSpace: 'nowrap',
-      }}
-    >
-      Click to open sidebar
-    </Typography>
-          <KeyboardArrowRightIcon sx={{ fontSize: 30,color:"#ffffffff", mt: 'auto', mb: 'auto' }} />
+          <Typography
+            sx={{
+              writingMode: 'vertical-rl',
+              transform: 'rotate(180deg)',
+              fontSize:15,
+              color: '#ffffffff',
+              mt: 1, ml: 1, mr: -1,
+              userSelect: 'none',
+              whiteSpace: 'nowrap',
+              '&:hover': {
+              bgcolor: '#b0ade9e3',
+              color:'#000'
+            }
+            }}>
+            Click to open sidebar
+          </Typography>
+          <KeyboardArrowRightIcon sx={{ fontSize: 30, color: "#000000ff", mt: 'auto', mb: 'auto','&:hover': {
+              color:'#ffffffff'
+            } }} />
         </IconButton>
       )}
 

@@ -35,6 +35,11 @@ import {
   ErrorOutline, Warning,
 } from "@mui/icons-material";
 import axios from "axios";
+
+import { Modal } from '@mui/joy';
+import CloseIcon from '@mui/icons-material/Close';
+
+
 const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 import { CssVarsProvider, extendTheme } from "@mui/joy/styles";
@@ -599,13 +604,13 @@ const ProductionDashboard = () => {
   // const [selectedStyle, setSelectedStyle] = useState(
   //   stylesByCustomer[customers[0]][0]
   // );
-   const [selectedStyle, setSelectedStyle] = useState("");
+  const [selectedStyle, setSelectedStyle] = useState("");
   const [selectedProcess, setSelectedProcess] = useState("All");
   const [selectedStatus, setSelectedStatus] = useState("On-time");
   const [weekSearch, setWeekSearch] = useState("");
   const [filterOpen, setFilterOpen] = useState(false);
 
-    const [totalOrders, setTotalOrders] = useState(0);
+  const [totalOrders, setTotalOrders] = useState(0);
   const [dashboardData, setDashboardData] = useState(null);
 
   const weeks = generateWeeks();
@@ -614,13 +619,13 @@ const ProductionDashboard = () => {
     setSelectedStyle(stylesByCustomer[selectedCustomer][0]);
   }, [selectedCustomer]);
 
-    useEffect(() => {
+  useEffect(() => {
     async function fetchDashboardData() {
       if (!selectedStyle) return;
 
       try {
         const weekNum = parseInt(selectedWeek.substring(1));
-        
+
         const response = await axios.post(`${apiUrl}/homedashboard`, {
           Buyer: selectedCustomer,
           WeekNo: weekNum,
@@ -693,6 +698,41 @@ const ProductionDashboard = () => {
   const handleClickRoute = (processRoute) => {
     navigate(processRoute);
   };
+
+
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [orderDetails, setOrderDetails] = useState(null);
+
+  // Sample data structure - replace with your actual data
+  const ORDER_BREAKDOWN = {
+    totalOrders: 150,
+    byColor: [
+      { color: 'Red', count: 45, hex: '#ef4444' },
+      { color: 'Blue', count: 38, hex: '#3b82f6' },
+      { color: 'Green', count: 32, hex: '#10b981' },
+      { color: 'Black', count: 25, hex: '#1f2937' },
+      { color: 'White', count: 10, hex: '#f3f4f6' }
+    ],
+    bySize: [
+      { size: 'S', count: 20 },
+      { size: 'M', count: 55 },
+      { size: 'L', count: 45 },
+      { size: 'XL', count: 30 }
+    ]
+  };
+
+  // Click handler function
+  const handleCardPopClick = (event) => {
+    setAnchorEl(event.currentTarget);
+    setOrderDetails(ORDER_BREAKDOWN);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
 
   return (
     <CssVarsProvider theme={theme}>
@@ -1178,11 +1218,12 @@ const ProductionDashboard = () => {
               <Grid container spacing={2} sx={{ mb: 1 }}>
                 <Grid xs={12} sm={6} lg={3}>
                   <Card
+                    onClick={handleCardPopClick}
                     sx={{
-                      background: "linear-gradient(135deg, #1fc87e 0%, #0cba6b 100%)", // Rich ERP green gradient
+                      background: "linear-gradient(135deg, #1fc87e 0%, #0cba6b 100%)",
                       color: "white",
                       boxShadow: "0 10px 25px rgba(35, 179, 120, 0.18)",
-                      transition: "all 0.3s ease",
+                      transition: "all 0.3s ease", cursor: "pointer",
                       "&:hover": {
                         transform: "translateY(-5px)",
                         boxShadow: "0 15px 35px rgba(31, 200, 126, 0.20)",
@@ -1209,8 +1250,8 @@ const ProductionDashboard = () => {
                           color: "#ffffff",
                         }}
                       >
-                        {/* {currentData.kpi.totalOrders} */}
-                         {totalOrders || 0}
+                        {currentData.kpi.totalOrders}
+                        {/* {totalOrders || 0} */}
                       </Typography>
                       <Box
                         sx={{ display: "flex", alignItems: "center", gap: 1 }}
@@ -1223,6 +1264,247 @@ const ProductionDashboard = () => {
                       </Box>
                     </CardContent>
                   </Card>
+
+                  <Modal
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    placement="top"
+                    slotProps={{
+                      backdrop: {
+                        sx: {
+                          // Remove the background blur
+                          backdropFilter: 'none!important',
+                          WebkitBackdropFilter: 'none!important',
+                          // Optionally set a solid/semi-transparent background color
+                          background: 'rgba(0,0,0,0.4)'
+                        }
+                      }
+                    }}
+                  // sx={{
+                  //   '& .MuiModal -paper': {
+                  //     boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+                  //   }
+                  // }}
+                  >
+                    <Box
+                      sx={{
+                        width: 350,
+                        maxHeight: 930,
+                        overflow: 'auto',
+                        background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+                        borderRadius: 12,
+                        border: '2px solid #1fc87e', ml: '8px', mt: '10px'
+                      }}
+                    >
+                      {/* Header */}
+                      <Box
+                        sx={{
+                          p: 2.5,
+                          background: 'linear-gradient(135deg, #1fc87e 0%, #0cba6b 100%)',
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          borderRadius: '10px 10px 0 0',
+                        }}
+                      >
+                        <Typography
+                          level="h4"
+                          sx={{ color: '#ffffff', fontWeight: 700 }}
+                        >
+                          📊 Order Breakdown
+                        </Typography>
+                        <IconButton
+                          size="sm"
+                          variant="plain"
+                          onClick={handleClose}
+                          sx={{ color: '#ffffff' }}
+                        >
+                          <CloseIcon sx={{ color: "#fff" }} />
+                        </IconButton>
+                      </Box>
+
+                      {/* Content */}
+                      <Box sx={{ p: 2 }}>
+                        {/* Total Summary */}
+                        <Box
+                          sx={{
+                            p: 2, mb: 1,
+                            bgcolor: '#f0fdf4',
+                            borderRadius: 8,
+                            border: '2px solid #86efac',
+                            textAlign: 'center',
+                          }}
+                        >
+                          <Typography level="body-sm" sx={{ color: '#15803d', mb: 0.5 }}>
+                            Total Orders
+                          </Typography>
+                          <Typography level="h2" sx={{ color: '#15803d', fontWeight: 800 }}>
+                            {orderDetails?.totalOrders || 0}
+                          </Typography>
+                        </Box>
+
+                        {/* By Color Section */}
+                        <Box sx={{ mb: 2.5 }}>
+                          <Typography
+                            level="title-md"
+                            sx={{ mb: 1.5, fontWeight: 700, color: '#1f2937' }}
+                          >
+                            🎨 Orders by Color
+                          </Typography>
+                          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+                            {orderDetails?.byColor.map((item, index) => (
+                              <Box
+                                key={index}
+                                sx={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'space-between',
+                                  p: 1.5,
+                                  bgcolor: '#ffffff',
+                                  borderRadius: 8,
+                                  border: '1px solid #e5e7eb',
+                                  transition: 'all 0.2s ease',
+                                  '&:hover': {
+                                    transform: 'translateX(5px)',
+                                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                                  },
+                                }}
+                              >
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                                  <Box
+                                    sx={{
+                                      width: 32,
+                                      height: 25,
+                                      borderRadius: '50%',
+                                      bgcolor: item.hex,
+                                      border: item.color === 'White' ? '2px solid #d1d5db' : 'none',
+                                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+                                    }}
+                                  />
+                                  <Typography level="title-sm" sx={{ fontWeight: 600 }}>
+                                    {item.color}
+                                  </Typography>
+                                </Box>
+                                <Chip
+                                  size="lg"
+                                  variant="solid"
+                                  sx={{
+                                    bgcolor: '#1fc87e',
+                                    color: '#ffffff',
+                                    fontWeight: 700,
+                                    minWidth: 50,
+                                  }}
+                                >
+                                  {item.count}
+                                </Chip>
+                              </Box>
+                            ))}
+                          </Box>
+                        </Box>
+
+                        <Divider sx={{ my: 2 }} />
+
+                        {/* By Size Section */}
+                        <Box>
+                          <Typography
+                            level="title-md"
+                            sx={{ mb: 1.5, fontWeight: 700, color: '#1f2937' }}
+                          >
+                            📏 Orders by Size
+                          </Typography>
+                          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+                            {orderDetails?.bySize.map((item, index) => (
+                              <Box
+                                key={index}
+                                sx={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'space-between',
+                                  p: 1.5,
+                                  bgcolor: '#ffffff',
+                                  borderRadius: 8,
+                                  border: '1px solid #e5e7eb',
+                                  transition: 'all 0.2s ease',
+                                  '&:hover': {
+                                    transform: 'translateX(5px)',
+                                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                                  },
+                                }}
+                              >
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                                  <Box
+                                    sx={{
+                                      width: 32,
+                                      height: 25,
+                                      borderRadius: 6,
+                                      bgcolor: '#f0fdf4',
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      border: '2px solid #86efac',
+                                    }}
+                                  >
+                                    <Typography
+                                      level="title-sm"
+                                      sx={{ fontWeight: 700, color: '#15803d' }}
+                                    >
+                                      {item.size}
+                                    </Typography>
+                                  </Box>
+                                  <Typography level="title-sm" sx={{ fontWeight: 600 }}>
+                                    Size {item.size}
+                                  </Typography>
+                                </Box>
+                                <Chip
+                                  size="lg"
+                                  variant="solid"
+                                  sx={{
+                                    bgcolor: '#0cba6b',
+                                    color: '#ffffff',
+                                    fontWeight: 700,
+                                    minWidth: 50,
+                                  }}
+                                >
+                                  {item.count}
+                                </Chip>
+                              </Box>
+                            ))}
+                          </Box>
+                        </Box>
+
+                        {/* Footer Stats */}
+                        <Box
+                          sx={{
+                            mt: 2.5,
+                            p: 2,
+                            bgcolor: '#f8fafc',
+                            borderRadius: 8,
+                            display: 'flex',
+                            justifyContent: 'space-around',
+                          }}
+                        >
+                          <Box sx={{ textAlign: 'center' }}>
+                            <Typography level="body-xs" sx={{ color: '#6b7280', mb: 0.5 }}>
+                              Colors
+                            </Typography>
+                            <Typography level="h4" sx={{ color: '#1fc87e', fontWeight: 700 }}>
+                              {orderDetails?.byColor.length || 0}
+                            </Typography>
+                          </Box>
+                          <Divider orientation="vertical" />
+                          <Box sx={{ textAlign: 'center' }}>
+                            <Typography level="body-xs" sx={{ color: '#6b7280', mb: 0.5 }}>
+                              Sizes
+                            </Typography>
+                            <Typography level="h4" sx={{ color: '#0cba6b', fontWeight: 700 }}>
+                              {orderDetails?.bySize.length || 0}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Modal >
                 </Grid>
 
                 <Grid xs={12} sm={6} lg={3}>
