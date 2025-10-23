@@ -762,7 +762,7 @@ const ESCALATIONS = [
   },
 ];
 
-    const keyframes = `
+const keyframes = `
   @keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -839,9 +839,9 @@ export default function App() {
                 <Box sx={{
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "center",       
+                  alignItems: "center",
                   justifyContent: "center",
-                  gap: 1,                  
+                  gap: 1,
                   width: "100%"
                 }}>
                   <Typography level="h3" sx={{ fontWeight: 700, color: "#fff", }}>
@@ -879,7 +879,11 @@ export default function App() {
             </Sheet>
             <style>{keyframes}</style>
 
-            <Box sx={{ minHeight: "50vh", bgcolor: "#f1f5f9", p: { xs: 2, sm: 3, md: 2 } }}>
+            <Box sx={{
+              minHeight: "50vh",
+              // bgcolor: "#f1f5f9",
+              p: { xs: 2, sm: 3, md: 2 }
+            }}>
 
               {/* Enhanced Cards Row */}
               <Grid container spacing={3}  >
@@ -973,7 +977,8 @@ export default function App() {
                             Customer Name
                           </Typography>
                           <Select value={customer} onChange={(e, val) => setCustomer(val)}
-                            sx={{ bgcolor: "rgba(255,255,255,0.9)" }}>
+                          // sx={{ bgcolor: "rgba(255,255,255,0.9)" }}
+                          >
                             {CUSTOMERS.map(c => <Option key={c} value={c}>{c}</Option>)}
                           </Select>
                         </Box>
@@ -982,7 +987,8 @@ export default function App() {
                             Style
                           </Typography>
                           <Select value={style} onChange={(e, val) => setStyle(val)}
-                            sx={{ bgcolor: "rgba(255,255,255,0.9)" }}>
+                          // sx={{ bgcolor: "rgba(255,255,255,0.9)" }}
+                          >
                             {STYLES.map(s => <Option key={s} value={s}>{s}</Option>)}
                           </Select>
                         </Box>
@@ -1027,29 +1033,39 @@ export default function App() {
                           Order Matrix
                         </Typography>
                       </Box>
-                      <Card sx={{ bgcolor: "#fff", borderRadius: 8, boxShadow: 2 }}>
+                      <Card sx={{
+                        // bgcolor: "#fb0000ff",
+                        borderRadius: 8, boxShadow: 2
+                      }}>
                         <Table size="sm">
                           <thead>
+                            {/* color: "#000000ff",
+color: "#000000ff",
+color: "#000000ff",
+color: "#000000ff",
+color: "#000000ff",
+color: "#000000ff",
+color: "#000000ff", */}
                             <tr style={{ background: "linear-gradient(135deg, #8B5CF6, #7C3AED)" }}>
-                              <th style={{ fontSize: "12px", fontWeight: 700, color: "#000000ff", padding: "12px 8px" }}>Color</th>
-                              <th style={{ fontSize: "12px", fontWeight: 700, color: "#000000ff", textAlign: "center", padding: "12px 4px" }}>XS</th>
-                              <th style={{ fontSize: "12px", fontWeight: 700, color: "#000000ff", textAlign: "center", padding: "12px 4px" }}>S</th>
-                              <th style={{ fontSize: "12px", fontWeight: 700, color: "#000000ff", textAlign: "center", padding: "12px 4px" }}>M</th>
-                              <th style={{ fontSize: "12px", fontWeight: 700, color: "#000000ff", textAlign: "center", padding: "12px 4px" }}>L</th>
-                              <th style={{ fontSize: "12px", fontWeight: 700, color: "#000000ff", textAlign: "center", padding: "12px 4px" }}>XL</th>
-                              <th style={{ fontSize: "12px", fontWeight: 700, color: "#000000ff", textAlign: "center", padding: "12px 4px" }}>XXL</th>
+                              <th style={{ fontSize: "12px", fontWeight: 700, padding: "12px 8px" }}>Color</th>
+                              <th style={{ fontSize: "12px", fontWeight: 700, textAlign: "center", padding: "12px 4px" }}>XS</th>
+                              <th style={{ fontSize: "12px", fontWeight: 700, textAlign: "center", padding: "12px 4px" }}>S</th>
+                              <th style={{ fontSize: "12px", fontWeight: 700, textAlign: "center", padding: "12px 4px" }}>M</th>
+                              <th style={{ fontSize: "12px", fontWeight: 700, textAlign: "center", padding: "12px 4px" }}>L</th>
+                              <th style={{ fontSize: "12px", fontWeight: 700, textAlign: "center", padding: "12px 4px" }}>XL</th>
+                              <th style={{ fontSize: "12px", fontWeight: 700, textAlign: "center", padding: "12px 4px" }}>XXL</th>
                             </tr>
                           </thead>
                           <tbody>
                             {ORDER_MATRIX.map(({ color, ...sizes }) => (
                               <tr key={color}>
-                                <td style={{ fontSize: "12px", fontWeight: 600, color: "#374151", padding: "4px" }}>{color}</td>
+                                <td style={{ fontSize: "12px", fontWeight: 600, padding: "4px" }}>{color}</td>
                                 {Object.values(sizes).map((num, i) => (
                                   <td key={i} style={{
                                     fontSize: "12px",
                                     textAlign: "center",
                                     padding: "2px 4px",
-                                    color: "#6B7280",
+                                    // color: "#6B7280",
                                     fontWeight: 500
                                   }}>{num}</td>
                                 ))}
@@ -1127,7 +1143,7 @@ export default function App() {
                 {/* Enhanced Bar Chart */}
                 <Grid xs={12} md={6}>
                   <Card sx={{
-                    bgcolor: "#fff",
+                    // bgcolor: "#fff",
                     borderRadius: 4,
                     boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
                     border: "1px solid #E5E7EB"
@@ -1135,7 +1151,10 @@ export default function App() {
                     <CardContent sx={{ pt: 2, pl: 4, pr: 4, pb: 4 }}>
                       <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
                         <BarChartIcon sx={{ mr: 2, color: "#3B82F6", fontSize: 28 }} />
-                        <Typography level="title-lg" sx={{ fontWeight: 700, color: "#111827" }}>
+                        <Typography level="title-lg" sx={{
+                          fontWeight: 700,
+                          // color: "#111827"
+                        }}>
                           PO Status Distribution
                         </Typography>
                       </Box>
@@ -1176,7 +1195,7 @@ export default function App() {
                 {/* Enhanced Pie Chart */}
                 <Grid xs={12} md={6}>
                   <Card sx={{
-                    bgcolor: "#fff",
+                    // bgcolor: "#fff",
                     borderRadius: 4,
                     boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
                     border: "1px solid #E5E7EB"
@@ -1184,7 +1203,10 @@ export default function App() {
                     <CardContent sx={{ pt: 2, pl: 4, pr: 4, pb: 4 }}>
                       <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
                         <PieChartIcon sx={{ mr: 2, color: "#8B5CF6", fontSize: 28 }} />
-                        <Typography level="title-lg" sx={{ fontWeight: 700, color: "#111827" }}>
+                        <Typography level="title-lg" sx={{
+                          fontWeight: 700,
+                          // color: "#111827"
+                        }}>
                           Customer-Wise Contribution
                         </Typography>
                       </Box>
@@ -1230,7 +1252,7 @@ export default function App() {
 
               <Grid xs={12} md={4}>
                 <Card sx={{
-                  bgcolor: "#fff",
+                  // bgcolor: "#fff",
                   borderRadius: 4,
                   boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
                   border: "1px solid #E5E7EB", mb: 2
@@ -1238,7 +1260,10 @@ export default function App() {
                   <CardContent sx={{ p: 1 }}>
                     <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                       <TimelineIcon sx={{ mr: 2, color: "#10B981", fontSize: 28 }} />
-                      <Typography level="title-lg" sx={{ fontWeight: 700, color: "#111827" }}>
+                      <Typography level="title-lg" sx={{
+                        fontWeight: 700,
+                        // color: "#111827"
+                      }}>
                         Weekly PO Trend
                       </Typography>
                     </Box>
@@ -1318,7 +1343,7 @@ export default function App() {
                 {/* Enhanced Alerts */}
                 <Grid xs={12} md={6}>
                   <Card sx={{
-                    bgcolor: "#fff",
+                    // bgcolor: "#fff",
                     borderRadius: 4,
                     boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
                     border: "1px solid #E5E7EB"
@@ -1326,7 +1351,10 @@ export default function App() {
                     <CardContent sx={{ p: 4 }}>
                       <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
                         <NotificationsIcon sx={{ mr: 2, color: "#F59E0B", fontSize: 28 }} />
-                        <Typography level="title-lg" sx={{ fontWeight: 700, color: "#111827" }}>
+                        <Typography level="title-lg" sx={{
+                          fontWeight: 700,
+                          // color: "#111827" 
+                        }}>
                           Alerts & Notifications
                         </Typography>
                       </Box>
@@ -1360,7 +1388,7 @@ export default function App() {
                 {/* Enhanced Escalations */}
                 <Grid xs={12} md={6}>
                   <Card sx={{
-                    bgcolor: "#fff",
+                    // bgcolor: "#fff",
                     borderRadius: 4,
                     boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
                     border: "1px solid #E5E7EB"
@@ -1368,7 +1396,10 @@ export default function App() {
                     <CardContent sx={{ p: 4 }}>
                       <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
                         <WarningAmberRounded sx={{ mr: 2, color: "#EF4444", fontSize: 28 }} />
-                        <Typography level="title-lg" sx={{ fontWeight: 700, color: "#111827" }}>
+                        <Typography level="title-lg" sx={{
+                          fontWeight: 700,
+                          // color: "#111827"
+                        }}>
                           Escalations
                         </Typography>
                       </Box>

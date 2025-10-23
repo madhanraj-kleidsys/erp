@@ -767,6 +767,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 import { AuthContext } from "../AuthContext";
 
+import ColorSchemeToggle from "./ColorSchemaToggle";
 const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
 function Toggler({ defaultExpanded = false, renderToggle, children }) {
@@ -947,6 +948,7 @@ export default function Sidebar() {
             />
             <Typography level="title-lg">{name || 'admin'}</Typography>
           </Box>
+          <ColorSchemeToggle sx={{ ml: 'auto' }} />
           <IconButton onClick={() => setSidebarOpen(false)}>
             <CloseRoundedIcon />
           </IconButton>

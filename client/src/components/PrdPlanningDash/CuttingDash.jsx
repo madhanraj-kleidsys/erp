@@ -404,59 +404,63 @@ export default function CuttingDashboard() {
                   <Card sx={{ p: 1.2, height: "100%", borderRadius: 8 }}>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
                       <AssessmentIcon sx={{ color: "#475569", fontSize: 16 }} />
-                      <Typography level="body-sm" sx={{ fontWeight: 600, color: "#1e293b", fontSize: 20 }}>
+                      <Typography level="body-sm" sx={{ fontWeight: 600, fontSize: 20
+                        // , color: "#1e293b"
+                       }}>
                         Filter & Search
                       </Typography>
                     </Box>
                     <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
                       <Box>
-                        <Typography level="body-xs" sx={{ mb: 0.35, fontWeight: 600, color: "#475569", fontSize: 11 }}>
+                        <Typography level="body-xs" sx={{ mb: 0.35, fontWeight: 600, fontSize: 11 }}>
+                           {/*-------------- COLOR FOR ALL ----- color: "#475569", */}
                           Line
                         </Typography>
                         <Select
                           value={line}
                           onChange={(e, val) => setLine(val)}
                           size="sm"
-                          sx={{ width: "100%", bgcolor: "#fff", fontSize: 10, minHeight: 26 }}
+                          // add tis below sx bgcolor: "#fff", 
+                          sx={{ width: "100%", fontSize: 10, minHeight: 26 }}
                         >
                           {LINES.map(l => <Option key={l} value={l}>{l}</Option>)}
                         </Select>
                       </Box>
                       <Box>
-                        <Typography level="body-xs" sx={{ mb: 0.35, fontWeight: 600, color: "#475569", fontSize: 11 }}>
+                        <Typography level="body-xs" sx={{ mb: 0.35, fontWeight: 600, fontSize: 11 }}>
                           Block
                         </Typography>
                         <Select
                           value={block}
                           onChange={(e, val) => setBlock(val)}
                           size="sm"
-                          sx={{ width: "100%", bgcolor: "#fff", fontSize: 10, minHeight: 26 }}
+                          sx={{ width: "100%", fontSize: 10, minHeight: 26 }}
                         >
                           {BLOCKS.map(b => <Option key={b} value={b}>{b}</Option>)}
                         </Select>
                       </Box>
                       <Box>
-                        <Typography level="body-xs" sx={{ mb: 0.35, fontWeight: 600, color: "#475569", fontSize: 11 }}>
+                        <Typography level="body-xs" sx={{ mb: 0.35, fontWeight: 600,fontSize: 11 }}>
                           Style
                         </Typography>
                         <Select
                           value={style}
                           onChange={(e, val) => setStyle(val)}
                           size="sm"
-                          sx={{ width: "100%", bgcolor: "#fff", fontSize: 10, minHeight: 26 }}
+                          sx={{ width: "100%", fontSize: 10, minHeight: 26 }}
                         >
                           {STYLES.map(s => <Option key={s} value={s}>{s}</Option>)}
                         </Select>
                       </Box>
                       <Box>
-                        <Typography level="body-xs" sx={{ mb: 0.35, fontWeight: 600, color: "#475569", fontSize: 11 }}>
+                        <Typography level="body-xs" sx={{ mb: 0.35, fontWeight: 600, fontSize: 11 }}>
                           Color
                         </Typography>
                         <Select
                           value={color}
                           onChange={(e, val) => setColor(val)}
                           size="sm"
-                          sx={{ width: "100%", bgcolor: "#fff", fontSize: 10, minHeight: 26 }}
+                          sx={{ width: "100%", fontSize: 10, minHeight: 26 }}
                         >
                           {COLORS.map(c => <Option key={c} value={c}>{c}</Option>)}
                         </Select>
@@ -490,14 +494,16 @@ export default function CuttingDashboard() {
                 <Grid xs={12} lg={12}>
                   <Card sx={{
                     p: 4,
-                    background: "#ffffffff",
+                    // background: "#ffffffff",
                     backdropFilter: "blur(20px)",
                     border: "1px solid rgba(99, 102, 241, 0.3)",
                     boxShadow: "0 8px 32px rgba(99, 102, 241, 0.2)",
                   }}>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 3 }}>
                       <TimelineIcon sx={{ fontSize: 28, color: "#6366f1" }} />
-                      <Typography level="title-lg" sx={{ fontWeight: 700, color: "#000000ff" }}>
+                      <Typography level="title-lg" sx={{ fontWeight: 700, 
+                        // color: "#000000ff"
+                         }}>
                         Daily Cutting Trend
                       </Typography>
                     </Box>
@@ -617,7 +623,7 @@ export default function CuttingDashboard() {
                           sx={{
                             p: 1,
                             mb: 0.8,
-                            background: "#ffffff",
+                            background: "#ffffffca",
                             borderRadius: 8,
                             // border: risk === 'Critical'
                             //   ? "2px solid #dc2626"

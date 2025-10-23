@@ -1,4 +1,4 @@
-:root {
+/* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -86,4 +86,4 @@ button:focus-visible {
 @keyframes slideRight {
   from { opacity: 0; transform: translateX(-25px); }
   to { opacity: 1; transform: translateX(0px); }
-}
+} */

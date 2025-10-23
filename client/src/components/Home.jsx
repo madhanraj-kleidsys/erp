@@ -719,7 +719,9 @@ console.log(`useecft : ${weekNum}`);
   return (
     <CssVarsProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ display: "flex", minHeight: "100dvh", bgcolor: "white" }}>
+      <Box sx={{ display: "flex", minHeight: "100dvh", 
+        // bgcolor: "white"
+         }}>
         <Sidebar />
         {/* <Box sx={{ flexGrow: 1, p: 1, overflowY: "auto" }}> */}
         <Box sx={{ flexGrow: 1, p: 2 }}>
@@ -741,7 +743,9 @@ console.log(`useecft : ${weekNum}`);
               gap: 1,
             }}
           > */}
-          <Box sx={{ minHeight: "100vh", backgroundColor: "#f8fafc" }}>
+          <Box sx={{ minHeight: "100vh", 
+            // backgroundColor: "#ffffffff"
+             }}>
             {/* <Box
                 sx={{
                   position: 'sticky',
@@ -1629,14 +1633,16 @@ console.log(`useecft : ${weekNum}`);
                 sx={{
                   mb: 3,
                   borderColor: "#e2e8f0",
-                  backgroundColor: "white",
+                  // backgroundColor: "white",
                   boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
                 }}
               >
                 <CardContent>
                   <Typography
                     level="h4"
-                    sx={{ mb: 0.5, color: "#0f172a", fontWeight: 700 }}
+                    sx={{ mb: 0.5, 
+                      // color: "#0f172a",
+                       fontWeight: 700 }}
                   >
                     Process Planning
                   </Typography>
@@ -1645,9 +1651,9 @@ console.log(`useecft : ${weekNum}`);
                     <Table
                       sx={{
                         "& thead th": {
-                          backgroundColor: "#f8fafc",
+                          // backgroundColor: "#f8fafc",
                           fontWeight: 700,
-                          color: "#475569",
+                          // color: "#475569",
                           borderBottom: "2px solid #e2e8f0",
                           py: 1,
                         },
@@ -1656,7 +1662,7 @@ console.log(`useecft : ${weekNum}`);
                           borderBottom: "1px solid #f1f5f9",
                         },
                         "& tbody tr:hover": {
-                          backgroundColor: "#f8fafc",
+                          backgroundColor: "#cecaca1d",
                         },
                       }}
                     >
@@ -1722,7 +1728,9 @@ console.log(`useecft : ${weekNum}`);
                                   </Box>
                                   <Typography
                                     level="body-md"
-                                    sx={{ fontWeight: 600, color: "#0f172a" }}
+                                    sx={{ fontWeight: 600,
+                                      // color: "#0f172a"
+                                     }}
                                   >
                                     {processName}
                                   </Typography>
@@ -1739,7 +1747,7 @@ console.log(`useecft : ${weekNum}`);
                                     variant="outlined"
                                     sx={{
                                       borderColor: "#cbd5e1",
-                                      color: "#475569",
+                                      // color: "#475569",
                                       fontWeight: 600,
                                     }}
                                   >
@@ -1809,7 +1817,9 @@ console.log(`useecft : ${weekNum}`);
               </Card>
 
               <Box sx={{ mb: 1 }}>
-                <Typography level="h4" sx={{ color: "#0f172a", fontWeight: 700 }}>
+                <Typography level="h4" sx={{ 
+                  // color: "#0f172a",
+                   fontWeight: 700 }}>
                   Production Status by Process
                 </Typography>
                 <Typography level="body-sm" sx={{ color: "#64748b", mt: 0.5 }}>
@@ -1829,7 +1839,7 @@ console.log(`useecft : ${weekNum}`);
                       <Grid key={process.name} xs={12} sm={6} md={3}>
                         <Card
                           sx={{
-                            background: "white",
+                            // background: "white",
                             cursor: "pointer",
                             border: `2px solid ${processColors.primary}20`,
                             boxShadow: `0 4px 12px ${processColors.primary}15`,
@@ -1976,7 +1986,7 @@ console.log(`useecft : ${weekNum}`);
                   <Box sx={{ overflowX: "auto" }}>
                     <Table
                       sx={{
-                        backgroundColor: "white",
+                        // backgroundColor: "white",
                         borderRadius: "12px",
                         overflow: "hidden",
                         "& thead th": {
@@ -1997,6 +2007,9 @@ console.log(`useecft : ${weekNum}`);
                         "& tbody tr:hover": {
                           backgroundColor: "#fef2f2",
                         },
+                        // "& tbody tr":{
+                        //   backgroundColor: "#000000ff",
+                        // }
                       }}
                     >
                       <thead>

@@ -65,7 +65,7 @@ const PRINTING_STATUS = {
 };
 
 
-    const keyframes = `
+const keyframes = `
   @keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -327,7 +327,7 @@ export default function VAPDashboard() {
                                                     placeholder="Select Customer"
                                                     value={customer}
                                                     onChange={(e, val) => setCustomer(val)}
-                                                    sx={{ bgcolor: "rgba(255,255,255,0.9)" }}
+                                                    // sx={{ bgcolor: "rgba(255,255,255,0.9)", color: "#000" }}
                                                 >
                                                     {CUSTOMERS.map(c => <Option key={c} value={c}>{c}</Option>)}
                                                 </Select>
@@ -335,7 +335,8 @@ export default function VAPDashboard() {
                                                     placeholder="Select Style"
                                                     value={style}
                                                     onChange={(e, val) => setStyle(val)}
-                                                    sx={{ bgcolor: "rgba(255,255,255,0.9)" }}
+                                                    // sx={{ bgcolor: "rgba(255,255,255,0.9)", color: "#000" }}
+
                                                 >
                                                     {STYLES.map(s => <Option key={s} value={s}>{s}</Option>)}
                                                 </Select>
@@ -343,7 +344,8 @@ export default function VAPDashboard() {
                                                     placeholder="Process Date"
                                                     value={processDate}
                                                     onChange={(e, val) => setProcessDate(val)}
-                                                    sx={{ bgcolor: "rgba(255,255,255,0.9)" }}
+                                                    // sx={{ bgcolor: "rgba(255,255,255,0.9)",color:"#000" }}
+
                                                 >
                                                     {PROCESS_DATES.map(d => <Option key={d} value={d}>{d}</Option>)}
                                                 </Select>
@@ -358,7 +360,7 @@ export default function VAPDashboard() {
                                 {/* Printing Status Pie Chart */}
                                 <Grid xs={12} lg={6}>
                                     <Card sx={{
-                                        background: "white",
+                                        // background: "white",
                                         border: "1px solid #E2E8F0",
                                         boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
                                         borderRadius: 3
@@ -396,7 +398,7 @@ export default function VAPDashboard() {
                                 {/* VAP Load Heatmap */}
                                 <Grid xs={12} lg={6}>
                                     <Card sx={{
-                                        background: "white",
+                                        // background: "white",
                                         border: "1px solid #E2E8F0",
                                         boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
                                         borderRadius: 3
@@ -755,7 +757,7 @@ export default function VAPDashboard() {
 
                             {/* Delay Tracker Table */}
                             <Card sx={{
-                                background: "white",
+                                // background: "white",
                                 border: "1px solid #E2E8F0",
                                 boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
                                 borderRadius: 3

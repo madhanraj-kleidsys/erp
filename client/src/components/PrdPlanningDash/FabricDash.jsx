@@ -196,7 +196,9 @@ const deliveryWeek = `W${deliveryWeekNumber}`;
                         </Sheet>
                         <style>{keyframes}</style>
 
-                        <Box sx={{ minHeight: "100vh", bgcolor: "#f1f5f9", p: { xs: 2, sm: 3, md: 3 } }}>
+                        <Box sx={{ minHeight: "100vh",
+                            // bgcolor: "#f1f5f9", 
+                            p: { xs: 2, sm: 3, md: 3 } }}>
 
                             {/* KPI Cards */}
                             {/* <Grid container spacing={3} sx={{ mb: 2 }}>
