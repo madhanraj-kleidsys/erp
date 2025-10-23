@@ -64,6 +64,35 @@ const PRINTING_STATUS = {
     delayed: 32,
 };
 
+
+    const keyframes = `
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+  
+  @keyframes slideIn {
+    from { transform: translateX(-20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.5); }
+    50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.8); }
+  }
+`;
+
 const BALANCE_TO_PRINT = 275;
 const DELAYED_PANELS = 32;
 
@@ -113,6 +142,7 @@ export default function VAPDashboard() {
     // const deliveryWeek = "W42";
     const completionRate = (PRINTING_STATUS.completed / (PRINTING_STATUS.completed + PRINTING_STATUS.inProgress + PRINTING_STATUS.pending + PRINTING_STATUS.delayed)) * 100;
 
+
     return (
         <CssVarsProvider theme={theme}>
             <CssBaseline />
@@ -138,7 +168,7 @@ export default function VAPDashboard() {
                                 <button onClick={() => window.history.back()} style={{ border: 'none', display: 'flex', alignItems: 'center', background: "none" }} >
                                     <ReplyIcon sx={{ fontSize: 50, color: "#fff", marginRight: 0.5, cursor: "pointer" }} />
                                 </button>
-                                <PrintIcon sx={{ fontSize: 32, color: "#ffffffff", mr: 1 }} />
+                                <PrintIcon sx={{ fontSize: 32, color: "#ffffffff", mr: 1, animation: "float 4s ease-in-out infinite" }} />
                                 <Box sx={{
                                     display: "flex",
                                     flexDirection: "column",
@@ -179,6 +209,7 @@ export default function VAPDashboard() {
                                 </Box>
                             </Box>
                         </Sheet>
+                        <style>{keyframes}</style>
 
                         <Box sx={{ minHeight: "100vh", p: { xs: 2, sm: 3, md: 3 } }}>
 

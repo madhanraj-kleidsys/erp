@@ -66,6 +66,34 @@ const theme = extendTheme({
     },
 });
 
+const keyframes = `
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+  
+  @keyframes slideIn {
+    from { transform: translateX(-20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.5); }
+    50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.8); }
+  }
+`;
+
 // Mock Data
 const RISK_SUMMARY = {
     highRisk: 24,
@@ -233,7 +261,7 @@ export default function RiskExceptionDashboard({ selectedWeek = "W44" }) {
                 <Sidebar />
                 <Box sx={{ flexGrow: 1, p: 1 }}>
                     <Header />
-                    <Box sx={{ pb: 2, flex: 1, display: "flex", flexDirection: "column", gap: 3 }}>
+                    <Box sx={{ pb: 1, flex: 1, display: "flex", flexDirection: "column", gap: 3 }}>
 
                         {/* Dramatic Header */}
                         <Sheet sx={{
@@ -301,9 +329,10 @@ export default function RiskExceptionDashboard({ selectedWeek = "W44" }) {
                             {/* </Box>
                             </Box> */}
                         </Sheet>
+                        <style>{keyframes}</style>
 
                         {/* Animated Risk Summary Cards */}
-                        <Box sx={{ minHeight: "100vh", p: { xs: 2, sm: 3, md: 3 } }} >
+                        <Box sx={{ minHeight: "100vh", p: { xs: 2, sm: 3, md: 2 } }} >
 
                             <Grid container spacing={3} sx={{ mb: 1 }}>
                                 <Grid xs={12} md={3}>

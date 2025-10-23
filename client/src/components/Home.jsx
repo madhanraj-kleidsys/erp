@@ -512,21 +512,6 @@ const getProcessColor = (name) => {
   }
 };
 
-const getProgressColor = (name) => {
-  switch (name) {
-    case "Sourcing":
-      return "#1fc87e";
-    case "Fabric Store":
-      return "#1c80fe";
-    case "Cutting":
-      return "#ff9800";
-    case "VAP / Printing":
-      return "#f44336";
-    default:
-      return "#475569";
-  }
-};
-
 const getStatusConfig = (status) => {
   switch (status) {
     case "on-track":
@@ -658,37 +643,33 @@ const ProductionDashboard = () => {
 
   const currentData = getCurrentData();
 
-  const getPlanningWeeks = () => {
-    const weekNum = parseInt(selectedWeek.substring(1));
-    return {
-      sourcing: {
-        focus: `W${(weekNum + 4).toString().padStart(2, "0")}`,
-        planning: `W${(weekNum + 3).toString().padStart(2, "0")}`,
-      },
-      fabricStore: {
-        focus: `W${(weekNum + 3).toString().padStart(2, "0")}`,
-        planning: `W${(weekNum + 3).toString().padStart(2, "0")}`,
-      },
-      cutting: {
-        focus: `W${(weekNum + 2).toString().padStart(2, "0")}`,
-        planning: `W${(weekNum + 2).toString().padStart(2, "0")}`,
-      },
-      vapPrinting: {
-        focus: `W${(weekNum + 2).toString().padStart(2, '0')}`,
-        planning: `W${(weekNum + 2).toString().padStart(2, '0')}`,
-      }
-    };
+const getPlanningWeeks = () => {
+  const weekNum = parseInt(selectedWeek.substring(1));
+  console.log(weekNum);
+
+  return {
+    sourcing: {
+      focus: `W${(weekNum + 4).toString().padStart(2, "0")}`,
+      planning: `W${(weekNum + 3).toString().padStart(2, "0")}`,
+    },
+    fabricstore: { // <--- quoted!
+      focus: `W${(weekNum + 3).toString().padStart(2, "0")}`,
+      planning: `W${(weekNum + 3).toString().padStart(2, "0")}`,
+    },
+    cutting: {
+      focus: `W${(weekNum + 2).toString().padStart(2, "0")}`,
+      planning: `W${(weekNum + 2).toString().padStart(2, "0")}`,
+    },
+    vapprinting: { // <--- quoted!
+      focus: `W${(weekNum + 2).toString().padStart(2, '0')}`,
+      planning: `W${(weekNum + 2).toString().padStart(2, '0')}`,
+    }
+    // No trailing comma needed here.
   };
+};
+
 
   const planningWeeks = getPlanningWeeks();
-
-  const getVisibleProcesses = () => {
-    if (selectedProcess === "All") {
-      return ["Sourcing", "Fabric Store", "Cutting", "VAP / Printing"];
-    }
-    return [selectedProcess];
-  };
-
 
   const handleCardClick = (processRoute) => {
     navigate(processRoute, { state: { selectedWeek } });
@@ -698,8 +679,6 @@ const ProductionDashboard = () => {
   const handleClickRoute = (processRoute) => {
     navigate(processRoute);
   };
-
-
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [orderDetails, setOrderDetails] = useState(null);
@@ -1250,8 +1229,8 @@ const ProductionDashboard = () => {
                           color: "#ffffff",
                         }}
                       >
-                        {currentData.kpi.totalOrders}
-                        {/* {totalOrders || 0} */}
+                        {/* {currentData.kpi.totalOrders} */}
+                        {totalOrders || 0}
                       </Typography>
                       <Box
                         sx={{ display: "flex", alignItems: "center", gap: 1 }}
