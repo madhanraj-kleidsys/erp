@@ -438,11 +438,13 @@ const getCurrentWeek = () => {
     (start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000;
   const oneWeek = 1000 * 60 * 60 * 24 * 7;
   const week = Math.floor(diff / oneWeek);
-  return `W${week.toString().padStart(2, "0")}`;
+  return `${week.toString().padStart(2, "0")}`;
 };
 
 const getWeekDateRange = (week) => {
-  const weekNum = parseInt(week.substring(1));
+  const weekNum = parseInt(week.substring(0));
+  console.log(`getWeekDateRange : ${weekNum}`);
+  
   const year = new Date().getFullYear();
   const startDate = new Date(year, 0, 1 + (weekNum - 1) * 7);
   const endDate = new Date(startDate);
@@ -609,7 +611,8 @@ const ProductionDashboard = () => {
       if (!selectedStyle) return;
 
       try {
-        const weekNum = parseInt(selectedWeek.substring(1));
+        const weekNum = parseInt(selectedWeek.substring(0));
+console.log(`useecft : ${weekNum}`);
 
         const response = await axios.post(`${apiUrl}/homedashboard`, {
           Buyer: selectedCustomer,
@@ -643,30 +646,29 @@ const ProductionDashboard = () => {
 
   const currentData = getCurrentData();
 
-const getPlanningWeeks = () => {
-  const weekNum = parseInt(selectedWeek.substring(1));
-  console.log(weekNum);
-
-  return {
-    sourcing: {
-      focus: `W${(weekNum + 4).toString().padStart(2, "0")}`,
-      planning: `W${(weekNum + 3).toString().padStart(2, "0")}`,
-    },
-    fabricstore: { // <--- quoted!
-      focus: `W${(weekNum + 3).toString().padStart(2, "0")}`,
-      planning: `W${(weekNum + 3).toString().padStart(2, "0")}`,
-    },
-    cutting: {
-      focus: `W${(weekNum + 2).toString().padStart(2, "0")}`,
-      planning: `W${(weekNum + 2).toString().padStart(2, "0")}`,
-    },
-    vapprinting: { // <--- quoted!
-      focus: `W${(weekNum + 2).toString().padStart(2, '0')}`,
-      planning: `W${(weekNum + 2).toString().padStart(2, '0')}`,
-    }
-    // No trailing comma needed here.
+  const getPlanningWeeks = () => {
+    const weekNum = parseInt(selectedWeek);
+    // .substring(2)
+    return {
+      sourcing: {
+        focus: `W${(weekNum + 4).toString().padStart(2, "0")}`,
+        planning: `W${(weekNum + 3).toString().padStart(2, "0")}`,
+      },
+      fabricstore: { // <--- quoted!
+        focus: `W${(weekNum + 3).toString().padStart(2, "0")}`,
+        planning: `W${(weekNum + 3).toString().padStart(2, "0")}`,
+      },
+      cutting: {
+        focus: `W${(weekNum + 2).toString().padStart(2, "0")}`,
+        planning: `W${(weekNum + 2).toString().padStart(2, "0")}`,
+      },
+      vapprinting: { // <--- quoted!
+        focus: `W${(weekNum + 2).toString().padStart(2, '0')}`,
+        planning: `W${(weekNum + 2).toString().padStart(2, '0')}`,
+      }
+      // No trailing comma needed here.
+    };
   };
-};
 
 
   const planningWeeks = getPlanningWeeks();
@@ -712,6 +714,7 @@ const getPlanningWeeks = () => {
   };
 
   const open = Boolean(anchorEl);
+  console.log(`TOTAL ORDERS :: ${totalOrders}`);
 
   return (
     <CssVarsProvider theme={theme}>
@@ -788,7 +791,7 @@ const getPlanningWeeks = () => {
 
               <Box sx={{ textAlign: "right", mr: 5 }}>
                 <Typography level="body-lg" sx={{ color: "#ffffffff" }}>
-                  Selected Week : {selectedWeek}
+                  Selected Week : W{selectedWeek}
                 </Typography>
                 <Typography level="body-sm" sx={{ color: "#ffffffff" }}>
                   {getWeekDateRange(selectedWeek)}
