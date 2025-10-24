@@ -1296,7 +1296,8 @@ console.log(`useecft : ${weekNum}`);
                       >
                         <Typography
                           level="h4"
-                          sx={{ color: '#ffffff', fontWeight: 700 }}
+                          //  color: '#ffffff',
+                          sx={{ fontWeight: 700 }}
                         >
                           📊 Order Breakdown
                         </Typography>
@@ -1316,7 +1317,7 @@ console.log(`useecft : ${weekNum}`);
                         <Box
                           sx={{
                             p: 2, mb: 1,
-                            bgcolor: '#f0fdf4',
+                            // bgcolor: '#f0fdf4',
                             borderRadius: 8,
                             border: '2px solid #86efac',
                             textAlign: 'center',
@@ -1347,7 +1348,7 @@ console.log(`useecft : ${weekNum}`);
                                   alignItems: 'center',
                                   justifyContent: 'space-between',
                                   p: 1.5,
-                                  bgcolor: '#ffffff',
+                                  bgcolor: '#ffffffff',
                                   borderRadius: 8,
                                   border: '1px solid #e5e7eb',
                                   transition: 'all 0.2s ease',
@@ -1368,7 +1369,7 @@ console.log(`useecft : ${weekNum}`);
                                       boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
                                     }}
                                   />
-                                  <Typography level="title-sm" sx={{ fontWeight: 600 }}>
+                                  <Typography level="title-sm" sx={{ fontWeight: 600, color:"#000" }}>
                                     {item.color}
                                   </Typography>
                                 </Box>
@@ -1438,7 +1439,7 @@ console.log(`useecft : ${weekNum}`);
                                       {item.size}
                                     </Typography>
                                   </Box>
-                                  <Typography level="title-sm" sx={{ fontWeight: 600 }}>
+                                  <Typography level="title-sm" sx={{ fontWeight: 600, color:"#000", }}>
                                     Size {item.size}
                                   </Typography>
                                 </Box>
@@ -2002,7 +2003,7 @@ console.log(`useecft : ${weekNum}`);
                           py: 2,
                           textAlign: "center",
                           borderBottom: "1px solid #fee2e2",
-                          fontWeight: 600,
+                          fontWeight: 600,backgroundColor: "#ffffffff",
                         },
                         "& tbody tr:hover": {
                           backgroundColor: "#fef2f2",
