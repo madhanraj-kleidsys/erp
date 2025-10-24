@@ -779,7 +779,7 @@ console.log(`useecft : ${weekNum}`);
                   onClick={() => setFilterOpen(!filterOpen)}
                   sx={{
                     borderRadius: "8px",
-                    backgroundColor: "#eff6ff",
+                    backgroundColor: "#eff6ff",color:"#000",
                     "&:hover": { backgroundColor: "#eff6ff" },
                   }}
                 >
