@@ -360,7 +360,7 @@
 
 
 
- 
+
 
 // import React, { useEffect, useState, useContext } from "react";
 // import { useNavigate, useLocation } from "react-router-dom";
@@ -802,14 +802,13 @@
 //   );
 // }
 
- 
+
 import React, { useEffect, useState, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Search, Package, Zap, Settings, ChevronDown, Sparkles, Home } from "lucide-react";
 import axios from "axios";
 import { AuthContext } from "../AuthContext";
 import ColorSchemeToggle from "./ColorSchemaToggle";
-
 const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 function ExpandableDock({ headerContent, children }) {
@@ -884,7 +883,7 @@ function ExpandableDock({ headerContent, children }) {
               fontFamily: "monospace",
             }}
           >
-            ⌘K
+            click here
           </kbd>
         </button>
       </div>
@@ -924,24 +923,24 @@ function ExpandableDock({ headerContent, children }) {
         }}
       > */}
       <div
-  aria-hidden={!open}
-  style={{
-    position: "fixed",
-    zIndex: 14000,
-    left: "50%",
-    top: "50%",
-    transform: open ? "translate(-50%, -50%) scale(1)" : "translate(-50%, -50%) scale(0.98)",
-    opacity: open ? 1 : 0,
-    width: "min(1100px, calc(100% - 48px))",
-    height: open ? "72vh" : 0,
-    transition: "all 220ms ease",
-    pointerEvents: open ? "auto" : "none",
-    overflow: "hidden",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  }}
->
+        aria-hidden={!open}
+        style={{
+          position: "fixed",
+          zIndex: 14000,
+          left: "50%",
+          top: "50%",
+          transform: open ? "translate(-50%, -50%) scale(1)" : "translate(-50%, -50%) scale(0.98)",
+          opacity: open ? 1 : 0,
+          width: "min(1100px, calc(100% - 48px))",
+          height: open ? "72vh" : 0,
+          transition: "all 220ms ease",
+          pointerEvents: open ? "auto" : "none",
+          overflow: "hidden",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <div
           role="dialog"
           aria-modal="true"
@@ -1063,7 +1062,7 @@ export default function Sidebar() {
         });
       })
       .catch(() => {
-        // silently ignore
+        // silently ignoreeeee
       });
   }, []);
 
@@ -1133,6 +1132,15 @@ export default function Sidebar() {
       <ExpandableDock
         headerContent={
           <div style={{ display: "flex", alignItems: "center", gap: 12, width: "100%" }}>
+            {/* <TextSpotlight
+              textClassName="text-xl md:text-3xl font-semibold"
+              text="Hover over me and wa oss the text."
+              spotlightColor="255, 255, 255"
+              animateOnPhone={true}
+              spotlightArea={90}
+              spotlightSize={100}
+            /> */}
+
             <Search size={18} color="var(--joy-palette-text-primary, #000)" strokeWidth={2.5} />
             <div style={{ fontWeight: 700, fontSize: 15, color: "var(--joy-palette-text-primary, #000)" }}>
               Search & Navigate

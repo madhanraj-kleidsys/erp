@@ -1004,7 +1004,7 @@ console.log(`useecft : ${weekNum}`);
             </Drawer> */}
 
             <Drawer
-              anchor="right"
+              anchor="left"
               open={filterOpen}
               onClose={() => setFilterOpen(false)}
               slotProps={{
@@ -1017,7 +1017,7 @@ console.log(`useecft : ${weekNum}`);
                 content: {
                   sx: {
                     width: 280,
-                    backgroundColor: "white",
+                    // backgroundColor: "white",
                     zIndex: 600,
                   },
                 },
@@ -1034,13 +1034,14 @@ console.log(`useecft : ${weekNum}`);
                 >
                   <Typography
                     level="h4"
-                    sx={{ color: "#0f172a", fontWeight: 700 }}
+                    // color: "#0f172a",
+                    sx={{fontWeight: 700 }}
                   >
                     Filters
                   </Typography>
                   <IconButton
                     variant="plain"
-                    color="neutral"
+                    // color="neutral"
                     onClick={() => setFilterOpen(false)}
                     sx={{ borderRadius: "8px" }}
                   >
@@ -1058,7 +1059,7 @@ console.log(`useecft : ${weekNum}`);
                       alignItems: "center",
                       gap: 1,
                       mb: 1,
-                      color: "#475569",
+                      // color: "#475569",
                       fontWeight: 600,
                     }}
                   >
@@ -1087,7 +1088,7 @@ console.log(`useecft : ${weekNum}`);
                       alignItems: "center",
                       gap: 1,
                       mb: 1,
-                      color: "#475569",
+                      // color: "#475569",
                       fontWeight: 600,
                     }}
                   >
@@ -1117,7 +1118,7 @@ console.log(`useecft : ${weekNum}`);
                       alignItems: "center",
                       gap: 1,
                       mb: 1,
-                      color: "#475569",
+                      // color: "#475569",
                       fontWeight: 600,
                     }}
                   >
@@ -1145,7 +1146,7 @@ console.log(`useecft : ${weekNum}`);
                       alignItems: "center",
                       gap: 1,
                       mb: 1,
-                      color: "#475569",
+                      // color: "#475569",
                       fontWeight: 600,
                     }}
                   >
@@ -1175,7 +1176,7 @@ console.log(`useecft : ${weekNum}`);
                       alignItems: "center",
                       gap: 1,
                       mb: 1,
-                      color: "#475569",
+                      // color: "#475569",
                       fontWeight: 600,
                     }}
                   >
