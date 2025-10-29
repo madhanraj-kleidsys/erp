@@ -385,16 +385,18 @@
 
 
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Box, Input, Button, Typography, IconButton } from "@mui/joy";
 import { Person, Lock, Visibility, VisibilityOff } from "@mui/icons-material";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import PixelCard from "../components/ui/PixelCard";
 import "../components/ui/PixelCard.css";
-import Fone from "../../src/assets/title.jpeg";
+import Fone from "../../src/assets/f1.jpg";
 import KleidSysLogo from "../../src/assets/logo.jpeg";
 import styled from "styled-components";
 
+const title = "Welcome to FashionOne";
+const letters = Array.from(title);
 const apiUrl = import.meta.env.VITE_API_URL || `http://localhost:3000/api`;
 
 export default function LoginPage({ onLogin }) {
@@ -402,6 +404,16 @@ export default function LoginPage({ onLogin }) {
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+
+  const [poweredExpand, setPoweredExpand] = useState(false);
+
+  // Trigger after delay on mount
+  useEffect(() => {
+    const timer = setTimeout(() => setPoweredExpand(true), 800); // delay for effect
+    return () => clearTimeout(timer);
+  }, []);
+
 
   // 3D Card animation states
   const cardRef = useRef(null);
@@ -497,19 +509,6 @@ export default function LoginPage({ onLogin }) {
                 }}
               >
                 <div className="icon-circle">
-                  {/* <svg
-                    width="60"
-                    height="60"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-                    <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-                    <line x1="12" y1="22.08" x2="12" y2="12" />
-                  </svg> */}
-
                   <svg
                     width={60}
                     height={60}
@@ -537,13 +536,28 @@ export default function LoginPage({ onLogin }) {
               </motion.div>
 
               <div className="content-overlay">
-                <motion.h1
+                {/* <motion.h1
                   initial={{ y: 50, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.3, duration: 0.8 }}
                 >
                   Welcome to FashionONE
-                </motion.h1>
+                </motion.h1> */}
+
+                <h1 className="fancy-script" style={{ textAlign: "center", marginBottom: "2rem" }}>
+                  {letters.map((char, i) => (
+                    <motion.span
+                      key={i}
+                      initial={{ opacity: 0, x: 10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 + i * 0.08 }}
+                      style={{ display: "inline-block" }}
+                    >
+                      {char === " " ? "\u00A0" : char}
+                    </motion.span>
+                  ))}
+                </h1>
+
                 <motion.p
                   initial={{ y: 50, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -578,6 +592,7 @@ export default function LoginPage({ onLogin }) {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
+
             <motion.div
               ref={cardRef}
               className="card-3d-wrapper"
@@ -611,27 +626,65 @@ export default function LoginPage({ onLogin }) {
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
                   >
-                    <div className="logo-circle">
-                      <img
-                        src={Fone}
-                        alt="FashionONE Logo"
-                        style={{
-                          width: '300px',
-                          height: '80px',
-                          // borderRadius: '500px',
-                          // objectFit: 'cover',
-                        }}
-                      />
-                      {/* <Typography level="h3" className="logo-text">
-                        F1
-                      </Typography> */}
-                    </div>
-                    {/* <Typography level="h4" className="brand-name">
-                      FashionONE
-                    </Typography> */}
-                    <Typography level="body-sm" className="tagline">
-                      AN ERP Software
-                    </Typography>
+
+                    <motion.div
+                      className="left-section-right"
+                      initial={{ x: -100, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
+                      <div className="image-overlay">
+                        <div className="content-overlay">
+                          <img
+                            src={Fone}
+                            alt="FashionONE Logo"
+                            style={{
+                              width: '300px',
+                              height: '80px',
+                              borderRadius: '900px',
+                              objectFit: 'cover',
+                            }}
+                          />
+                        </div>
+
+                        <motion.div
+                          style={{ marginTop: "40px" }}
+                          className="floating-element"
+                          animate={{
+                            y: [0, -20, 0],
+                            rotate: [0, 5, 0],
+                          }}
+                          transition={{
+                            duration: 6,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                        >
+
+                          <div >
+                            <svg
+                              width="60"
+                              height="60"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                            >
+                              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                              <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                              <line x1="12" y1="22.08" x2="12" y2="12" />
+                            </svg>
+                          </div>
+                        </motion.div>
+
+                        <Typography level="body-lg" className="tagline">
+                          AN ERP Software
+                        </Typography>
+                      </div>
+                    </motion.div>
+
+
+
                   </motion.div>
 
                   <Box component="form" onSubmit={handleSubmit} className="form-box">
@@ -725,35 +778,46 @@ export default function LoginPage({ onLogin }) {
           </motion.div>
 
           <Box
-  className="powered-by-container"
-  sx={{
-    position: "absolute",
-    bottom: 30,
-    left: 0,
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 10,
-    pointerEvents: "none",
-  }}
->
-  <div className="powered-by-box">
-    <span className="powered-by-text">
-      Developed by
-    </span>
-    <img
-      src={KleidSysLogo}
-      alt="KleidSys Logo"
-      style={{
-        height: "38px",
-        width: "auto",
-        objectFit: "contain",
-        verticalAlign: "middle",
-      }}
-    />
-  </div>
-</Box>
+            className="powered-by-container"
+            sx={{
+              position: "absolute",
+              bottom: 30,
+              left: 0,
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              zIndex: 10,
+              pointerEvents: "none",
+            }}
+          >
+            <div className={`powered-by-box${poweredExpand ? ' expanded' : ''}`}>
+              <span className="powered-by-text" style={{
+                opacity: poweredExpand ? 1 : 0,
+                maxWidth: poweredExpand ? "260px" : "0px",
+                marginLeft: poweredExpand ? "12px" : "0px",
+                transition: "opacity 0.7s, max-width 0.8s, margin-left 0.6s",
+                display: "flex", alignItems: "center",
+                fontWeight: 500, fontSize: "1rem", color: "#ffffffff", overflow: "hidden"
+              }}>
+                Developed by
+                <img
+                  src={KleidSysLogo}
+                  alt="KleidSys Logo"
+                  style={{
+                    height: "50px",    // Try 48~55px for sharpness
+                    width: "auto",
+                    marginLeft: "10px",
+                    verticalAlign: "middle",
+                    borderRadius: "20px", // Only round corners on rectangle logo!
+                    objectFit: "contain",
+                    transition: "height 0.5s, width 0.5s"
+                  }}
+                />
+              </span>
+            </div>
+
+          </Box>
 
           {/* Floating Particles */}
           <div className="particles">
@@ -793,9 +857,12 @@ const StyledWrapper = styled.div`
     box-sizing: border-box;
   }
 
+
   .login-container {
     min-height: 100vh;
     display: flex;
+    // background: linear-gradient(135deg, #60cef7ff 80%, #60cef7ff 80%, #25bde7ff 2%);
+
     // background: linear-gradient(135deg, #eaf8fd 0%, #77d7fa 80%, #18a2c9 100%);
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     // background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
@@ -811,11 +878,13 @@ const StyledWrapper = styled.div`
     justify-content: center;
     padding: 40px;
     position: relative;
-    background: linear-gradient(
-      135deg,
-      rgba(102, 126, 234, 0.9) 0%,
-      rgba(118, 75, 162, 0.9) 150%
-    );
+    // background: linear-gradient(
+    //   135deg,
+    //   rgba(102, 126, 234, 0.9) 0%,
+    //   rgba(118, 75, 162, 0.9) 150%
+    // );
+        // background: linear-gradient(135deg, #8bdaf7ff 20%, #77d7fa 80%, #18a2c9 100%);
+
     overflow: hidden;
 
     &::before {
@@ -829,6 +898,37 @@ const StyledWrapper = styled.div`
       opacity: 0.3;
     }
   }
+
+
+    .left-section-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    position: relative;
+    background: linear-gradient(
+      135deg,
+      rgba(102, 126, 234, 0.9) 0%,
+      rgba(118, 75, 162, 0.9) 150%
+    );
+        // background: linear-gradient(135deg, #50dce9 100%, #60cef7ff 80%);
+
+    overflow: hidden;
+    border-radius: 35px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.3;
+    }
+  }
+
 
   .image-overlay {
     position: relative;
@@ -846,7 +946,7 @@ const StyledWrapper = styled.div`
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.77);
     backdrop-filter: blur(10px);
     display: flex;
     align-items: center;
@@ -854,6 +954,20 @@ const StyledWrapper = styled.div`
     color: white;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     border: 2px solid rgba(255, 255, 255, 0.2);
+  }
+
+   .icon-login {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    // background: rgba(255, 255, 255, 0.1);
+    // backdrop-filter: blur(10px);
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    color: grey;
+    // box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    // border: 2px solid rgba(255, 255, 255, 0.2);
   }
 
   .content-overlay h1 {
@@ -903,6 +1017,9 @@ const StyledWrapper = styled.div`
 
   .login-card {
     background: rgba(255, 255, 255, 0.95);
+        // background:rgb(80,220,233);
+        //  linear-gradient(135deg, #8bdaf7ff 20%, #60cef7ff 80%, #18a2c9 10%);
+
     backdrop-filter: blur(20px);
     border-radius: 30px;
     padding: 50px 40px;
@@ -959,7 +1076,7 @@ const StyledWrapper = styled.div`
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    // background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     margin: 0 auto 20px;
     display: flex;
     align-items: center;
@@ -979,7 +1096,7 @@ const StyledWrapper = styled.div`
   }
 
   .tagline {
-    color: #666;
+    color: #ffffffff;
     font-style: italic;
   }
 
@@ -1011,6 +1128,7 @@ const StyledWrapper = styled.div`
 
   .login-button {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    //  background: linear-gradient(135deg, #18a2c9 0%, #60cef7ff 100%);
     color: white;
     font-weight: 700;
     font-size: 1.1rem;
@@ -1093,7 +1211,7 @@ const StyledWrapper = styled.div`
 
     .content-overlay h1 {
       font-size: 1.5rem;
-    }
+    }              
 
     .icon-circle {
       width: 80px;
@@ -1106,24 +1224,45 @@ const StyledWrapper = styled.div`
     }
   }
 
-  .powered-by-box {
-    background: rgba(255,255,255,0.6);
-    border-radius: 24px;
-    padding: 10px 24px;
-    box-shadow: 0 4px 18px 0 rgba(0,0,0,0.05);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 12px;
-    pointer-events: auto;
-    width: 210px;
-    max-width: 98vw;
-    transition: width 0.5s cubic-bezier(0.55, 0, 0.55, 1), box-shadow 0.4s;
-    cursor: pointer;
-  }
-  
-  .powered-by-box:hover {
-    width: 340px; /* Set the expanded width you want */
-    box-shadow: 0 8px 32px rgba(24, 162, 201, 0.12);
-  }
+.powered-by-box {
+  background: rgba(255, 255, 255, 0.11);
+  border-radius: 24px;
+  padding: 10px 25px;
+  box-shadow: 0 4px 18px 0 rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  pointer-events: auto;
+  min-width: 64px;
+  width: auto;          /* Let content size naturally! */
+  max-width: 90vw;      /* Responsive: never exceed viewport */
+  transition: box-shadow 0.6s;
+  cursor: pointer;
+  overflow: visible;    /* No cropping! */
+}
+.powered-by-box.expanded {
+  box-shadow: 0 8px 32px rgba(24, 162, 201, 0.15);
+}
+
+
+
+.fancy-script {
+  font-family: 'Pacifico',cursive;
+  font-size: 3rem;
+  font-weight: 400;
+  background: linear-gradient(170deg, #ffffffff 100%, #ffffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 4px 18px #eab30866;
+}
+
+
+
+.dancing-script {
+  font-family: "Dancing Script", cursive;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
 `;
