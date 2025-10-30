@@ -18,6 +18,7 @@ import {
   Divider,
   Sheet,
   Table,
+  Modal,
 } from "@mui/joy";
 import {
   FilterList,
@@ -32,13 +33,11 @@ import {
   ContentCut,
   Print,
   NotificationImportant,
-  ErrorOutline, Warning,
+  ErrorOutline,
+  Warning,
 } from "@mui/icons-material";
 import axios from "axios";
-
-import { Modal } from '@mui/joy';
-import CloseIcon from '@mui/icons-material/Close';
-
+import CloseIcon from "@mui/icons-material/Close";
 
 const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
@@ -46,6 +45,7 @@ import { CssVarsProvider, extendTheme } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+
 const theme = extendTheme({
   colorSchemes: {
     light: {
@@ -60,271 +60,71 @@ const theme = extendTheme({
   },
 });
 
+// Mock data from your JSON
+const mockOrderData = [
+  { Buyer: "H&M HENNES & MAURITZ GBC AB", StyleCode: "ASTERTANK", Combo: "51-136 PINK DUSTY LIGHT", Size: "L", OPDQty: 50 },
+  { Buyer: "H&M HENNES & MAURITZ GBC AB", StyleCode: "ASTERTANK", Combo: "51-136 PINK DUSTY LIGHT", Size: "M", OPDQty: 218 },
+  { Buyer: "H&M HENNES & MAURITZ GBC AB", StyleCode: "ASTERTANK", Combo: "51-136 PINK DUSTY LIGHT", Size: "S", OPDQty: 388 },
+  { Buyer: "H&M HENNES & MAURITZ GBC AB", StyleCode: "ASTERTANK", Combo: "51-136 PINK DUSTY LIGHT", Size: "XL", OPDQty: 50 },
+  { Buyer: "H&M HENNES & MAURITZ GBC AB", StyleCode: "ASTERTANK", Combo: "51-136 PINK DUSTY LIGHT", Size: "XS", OPDQty: 208 },
+  { Buyer: "H&M HENNES & MAURITZ GBC AB", StyleCode: "ASTERTANK", Combo: "51-136 PINK DUSTY LIGHT", Size: "XXS", OPDQty: 80 },
+  { Buyer: "H&M HENNES & MAURITZ GBC AB", StyleCode: "ASTERTANK", Combo: "17-222 BROWN DARK", Size: "L", OPDQty: 64 },
+  { Buyer: "H&M HENNES & MAURITZ GBC AB", StyleCode: "ASTERTANK", Combo: "17-222 BROWN DARK", Size: "M", OPDQty: 286 },
+];
+
+// Process Order Details Mock Data
+const processOrderDetailsMock = {
+  "Sourcing": [
+    { orderCount: "292/62", progress: 85 },
+    { orderCount: "180/34", progress: 78 },
+    { orderCount: "120/20", progress: 55 },
+    { orderCount: "160/45", progress: 92 },
+  ],
+  "Fabric Store": [
+    { orderCount: "210/40", progress: 70 },
+    { orderCount: "170/38", progress: 60 },
+    { orderCount: "130/25", progress: 45 },
+    { orderCount: "150/50", progress: 80 },
+  ],
+  "Cutting": [
+    { orderCount: "200/50", progress: 55 },
+    { orderCount: "180/40", progress: 45 },
+    { orderCount: "160/30", progress: 30 },
+    { orderCount: "140/35", progress: 50 },
+  ],
+  "VAP / Printing": [
+    { orderCount: "120/20", progress: 48 },
+    { orderCount: "110/18", progress: 35 },
+    { orderCount: "90/10", progress: 25 },
+    { orderCount: "100/22", progress: 40 },
+  ],
+};
+
 const customers = [
+  "All Customers",
   "H&M HENNES & MAURITZ GBC AB",
   "VINGINO",
   "GROUPE AUCHAN",
   "MAX HOLDINGS - INVESTMENTS LTD",
   "KMART AUSTRALIA LIMITED",
 ];
-// const stylesByCustomer = {
-//   "H&M HENNES & MAURITZ GBC AB": ["Basic T-Shirt", "Denim Jacket", "Summer Dress", "Casual Pants"],
-//   "VINGINO": ["Polo Shirt", "Cargo Pants", "Hoodie", "Jeans"],
-//   "GROUPE AUCHAN": ["Formal Shirt", "Blazer", "Trousers", "Skirt"],
-//   "MAX HOLDINGS - INVESTMENTS LTD": [
-//     "Designer Top",
-//     "Premium Jeans",
-//     "Silk Scarf",
-//     "Leather Jacket",
-//   ],
-//   "KMART AUSTRALIA LIMITED": [
-//     "Kids T-Shirt",
-//     "School Uniform",
-//     "Baby Onesie",
-//     "Sports Wear",
-//   ],
-// };
+
 const stylesByCustomer = {
+  "All Customers": ["ALL Styles"],
   "H&M HENNES & MAURITZ GBC AB": [
     "ASTERTANK",
     "AZURLSTOP",
     "BELLATEE",
-    "BERTILSSKB5PACK",
     "BOSSTOP",
-    "CHARLIETEE",
-    "CILLA",
     "CILLALSTEE",
-    "DF",
-    "EQDD",
-    "EQLICMINDYLSTEE",
-    "EQLICPALMITA3PACK",
-    "EQMARSTEE",
-    "EQPANDORATEE",
-    "EQSUETEE",
-    "EQVALERIETOP",
-    "GSRT",
-    "JAML",
-    "JOANNA",
-    "JUNELSTOP",
-    "LICBEATRIZDRESS",
-    "LICMARSTEE",
-    "LICPALMITA3PACK",
-    "LICPIPERLSTOP",
-    "LICSOFIADRESS",
-    "LICSUSANTEE",
-    "LOLACETANK",
-    "LOTTIETEE",
-    "MANTATUBETOP",
-    "MARSTEE",
-    "MIA",
-    "MIALSTSHIRT",
-    "MISTLSTOP",
-    "MOLLYLSTOP",
-    "PENELOPEPRINTEDTEE",
-    "RNRGTS",
-    "SABRINALONGSLEEVE",
-    "SUELOWPRICETEE",
-    "TOB3PACK",
-    "TPBSSSB"
   ],
-  "VINGINO": [
-    "BOYSTANK2PACK"
-  ],
-  "GROUPE AUCHAN": [
-    "S26WKNTEE0009",
-    "S26WKNTEE0031"
-  ],
-  "MAX HOLDINGS - INVESTMENTS LTD": [
-    "1203B",
-    "1204B",
-    "1217B",
-    "1217BB",
-    "1219B",
-    "1276B",
-    "B25KGOBCTT158",
-    "B25KGOBCTT173",
-    "B25KGOBCTT174",
-    "B25KGOFSTOP385",
-    "B25WBSBC1211",
-    "B25WBSBC1414",
-    "B25WCTFEKT126J",
-    "B26KGOBCTT17",
-    "B26KGOBCTT18",
-    "B26KGOBCTT76",
-    "B26KGOBCTT77",
-    "B26KGOBCTT95",
-    "B26KGOBCTT97",
-    "B26KGOBCTT98",
-    "B26KGOFSBOT290",
-    "B26KGOFSCHTOP2038",
-    "B26KGOFSCHTOP2039",
-    "B26KGOFSSET783",
-    "B26KGOFSTOP290",
-    "B26KGYBCTGTDTR133",
-    "B26WBSBC1203",
-    "B26WBSBC1204",
-    "B26WBSBC1211",
-    "B26WBSBC1212",
-    "B26WBSBC1217",
-    "B26WBSBC1513",
-    "B26WBSBC1801",
-    "B26WMFEECOM116",
-    "B26WMFEECOM156",
-    "BSLEG",
-    "C24WBSBCECOM1219",
-    "C25KGOBCCHTOP1007",
-    "C25KGOBCLEG422",
-    "C25KGOBCTT24",
-    "C25KGOBCTT31",
-    "C25KGOBCTT35",
-    "C25KGOBCTT39",
-    "C25KGOBCTT42",
-    "C25KGOBCTT51",
-    "C25KGOBCTT58",
-    "C25KGOBCTT59",
-    "C25KGOBCTT60",
-    "C25KGOFSCHDR2025",
-    "C25KGOFSCHTOP2027",
-    "C25KGOFSCHTOP2028",
-    "C25KGOFSCHTOP2037",
-    "C25KGOFSCHTOP2129",
-    "C25KGOFSCHTOP2130",
-    "C25KGOFSCHTOP2134",
-    "C25KGOFSTOP211",
-    "C25KGOFSTOP212",
-    "C25KGOFSTOP217",
-    "C25KGOFSTOP232",
-    "C25KGOFSTOP272",
-    "C25KGOFSTOP297EX",
-    "C25KGOFSTOP322",
-    "C25KGYBCTGT232",
-    "C25KGYBCTGT233",
-    "C25KGYBCTGT296",
-    "C25KGYBCTGT299",
-    "C25KGYBCTGT306",
-    "C25KGYBCTGT307",
-    "C25KGYBCTGT341A",
-    "C25KGYBCTGT386",
-    "C25KGYBCTGT387",
-    "C25KGYBCTGT401",
-    "C25KGYBCTGT418",
-    "C25KGYBCTGT445EEX",
-    "C25KGYFETGC218",
-    "C25KGYFETGC219",
-    "C25KGYFETGC220",
-    "C25KGYFETGC222",
-    "C25KGYFETGC239",
-    "C25KGYFETGC241",
-    "C25KGYFETGC242",
-    "C25KGYFETGC298",
-    "C25KGYFETGC437",
-    "C25KGYFETGC439EEX",
-    "C25KGYFETGCDTR222",
-    "C25KGYFETGCDTR436",
-    "C25WBSBC1203",
-    "C25WBSBC1204",
-    "C25WBSBC1211",
-    "C25WBSBC1212",
-    "C25WBSBC1217",
-    "C25WBSBC1414B",
-    "C25WBSBC1513",
-    "C25WBSBC1801",
-    "C25WBSBCTR1217",
-    "C25WBSBCTR3014",
-    "C25WBSBCTR3016",
-    "C25WCTFEKT127A",
-    "C25WCTFEKT127B",
-    "C25WCTFEKT127C",
-    "C25WCTFEKT127G",
-    "C25WCTFEKT127H",
-    "C25WCTFEKT127I",
-    "C25WCTFEKT127L",
-    "C25WCTFEKT127R",
-    "C25WCTFEKT127U",
-    "C25WCTFEKT127V",
-    "C25WCTFEKT128B",
-    "C25WCTFEKT128D",
-    "C25WCTFEKT128G",
-    "C25WCTFEKT128L",
-    "C25WCTFEKT128M",
-    "C25WCTFEKT128N",
-    "C25WCTFEKT128P",
-    "C25WCTFEKT129B",
-    "C25WCTFEKT129E",
-    "C25WCTFEKTRT120",
-    "C25WCTFEKTRT120D",
-    "C25WCTFEKTRT120L",
-    "C25WCTFEKTRT120P",
-    "C25WCTFEKTRT120Q",
-    "C25WCTFEKTRT120U",
-    "C25WCTFEKTRT120X",
-    "C25WCTFEKTRT120Y",
-    "C25WCTFEKTRT121N",
-    "C25WMFEECOM115",
-    "C25WMFEECOM116",
-    "C25WMFEECOM117",
-    "C25WMFEECOM155",
-    "C25WUBNFEOMV403",
-    "C25WUBNFEOMV404",
-    "C25WUBNFEOMV416",
-    "C25WUBNFEOMV417",
-    "C25WUBNFETRI406",
-    "C25WUBNFETRI407",
-    "C25WUBNFETRI412",
-    "C25WUBNFETRI413",
-    "C25WUBNFETRI414",
-    "C25WUBNFETRI415",
-    "C25WUBNFETRI416",
-    "C25WUBNFSATE400",
-    "C25WUBNFSATE403",
-    "C25WUBNFSATE404",
-    "C25WUBNFSATE405",
-    "C25WUBNFSATE406",
-    "C25WUBNFSECOM201",
-    "C25WUBNFSECOM202",
-    "LDCS",
-    "TGTNOOSLEGGING"
-  ],
-  "KMART AUSTRALIA LIMITED": [
-    "026NS26LSL014",
-    "06NS26DPL080",
-    "06NS26DPL102",
-    "06NS26DPL325",
-    "06NS26DPL485",
-    "06NS26DPL705",
-    "06NS26LSL372",
-    "06NS26LSL397",
-    "06NS26SSH768",
-    "06NS26SSS033",
-    "06NS26SSS168",
-    "06NS26SSS196",
-    "06NS26SSS2146",
-    "06NS26SSS290",
-    "06NSTSKA7393",
-    "06S24KSS001",
-    "06S26DPL102",
-    "06W24LEG009",
-    "08NS25SSS191",
-    "08NS26SSS146",
-    "08NS26SSS162",
-    "08NS26SSS282",
-    "08NS26SSS513",
-    "08NS26SSS685",
-    "08NSTSKTDJ10",
-    "08S24KSS001",
-    "26NS26SSS790",
-    "26NSTLKXPWIY"
-  ]
+  "VINGINO": ["BOYSTANK2PACK"],
+  "GROUPE AUCHAN": ["S26WKNTEE0009", "S26WKNTEE0031"],
+  "MAX HOLDINGS - INVESTMENTS LTD": ["1203B", "1204B", "1217B"],
+  "KMART AUSTRALIA LIMITED": ["026NS26LSL014", "06NS26DPL080"],
 };
 
-
-const processes = [
-  "All",
-  "Sourcing",
-  "Fabric Store",
-  "Cutting",
-  "VAP / Printing",
-];
+const processes = ["All", "Sourcing", "Fabric Store", "Cutting", "VAP Printing"];
 const statuses = ["On-time", "Delayed", "Risk"];
 
 const mockDataByFilters = {
@@ -340,85 +140,9 @@ const mockDataByFilters = {
       riskAlerts: [
         { customer: "H&M", delivery: "W34", action: "Escalate PO" },
         { customer: "WALMART", delivery: "W35", action: "Follow up mill" },
-        { customer: "GROUPE AUCHAN", delivery: "W36", action: "Check fabric" },
-      ]
-    },
-    Delayed: {
-      kpi: { totalOrders: 180, fullOnRisk: 25, delayedOrders: 18, atRisk: 22 },
-      processes: [
-        { name: "Sourcing", progress: 65, status: "warning", orders: 32, risk: 8 },
-        { name: "Fabric Store", progress: 45, status: "critical", orders: 28, risk: 12 },
-        { name: "Cutting", progress: 30, status: "critical", orders: 18, risk: 15 },
-        { name: "VAP / Printing", progress: 25, status: "critical", orders: 12, risk: 18 },
       ],
-      riskAlerts: [
-        { customer: "H&M", delivery: "W33", action: "Urgent review" },
-        { customer: "WALMART", delivery: "W34", action: "Expedite fabric" },
-        { customer: "MAX HOLDINGS", delivery: "W35", action: "Call supplier" },
-        { customer: "KMART AUSTRALIA", delivery: "W36", action: "Schedule meeting" },
-      ]
     },
-    Risk: {
-      kpi: { totalOrders: 120, fullOnRisk: 45, delayedOrders: 35, atRisk: 40 },
-      processes: [
-        { name: "Sourcing", progress: 40, status: "critical", orders: 20, risk: 15 },
-        { name: "Fabric Store", progress: 25, status: "critical", orders: 15, risk: 20 },
-        { name: "Cutting", progress: 15, status: "critical", orders: 8, risk: 25 },
-        { name: "VAP / Printing", progress: 10, status: "critical", orders: 5, risk: 30 },
-      ],
-      riskAlerts: [
-        { customer: "H&M", delivery: "W32", action: "Critical escalation" },
-        { customer: "WALMART", delivery: "W33", action: "Emergency order" },
-        { customer: "GROUPE AUCHAN", delivery: "W34", action: "Management review" },
-        { customer: "MAX HOLDINGS", delivery: "W34", action: "Rework plan" },
-        { customer: "KMART AUSTRALIA", delivery: "W35", action: "Alternative source" },
-      ]
-    }
   },
-  WALMART: {
-    "On-time": {
-      kpi: { totalOrders: 320, fullOnRisk: 12, delayedOrders: 5, atRisk: 8 },
-      processes: [
-        { name: "Sourcing", progress: 90, status: "on-track", orders: 65, risk: 2 },
-        { name: "Fabric Store", progress: 85, status: "on-track", orders: 52, risk: 3 },
-        { name: "Cutting", progress: 78, status: "on-track", orders: 38, risk: 5 },
-        { name: "VAP / Printing", progress: 72, status: "warning", orders: 28, risk: 8 },
-      ],
-      riskAlerts: [
-        { customer: "WALMART", delivery: "W36", action: "Monitor progress" },
-        { customer: "H&M", delivery: "W37", action: "Quality check" },
-      ]
-    },
-    Delayed: {
-      kpi: { totalOrders: 280, fullOnRisk: 20, delayedOrders: 15, atRisk: 18 },
-      processes: [
-        { name: "Sourcing", progress: 70, status: "warning", orders: 48, risk: 7 },
-        { name: "Fabric Store", progress: 60, status: "warning", orders: 42, risk: 10 },
-        { name: "Cutting", progress: 45, status: "critical", orders: 28, risk: 13 },
-        { name: "VAP / Printing", progress: 35, status: "critical", orders: 20, risk: 16 },
-      ],
-      riskAlerts: [
-        { customer: "WALMART", delivery: "W34", action: "Speed up cutting" },
-        { customer: "GROUPE AUCHAN", delivery: "W35", action: "Add resources" },
-        { customer: "KMART AUSTRALIA", delivery: "W36", action: "Overtime approval" },
-      ]
-    },
-    Risk: {
-      kpi: { totalOrders: 200, fullOnRisk: 35, delayedOrders: 28, atRisk: 32 },
-      processes: [
-        { name: "Sourcing", progress: 50, status: "critical", orders: 35, risk: 12 },
-        { name: "Fabric Store", progress: 35, status: "critical", orders: 25, risk: 18 },
-        { name: "Cutting", progress: 25, status: "critical", orders: 18, risk: 22 },
-        { name: "VAP / Printing", progress: 20, status: "critical", orders: 12, risk: 28 },
-      ],
-      riskAlerts: [
-        { customer: "WALMART", delivery: "W32", action: "Emergency protocol" },
-        { customer: "H&M", delivery: "W33", action: "CEO notification" },
-        { customer: "MAX HOLDINGS", delivery: "W34", action: "Contract review" },
-        { customer: "GROUPE AUCHAN", delivery: "W34", action: "Penalty waiver" },
-      ]
-    }
-  }
 };
 
 const generateWeeks = () => {
@@ -432,10 +156,7 @@ const generateWeeks = () => {
 const getCurrentWeek = () => {
   const now = new Date();
   const start = new Date(now.getFullYear(), 0, 1);
-  const diff =
-    now -
-    start +
-    (start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000;
+  const diff = now - start + (start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000;
   const oneWeek = 1000 * 60 * 60 * 24 * 7;
   const week = Math.floor(diff / oneWeek);
   return `${week.toString().padStart(2, "0")}`;
@@ -443,23 +164,12 @@ const getCurrentWeek = () => {
 
 const getWeekDateRange = (week) => {
   const weekNum = parseInt(week.substring(0));
-  console.log(`getWeekDateRange : ${weekNum}`);
-  
   const year = new Date().getFullYear();
   const startDate = new Date(year, 0, 1 + (weekNum - 1) * 7);
   const endDate = new Date(startDate);
   endDate.setDate(startDate.getDate() + 6);
   const options = { month: "short", day: "numeric" };
-  return `${startDate.toLocaleDateString(
-    "en-US",
-    options
-  )} - ${endDate.toLocaleDateString("en-US", options)}, ${year}`;
-};
-
-const calculateFocusWeek = (baseWeek, offset) => {
-  const weekNum = parseInt(baseWeek.substring(1));
-  const newWeek = weekNum + offset;
-  return `W${newWeek.toString().padStart(2, "0")}`;
+  return `${startDate.toLocaleDateString("en-US", options)} - ${endDate.toLocaleDateString("en-US", options)}, ${year}`;
 };
 
 const getProcessIcon = (name) => {
@@ -478,11 +188,10 @@ const getProcessIcon = (name) => {
 };
 
 const getLinearBarColor = (percent) => {
-  if (percent < 50) return '#ef4444'; // red for <50%
-  if (percent >= 50 && percent <= 60) return '#f59e0b'; // yellow
-  return '#10b981'; // green for >60%
+  if (percent < 50) return "#ef4444";
+  if (percent >= 50 && percent <= 60) return "#f59e0b";
+  return "#10b981";
 };
-
 
 const getProcessIconOg = (name) => {
   switch (name) {
@@ -497,7 +206,7 @@ const getProcessIconOg = (name) => {
     default:
       return <Assessment sx={{ fontSize: 28, color: "#ffffffff" }} />;
   }
-}
+};
 
 const getProcessColor = (name) => {
   switch (name) {
@@ -521,7 +230,6 @@ const getStatusConfig = (status) => {
         color: "#10b981",
         bgColor: "#ecfdf5",
         borderColor: "#10b981",
-        cardBg: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
         label: "On Track",
       };
     case "warning":
@@ -529,7 +237,6 @@ const getStatusConfig = (status) => {
         color: "#f59e0b",
         bgColor: "#fffbeb",
         borderColor: "#f59e0b",
-        cardBg: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
         label: "At Risk",
       };
     case "critical":
@@ -537,7 +244,6 @@ const getStatusConfig = (status) => {
         color: "#ef4444",
         bgColor: "#fef2f2",
         borderColor: "#ef4444",
-        cardBg: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
         label: "Critical",
       };
     default:
@@ -545,60 +251,438 @@ const getStatusConfig = (status) => {
         color: "#6b7280",
         bgColor: "#f9fafb",
         borderColor: "#6b7280",
-        cardBg: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
         label: "Unknown",
       };
   }
 };
 
-const RiskBadge = ({ count, color }) => (
-  <Box
-    sx={{
-      position: "absolute",
-      top: 12,
-      right: 12,
-      minWidth: 32,
-      height: 32,
-      borderRadius: "16px",
-      backgroundColor: "rgba(255, 255, 255, 0.95)",
-      color: color,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      px: 1,
-      fontSize: "0.875rem",
-      fontWeight: 700,
-      boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-      animation: "pulseRing 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-      "@keyframes pulseRing": {
-        "0%, 100%": {
-          transform: "scale(1)",
-        },
-        "50%": {
-          transform: "scale(1.05)",
-        },
-      },
-    }}
-  >
-    {count}
-  </Box>
-);
+// Cascading Filter Modal Component
+const CascadingFilterModal = ({ open, onClose, kpiType }) => {
+  const [selectedBuyer, setSelectedBuyer] = useState("");
+  const [selectedStyle, setSelectedStyle] = useState("");
+  const [selectedCombo, setSelectedCombo] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
+
+  const [buyers, setBuyers] = useState([]);
+  const [styles, setStyles] = useState([]);
+  const [combos, setCombos] = useState([]);
+  const [sizes, setSizes] = useState([]);
+  const [orderCount, setOrderCount] = useState(0);
+  const [filteredOrders, setFilteredOrders] = useState([]);
+
+  useEffect(() => {
+    const uniqueBuyers = [...new Set(mockOrderData.map((d) => d.Buyer))];
+    setBuyers(uniqueBuyers);
+  }, []);
+
+  useEffect(() => {
+    if (selectedBuyer) {
+      const filteredStyles = [
+        ...new Set(
+          mockOrderData
+            .filter((d) => d.Buyer === selectedBuyer)
+            .map((d) => d.StyleCode)
+        ),
+      ];
+      setStyles(filteredStyles);
+      setSelectedStyle("");
+      setCombos([]);
+      setSelectedCombo("");
+      setSizes([]);
+      setSelectedSize("");
+      setOrderCount(0);
+      setFilteredOrders([]);
+    } else {
+      setStyles([]);
+    }
+  }, [selectedBuyer]);
+
+  useEffect(() => {
+    if (selectedBuyer && selectedStyle) {
+      const filteredCombos = [
+        ...new Set(
+          mockOrderData
+            .filter((d) => d.Buyer === selectedBuyer && d.StyleCode === selectedStyle)
+            .map((d) => d.Combo)
+        ),
+      ];
+      setCombos(filteredCombos);
+      setSelectedCombo("");
+      setSizes([]);
+      setSelectedSize("");
+      setOrderCount(0);
+      setFilteredOrders([]);
+    } else {
+      setCombos([]);
+    }
+  }, [selectedStyle, selectedBuyer]);
+
+  useEffect(() => {
+    if (selectedBuyer && selectedStyle && selectedCombo) {
+      const filteredSizes = [
+        ...new Set(
+          mockOrderData
+            .filter(
+              (d) =>
+                d.Buyer === selectedBuyer &&
+                d.StyleCode === selectedStyle &&
+                d.Combo === selectedCombo
+            )
+            .map((d) => d.Size)
+        ),
+      ];
+      setSizes(filteredSizes);
+      setSelectedSize("");
+      setOrderCount(0);
+      setFilteredOrders([]);
+    } else {
+      setSizes([]);
+    }
+  }, [selectedCombo, selectedStyle, selectedBuyer]);
+
+  useEffect(() => {
+    if (selectedBuyer && selectedStyle && selectedCombo && selectedSize) {
+      const orders = mockOrderData.filter(
+        (d) =>
+          d.Buyer === selectedBuyer &&
+          d.StyleCode === selectedStyle &&
+          d.Combo === selectedCombo &&
+          d.Size === selectedSize
+      );
+      const totalCount = orders.reduce((sum, order) => sum + order.OPDQty, 0);
+      setOrderCount(totalCount);
+      setFilteredOrders(orders);
+    } else {
+      setOrderCount(0);
+      setFilteredOrders([]);
+    }
+  }, [selectedSize, selectedCombo, selectedStyle, selectedBuyer]);
+
+  const getKPITitle = () => {
+    switch (kpiType) {
+      case "total":
+        return "Total Orders";
+      case "fullyOnRisk":
+        return "Orders Fully On Risk";
+      case "delayed":
+        return "Delayed Orders";
+      case "atRisk":
+        return "At Risk Orders";
+      default:
+        return "Orders";
+    }
+  };
+
+  const getKPIColor = () => {
+    switch (kpiType) {
+      case "total":
+        return { bg: "linear-gradient(135deg, #1fc87e 0%, #0cba6b 100%)", text: "#1fc87e" };
+      case "fullyOnRisk":
+        return { bg: "linear-gradient(135deg, #fa3245 0%, #f86998 100%)", text: "#fa3245" };
+      case "delayed":
+        return { bg: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)", text: "#ffecd2" };
+      case "atRisk":
+        return { bg: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)", text: "#4facfe" };
+      default:
+        return { bg: "linear-gradient(135deg, #1fc87e 0%, #0cba6b 100%)", text: "#1fc87e" };
+    }
+  };
+
+  const colorConfig = getKPIColor();
+
+  return (
+    <Modal open={open} onClose={onClose} placement="center">
+      <Box
+        sx={{
+          width: 500,
+          maxHeight: "90vh",
+          overflow: "auto",
+          background: "linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)",
+          borderRadius: 12,
+          border: `2px solid ${colorConfig.text}`,
+          p: 3,
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mb: 3,
+            pb: 2,
+            borderBottom: `2px solid ${colorConfig.text}`,
+          }}
+        >
+          <Typography level="h4" sx={{ fontWeight: 700, color: colorConfig.text }}>
+            🔍 {getKPITitle()} - Filter
+          </Typography>
+          <IconButton
+            size="sm"
+            variant="plain"
+            onClick={onClose}
+            sx={{ color: "#666" }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </Box>
+
+        <FormControl sx={{ mb: 2 }}>
+          <FormLabel sx={{ fontWeight: 600, mb: 1 }}>Customer</FormLabel>
+          <Select
+            placeholder="Select Customer"
+            value={selectedBuyer}
+            onChange={(event, newValue) => setSelectedBuyer(newValue)}
+          >
+            {buyers.map((buyer) => (
+              <Option key={buyer} value={buyer}>
+                {buyer}
+              </Option>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl sx={{ mb: 2 }}>
+          <FormLabel sx={{ fontWeight: 600, mb: 1 }}>Style</FormLabel>
+          <Select
+            placeholder="Select Style"
+            value={selectedStyle}
+            onChange={(event, newValue) => setSelectedStyle(newValue)}
+            disabled={!selectedBuyer}
+          >
+            {styles.map((style) => (
+              <Option key={style} value={style}>
+                {style}
+              </Option>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl sx={{ mb: 2 }}>
+          <FormLabel sx={{ fontWeight: 600, mb: 1 }}>Color</FormLabel>
+          <Select
+            placeholder="Select Color"
+            value={selectedCombo}
+            onChange={(event, newValue) => setSelectedCombo(newValue)}
+            disabled={!selectedStyle}
+          >
+            {combos.map((combo) => (
+              <Option key={combo} value={combo}>
+                {combo}
+              </Option>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl sx={{ mb: 3 }}>
+          <FormLabel sx={{ fontWeight: 600, mb: 1 }}>Size</FormLabel>
+          <Select
+            placeholder="Select Size"
+            value={selectedSize}
+            onChange={(event, newValue) => setSelectedSize(newValue)}
+            disabled={!selectedCombo}
+          >
+            {sizes.map((size) => (
+              <Option key={size} value={size}>
+                {size}
+              </Option>
+            ))}
+          </Select>
+        </FormControl>
+
+        {selectedSize && (
+          <Box
+            sx={{
+              p: 2,
+              mb: 2,
+              background: `linear-gradient(135deg, ${colorConfig.text}15 0%, ${colorConfig.text}05 100%)`,
+              border: `2px solid ${colorConfig.text}`,
+              borderRadius: 8,
+              textAlign: "center",
+            }}
+          >
+            <Typography level="body-sm" sx={{ color: "#666", mb: 0.5 }}>
+              Total Order Quantity (OPDQty)
+            </Typography>
+            <Typography level="h2" sx={{ color: colorConfig.text, fontWeight: 700 }}>
+              {orderCount}
+            </Typography>
+          </Box>
+        )}
+
+        {filteredOrders.length > 0 && (
+          <Box>
+            <Typography level="title-md" sx={{ fontWeight: 700, mb: 1.5 }}>
+              📋 Order Details
+            </Typography>
+            <Box sx={{ overflowX: "auto", mb: 2 }}>
+              <Table
+                sx={{
+                  "& thead th": {
+                    backgroundColor: "#f8fafc",
+                    fontWeight: 700,
+                    borderBottom: "2px solid #e2e8f0",
+                    py: 1,
+                    fontSize: "0.875rem",
+                  },
+                  "& tbody td": {
+                    py: 1,
+                    borderBottom: "1px solid #f1f5f9",
+                    fontSize: "0.875rem",
+                  },
+                }}
+              >
+                <thead>
+                  <tr>
+                    <th>Size</th>
+                    <th>OPDQty</th>
+                    <th>TtlCutQty</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredOrders.map((order, idx) => (
+                    <tr key={idx}>
+                      <td>{order.Size}</td>
+                      <td>{order.OPDQty}</td>
+                      <td>{order.TtlCutQty}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Box>
+          </Box>
+        )}
+      </Box>
+    </Modal>
+  );
+};
+
+// Process Details Modal Component
+const ProcessDetailsModal = ({ open, onClose, processName }) => {
+  return (
+    <Modal open={open} onClose={onClose} placement="center">
+      <Box
+        sx={{
+          width: 450,
+          maxHeight: "80vh",
+          overflow: "auto",
+          background: "linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)",
+          borderRadius: 12,
+          border: `2px solid #cbd5e1`,
+          p: 3,
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mb: 3,
+            pb: 2,
+            borderBottom: "2px solid #cbd5e1",
+          }}
+        >
+          <Typography level="h4" sx={{ fontWeight: 700, color: "#0f172a" }}>
+            📊 {processName} - Order Details
+          </Typography>
+          <IconButton
+            size="sm"
+            variant="plain"
+            onClick={onClose}
+            sx={{ color: "#666" }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </Box>
+
+        {processName && processOrderDetailsMock[processName] ? (
+          <Box>
+            {processOrderDetailsMock[processName].map(({ orderCount, progress }, idx) => (
+              <Box
+                key={idx}
+                sx={{
+                  p: 2,
+                  mb: 2,
+                  border: "1px solid #e2e8f0",
+                  borderRadius: 8,
+                  background: "#f8fafc",
+                  "&:hover": {
+                    background: "#f1f5f9",
+                    borderColor: "#cbd5e1",
+                  },
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    mb: 1,
+                  }}
+                >
+                  <Typography level="title-sm" sx={{ fontWeight: 600, color: "#0f172a" }}>
+                    Order Count
+                  </Typography>
+                  <Typography level="h5" sx={{ fontWeight: 700, color: "#1fc87e" }}>
+                    {orderCount}
+                  </Typography>
+                </Box>
+
+                <Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      mb: 0.5,
+                    }}
+                  >
+                    <Typography level="body-sm" sx={{ color: "#64748b", fontWeight: 500 }}>
+                      Progress
+                    </Typography>
+                    <Typography level="body-sm" sx={{ fontWeight: 700, color: "#0f172a" }}>
+                      {progress}%
+                    </Typography>
+                  </Box>
+                  <LinearProgress
+                    determinate
+                    value={progress}
+                    sx={{
+                      "--LinearProgress-thickness": "8px",
+                      "--LinearProgress-progressColor": progress >= 80 ? "#10b981" : progress >= 50 ? "#f59e0b" : "#ef4444",
+                      borderRadius: "4px",
+                      backgroundColor: "#e2e8f0",
+                    }}
+                  />
+                </Box>
+              </Box>
+            ))}
+          </Box>
+        ) : (
+          <Typography level="body-sm" sx={{ color: "#64748b" }}>
+            No data available
+          </Typography>
+        )}
+      </Box>
+    </Modal>
+  );
+};
 
 const ProductionDashboard = () => {
   const navigate = useNavigate();
   const [selectedWeek, setSelectedWeek] = useState(getCurrentWeek());
   const [selectedCustomer, setSelectedCustomer] = useState(customers[0]);
-  // const [selectedStyle, setSelectedStyle] = useState(
-  //   stylesByCustomer[customers[0]][0]
-  // );
   const [selectedStyle, setSelectedStyle] = useState("");
   const [selectedProcess, setSelectedProcess] = useState("All");
   const [selectedStatus, setSelectedStatus] = useState("On-time");
   const [weekSearch, setWeekSearch] = useState("");
   const [filterOpen, setFilterOpen] = useState(false);
 
-  const [totalOrders, setTotalOrders] = useState(0);
-  const [dashboardData, setDashboardData] = useState(null);
+  const [activeKPI, setActiveKPI] = useState(null);
+  const [filterModalOpen, setFilterModalOpen] = useState(false);
+
+  // Process Detail Modal States
+  const [selectedProcessDetail, setSelectedProcessDetail] = useState(null);
+  const [processDetailModalOpen, setProcessDetailModalOpen] = useState(false);
 
   const weeks = generateWeeks();
 
@@ -606,40 +690,12 @@ const ProductionDashboard = () => {
     setSelectedStyle(stylesByCustomer[selectedCustomer][0]);
   }, [selectedCustomer]);
 
-  useEffect(() => {
-    async function fetchDashboardData() {
-      if (!selectedStyle) return;
-
-      try {
-        const weekNum = parseInt(selectedWeek.substring(0));
-console.log(`useecft : ${weekNum}`);
-
-        const response = await axios.post(`${apiUrl}/homedashboard`, {
-          Buyer: selectedCustomer,
-          WeekNo: weekNum,
-          StyleCode: selectedStyle,
-        });
-
-        if (response.data.success) {
-          setDashboardData(response.data.data);
-          setTotalOrders(response.data.totalOrders);
-        }
-      } catch (error) {
-        console.error("Error fetching dashboard data:", error);
-      }
-    }
-
-    fetchDashboardData();
-  }, [selectedWeek, selectedCustomer, selectedStyle]);
-
-
   const filteredWeeks = weeks.filter((week) =>
     week.toLowerCase().includes(weekSearch.toLowerCase())
   );
 
   const getCurrentData = () => {
-    const customerData =
-      mockDataByFilters[selectedCustomer] || mockDataByFilters["H&M"];
+    const customerData = mockDataByFilters[selectedCustomer] || mockDataByFilters["H&M"];
     const statusData = customerData[selectedStatus] || customerData["On-time"];
     return statusData;
   };
@@ -648,13 +704,12 @@ console.log(`useecft : ${weekNum}`);
 
   const getPlanningWeeks = () => {
     const weekNum = parseInt(selectedWeek);
-    // .substring(2)
     return {
       sourcing: {
         focus: `W${(weekNum + 4).toString().padStart(2, "0")}`,
         planning: `W${(weekNum + 3).toString().padStart(2, "0")}`,
       },
-      fabricstore: { // <--- quoted!
+      fabricstore: {
         focus: `W${(weekNum + 3).toString().padStart(2, "0")}`,
         planning: `W${(weekNum + 3).toString().padStart(2, "0")}`,
       },
@@ -662,14 +717,12 @@ console.log(`useecft : ${weekNum}`);
         focus: `W${(weekNum + 2).toString().padStart(2, "0")}`,
         planning: `W${(weekNum + 2).toString().padStart(2, "0")}`,
       },
-      vapprinting: { // <--- quoted!
-        focus: `W${(weekNum + 2).toString().padStart(2, '0')}`,
-        planning: `W${(weekNum + 2).toString().padStart(2, '0')}`,
-      }
-      // No trailing comma needed here.
+      vapprinting: {
+        focus: `W${(weekNum + 2).toString().padStart(2, "0")}`,
+        planning: `W${(weekNum + 2).toString().padStart(2, "0")}`,
+      },
     };
   };
-
 
   const planningWeeks = getPlanningWeeks();
 
@@ -677,97 +730,48 @@ console.log(`useecft : ${weekNum}`);
     navigate(processRoute, { state: { selectedWeek } });
   };
 
-  //RISK DASH ROUTES ROUTER --->
   const handleClickRoute = (processRoute) => {
     navigate(processRoute);
   };
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [orderDetails, setOrderDetails] = useState(null);
-
-  // Sample data structure - replace with your actual data
-  const ORDER_BREAKDOWN = {
-    totalOrders: 150,
-    byColor: [
-      { color: 'Red', count: 45, hex: '#ef4444' },
-      { color: 'Blue', count: 38, hex: '#3b82f6' },
-      { color: 'Green', count: 32, hex: '#10b981' },
-      { color: 'Black', count: 25, hex: '#1f2937' },
-      { color: 'White', count: 10, hex: '#f3f4f6' }
-    ],
-    bySize: [
-      { size: 'S', count: 20 },
-      { size: 'M', count: 55 },
-      { size: 'L', count: 45 },
-      { size: 'XL', count: 30 }
-    ]
+  const handleKPIClick = (kpiType) => {
+    setActiveKPI(kpiType);
+    setFilterModalOpen(true);
   };
 
-  // Click handler function
-  const handleCardPopClick = (event) => {
-    setAnchorEl(event.currentTarget);
-    setOrderDetails(ORDER_BREAKDOWN);
+  const handleCloseFilterModal = () => {
+    setFilterModalOpen(false);
+    setActiveKPI(null);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  // Process Detail Modal Handlers
+  const openProcessDetails = (processName) => {
+    setSelectedProcessDetail(processName);
+    setProcessDetailModalOpen(true);
   };
 
-  const open = Boolean(anchorEl);
-  console.log(`TOTAL ORDERS :: ${totalOrders}`);
+  const closeProcessDetails = () => {
+    setProcessDetailModalOpen(false);
+    setSelectedProcessDetail(null);
+  };
 
   return (
     <CssVarsProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ display: "flex", minHeight: "100dvh", 
-        // bgcolor: "white"
-         }}>
+      <Box sx={{ display: "flex", minHeight: "100dvh" }}>
         <Sidebar />
-        {/* <Box sx={{ flexGrow: 1, p: 1, overflowY: "auto" }}> */}
         <Box sx={{ flexGrow: 1, p: 2 }}>
           <Header />
-          {/* <Box
-            component="main"
-            className="MainContent"
-            sx={{
-              pt: {
-                xs: "calc(12px + var(--Header-height))",
-                sm: "calc(12px + var(--Header-height))",
-                md: 3,
-              },
-              pb: { xs: 2, sm: 2, md: 1 },
-              flex: 1,
-              display: "flex",
-              flexDirection: "column",
-              minWidth: 0,
-              gap: 1,
-            }}
-          > */}
-          <Box sx={{ minHeight: "100vh", 
-            // backgroundColor: "#ffffffff"
-             }}>
-            {/* <Box
-                sx={{
-                  position: 'sticky',
-                  top: 0,
-                  zIndex: 110,
-                  p: { xs: 1, sm: 2, md: 3 },
-                  borderRadius: '22px',
-                  background: "#10b4f0ff",
-                  color: "white",
-                  p: 3,
-                  boxShadow: "0 4px 20px rgba(8, 179, 241, 0.3)",
-                  position: "relative",
-                }}
-              > */}
+          <Box sx={{ minHeight: "100vh" }}>
             <Box
               sx={{
-                position: 'sticky',
+                position: "sticky",
                 top: 0,
                 zIndex: 110,
                 p: { xs: 1, sm: 1, md: 2 },
                 borderRadius: "16px",
-                display: "flex", background: "#10b4f0ff",
+                display: "flex",
+                background: "#10b4f0ff",
                 justifyContent: "space-between",
                 alignItems: "center",
               }}
@@ -779,7 +783,8 @@ console.log(`useecft : ${weekNum}`);
                   onClick={() => setFilterOpen(!filterOpen)}
                   sx={{
                     borderRadius: "8px",
-                    backgroundColor: "#eff6ff",color:"#000",
+                    backgroundColor: "#eff6ff",
+                    color: "#000",
                     "&:hover": { backgroundColor: "#eff6ff" },
                   }}
                 >
@@ -792,7 +797,6 @@ console.log(`useecft : ${weekNum}`);
                   4 - Week Production Planning Dashboard
                 </Typography>
               </Box>
-
               <Box sx={{ textAlign: "right", mr: 5 }}>
                 <Typography level="body-lg" sx={{ color: "#ffffffff" }}>
                   Selected Week : W{selectedWeek}
@@ -808,200 +812,6 @@ console.log(`useecft : ${weekNum}`);
                 </Typography>
               </Box>
             </Box>
-
-            {/* </Box> */}
-            {/* Filter Drawer */}
-            {/* <Drawer
-              anchor="right"
-              open={filterOpen}
-              onClose={() => setFilterOpen(false)}
-              slotProps={{
-                backdrop: {
-                  sx: {
-                    backdropFilter: "none !important",
-                    background: "rgba(0,0,0,0.12)",
-                  },
-                },
-                content: {
-                  sx: {
-                    width: 280,
-                    backgroundColor: "white", zIndex: 600,
-                  },
-                },
-              }}
-            >
- 
-
-              <Box sx={{ p: 3 }}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    mb: 3,
-                  }}
-                >
-                  <Typography
-                    level="h4"
-                    sx={{ color: "#0f172a", fontWeight: 700 }}
-                  >
-                    Filters
-                  </Typography>
-                  <IconButton
-                    variant="plain"
-                    color="neutral"
-                    onClick={() => setFilterOpen(false)}
-                    sx={{ borderRadius: "8px" }}
-                  >
-                    <Close />
-                  </IconButton>
-                </Box>
-
-                <Divider sx={{ mb: 3 }} />
-
-                <FormControl sx={{ mb: 3 }}>
-                  <FormLabel
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 1,
-                      mb: 1,
-                      color: "#475569",
-                      fontWeight: 600,
-                    }}
-                  >
-                    <CalendarMonth sx={{ fontSize: 18, color: "#3b82f6" }} />
-                    Calendar Week
-                  </FormLabel>
-                  <Autocomplete
-                    placeholder="Search week..."
-                    options={filteredWeeks}
-                    value={selectedWeek}
-                    onChange={(event, newValue) =>
-                      newValue && setSelectedWeek(newValue)
-                    }
-                    onInputChange={(event, newValue) =>
-                      setWeekSearch(newValue)
-                    }
-                    sx={{ "& input": { fontSize: "0.875rem" } }}
-                  />
-                </FormControl>
-
-                <FormControl sx={{ mb: 3 }}>
-                  <FormLabel
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 1,
-                      mb: 1,
-                      color: "#475569",
-                      fontWeight: 600,
-                    }}
-                  >
-                    <BusinessCenter sx={{ fontSize: 18, color: "#3b82f6" }} />
-                    Customer
-                  </FormLabel>
-                  <Select
-                    value={selectedCustomer}
-                    onChange={(event, newValue) =>
-                      setSelectedCustomer(newValue)
-                    }
-                    sx={{ fontSize: "0.875rem" }}
-                  >
-                    {customers.map((customer) => (
-                      <Option key={customer} value={customer}>
-                        {customer}
-                      </Option>
-                    ))}
-                  </Select>
-                </FormControl>
-
-                <FormControl sx={{ mb: 3 }}>
-                  <FormLabel
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 1,
-                      mb: 1,
-                      color: "#475569",
-                      fontWeight: 600,
-                    }}
-                  >
-                    <Category sx={{ fontSize: 18, color: "#3b82f6" }} />
-                    Style/Article
-                  </FormLabel>
-                  <Select
-                    value={selectedStyle}
-                    onChange={(event, newValue) => setSelectedStyle(newValue)}
-                    sx={{ fontSize: "0.875rem" }}
-                  >
-                    {stylesByCustomer[selectedCustomer].map((style) => (
-                      <Option key={style} value={style}>
-                        {style}
-                      </Option>
-                    ))}
-                  </Select>
-                </FormControl>
-
-                <FormControl sx={{ mb: 3 }}>
-                  <FormLabel
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 1,
-                      mb: 1,
-                      color: "#475569",
-                      fontWeight: 600,
-                    }}
-                  >
-                    <Assessment sx={{ fontSize: 18, color: "#3b82f6" }} />
-                    Process
-                  </FormLabel>
-                  <Select
-                    value={selectedProcess}
-                    onChange={(event, newValue) =>
-                      setSelectedProcess(newValue)
-                    }
-                    sx={{ fontSize: "0.875rem" }}
-                  >
-                    {processes.map((process) => (
-                      <Option key={process} value={process}>
-                        {process}
-                      </Option>
-                    ))}
-                  </Select>
-                </FormControl>
-
-                <FormControl>
-                  <FormLabel
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 1,
-                      mb: 1,
-                      color: "#475569",
-                      fontWeight: 600,
-                    }}
-                  >
-                    <CheckCircle sx={{ fontSize: 18, color: "#3b82f6" }} />
-                    Status
-                  </FormLabel>
-                  <Select
-                    value={selectedStatus}
-                    onChange={(event, newValue) =>
-                      setSelectedStatus(newValue)
-                    }
-                    sx={{ fontSize: "0.875rem" }}
-                  >
-                    {statuses.map((status) => (
-                      <Option key={status} value={status}>
-                        {status}
-                      </Option>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Box>
-            </Drawer> */}
 
             <Drawer
               anchor="left"
@@ -1032,16 +842,11 @@ console.log(`useecft : ${weekNum}`);
                     mb: 3,
                   }}
                 >
-                  <Typography
-                    level="h4"
-                    // color: "#0f172a",
-                    sx={{fontWeight: 700 }}
-                  >
+                  <Typography level="h4" sx={{ fontWeight: 700 }}>
                     Filters
                   </Typography>
                   <IconButton
                     variant="plain"
-                    // color="neutral"
                     onClick={() => setFilterOpen(false)}
                     sx={{ borderRadius: "8px" }}
                   >
@@ -1051,19 +856,9 @@ console.log(`useecft : ${weekNum}`);
 
                 <Divider sx={{ mb: 3 }} />
 
-                {/* Week Filter */}
                 <FormControl sx={{ mb: 3 }}>
-                  <FormLabel
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 1,
-                      mb: 1,
-                      // color: "#475569",
-                      fontWeight: 600,
-                    }}
-                  >
-                    <CalendarMonth sx={{ fontSize: 18, color: "#3b82f6" }} />
+                  <FormLabel sx={{ fontWeight: 600, mb: 1 }}>
+                    <CalendarMonth sx={{ fontSize: 18, color: "#3b82f6", mr: 1 }} />
                     Calendar Week
                   </FormLabel>
                   <Autocomplete
@@ -1076,23 +871,12 @@ console.log(`useecft : ${weekNum}`);
                     onInputChange={(event, newValue) =>
                       setWeekSearch(newValue)
                     }
-                    sx={{ "& input": { fontSize: "0.875rem" } }}
                   />
                 </FormControl>
 
-                {/* Customer Filter */}
                 <FormControl sx={{ mb: 3 }}>
-                  <FormLabel
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 1,
-                      mb: 1,
-                      // color: "#475569",
-                      fontWeight: 600,
-                    }}
-                  >
-                    <BusinessCenter sx={{ fontSize: 18, color: "#3b82f6" }} />
+                  <FormLabel sx={{ fontWeight: 600, mb: 1 }}>
+                    <BusinessCenter sx={{ fontSize: 18, color: "#3b82f6", mr: 1 }} />
                     Customer
                   </FormLabel>
                   <Select
@@ -1100,7 +884,6 @@ console.log(`useecft : ${weekNum}`);
                     onChange={(event, newValue) =>
                       setSelectedCustomer(newValue)
                     }
-                    sx={{ fontSize: "0.875rem" }}
                   >
                     {customers.map((customer) => (
                       <Option key={customer} value={customer}>
@@ -1110,25 +893,14 @@ console.log(`useecft : ${weekNum}`);
                   </Select>
                 </FormControl>
 
-                {/* Style Filter - Dynamically Loaded */}
                 <FormControl sx={{ mb: 3 }}>
-                  <FormLabel
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 1,
-                      mb: 1,
-                      // color: "#475569",
-                      fontWeight: 600,
-                    }}
-                  >
-                    <Category sx={{ fontSize: 18, color: "#3b82f6" }} />
+                  <FormLabel sx={{ fontWeight: 600, mb: 1 }}>
+                    <Category sx={{ fontSize: 18, color: "#3b82f6", mr: 1 }} />
                     Style/Article
                   </FormLabel>
                   <Select
                     value={selectedStyle}
                     onChange={(event, newValue) => setSelectedStyle(newValue)}
-                    sx={{ fontSize: "0.875rem" }}
                   >
                     {(stylesByCustomer[selectedCustomer] || []).map((style) => (
                       <Option key={style} value={style}>
@@ -1138,19 +910,9 @@ console.log(`useecft : ${weekNum}`);
                   </Select>
                 </FormControl>
 
-                {/* Process Filter */}
                 <FormControl sx={{ mb: 3 }}>
-                  <FormLabel
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 1,
-                      mb: 1,
-                      // color: "#475569",
-                      fontWeight: 600,
-                    }}
-                  >
-                    <Assessment sx={{ fontSize: 18, color: "#3b82f6" }} />
+                  <FormLabel sx={{ fontWeight: 600, mb: 1 }}>
+                    <Assessment sx={{ fontSize: 18, color: "#3b82f6", mr: 1 }} />
                     Process
                   </FormLabel>
                   <Select
@@ -1158,7 +920,6 @@ console.log(`useecft : ${weekNum}`);
                     onChange={(event, newValue) =>
                       setSelectedProcess(newValue)
                     }
-                    sx={{ fontSize: "0.875rem" }}
                   >
                     {processes.map((process) => (
                       <Option key={process} value={process}>
@@ -1168,19 +929,9 @@ console.log(`useecft : ${weekNum}`);
                   </Select>
                 </FormControl>
 
-                {/* Status Filter */}
                 <FormControl>
-                  <FormLabel
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 1,
-                      mb: 1,
-                      // color: "#475569",
-                      fontWeight: 600,
-                    }}
-                  >
-                    <CheckCircle sx={{ fontSize: 18, color: "#3b82f6" }} />
+                  <FormLabel sx={{ fontWeight: 600, mb: 1 }}>
+                    <CheckCircle sx={{ fontSize: 18, color: "#3b82f6", mr: 1 }} />
                     Status
                   </FormLabel>
                   <Select
@@ -1188,7 +939,6 @@ console.log(`useecft : ${weekNum}`);
                     onChange={(event, newValue) =>
                       setSelectedStatus(newValue)
                     }
-                    sx={{ fontSize: "0.875rem" }}
                   >
                     {statuses.map((status) => (
                       <Option key={status} value={status}>
@@ -1201,16 +951,17 @@ console.log(`useecft : ${weekNum}`);
             </Drawer>
 
             <Box sx={{ p: { xs: 2, md: 2 } }}>
-              {/* KPI Cards - Colorful Style */}
+              {/* KPI Cards */}
               <Grid container spacing={2} sx={{ mb: 1 }}>
                 <Grid xs={12} sm={6} lg={3}>
                   <Card
-                    onClick={handleCardPopClick}
+                    onClick={() => handleKPIClick("total")}
                     sx={{
                       background: "linear-gradient(135deg, #1fc87e 0%, #0cba6b 100%)",
                       color: "white",
                       boxShadow: "0 10px 25px rgba(35, 179, 120, 0.18)",
-                      transition: "all 0.3s ease", cursor: "pointer",
+                      transition: "all 0.3s ease",
+                      cursor: "pointer",
                       "&:hover": {
                         transform: "translateY(-5px)",
                         boxShadow: "0 15px 35px rgba(31, 200, 126, 0.20)",
@@ -1222,8 +973,7 @@ console.log(`useecft : ${weekNum}`);
                         level="body-lg"
                         sx={{
                           fontWeight: 700,
-                          color: "#b4f3d2ff", // Minty light green highlight
-                          // mb: 1,
+                          color: "#b4f3d2ff",
                           letterSpacing: 0.5,
                         }}
                       >
@@ -1231,19 +981,13 @@ console.log(`useecft : ${weekNum}`);
                       </Typography>
                       <Typography
                         level="h1"
-                        sx={{
-                          fontWeight: 700,
-                          mb: 1,
-                          color: "#ffffff",
-                        }}
+                        sx={{ fontWeight: 700, mb: 1, color: "#ffffff" }}
                       >
-                        {/* {currentData.kpi.totalOrders} */}
-                        {totalOrders || 0}
+                        {currentData.kpi.totalOrders}
                       </Typography>
                       <Box
                         sx={{ display: "flex", alignItems: "center", gap: 1 }}
                       >
-                        {/* , justifyContent: 'center' */}
                         <Assessment sx={{ fontSize: 20, color: "#eaffed" }} />
                         <Typography level="body-sm" sx={{ color: "#eaffed" }}>
                           Active production
@@ -1251,259 +995,18 @@ console.log(`useecft : ${weekNum}`);
                       </Box>
                     </CardContent>
                   </Card>
-
-                  <Modal
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleClose}
-                    placement="top"
-                    slotProps={{
-                      backdrop: {
-                        sx: {
-                          // Remove the background blur
-                          backdropFilter: 'none!important',
-                          WebkitBackdropFilter: 'none!important',
-                          // Optionally set a solid/semi-transparent background color
-                          background: 'rgba(0,0,0,0.4)'
-                        }
-                      }
-                    }}
-                  // sx={{
-                  //   '& .MuiModal -paper': {
-                  //     boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
-                  //   }
-                  // }}
-                  >
-                    <Box
-                      sx={{
-                        width: 350,
-                        maxHeight: 930,
-                        overflow: 'auto',
-                        background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
-                        borderRadius: 12,
-                        border: '2px solid #1fc87e', ml: '8px', mt: '10px'
-                      }}
-                    >
-                      {/* Header */}
-                      <Box
-                        sx={{
-                          p: 2.5,
-                          background: 'linear-gradient(135deg, #1fc87e 0%, #0cba6b 100%)',
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                          borderRadius: '10px 10px 0 0',
-                        }}
-                      >
-                        <Typography
-                          level="h4"
-                          //  color: '#ffffff',
-                          sx={{ fontWeight: 700 }}
-                        >
-                          📊 Order Breakdown
-                        </Typography>
-                        <IconButton
-                          size="sm"
-                          variant="plain"
-                          onClick={handleClose}
-                          sx={{ color: '#ffffff' }}
-                        >
-                          <CloseIcon sx={{ color: "#fff" }} />
-                        </IconButton>
-                      </Box>
-
-                      {/* Content */}
-                      <Box sx={{ p: 2 }}>
-                        {/* Total Summary */}
-                        <Box
-                          sx={{
-                            p: 2, mb: 1,
-                            // bgcolor: '#f0fdf4',
-                            borderRadius: 8,
-                            border: '2px solid #86efac',
-                            textAlign: 'center',
-                          }}
-                        >
-                          <Typography level="body-sm" sx={{ color: '#15803d', mb: 0.5 }}>
-                            Total Orders
-                          </Typography>
-                          <Typography level="h2" sx={{ color: '#15803d', fontWeight: 800 }}>
-                            {orderDetails?.totalOrders || 0}
-                          </Typography>
-                        </Box>
-
-                        {/* By Color Section */}
-                        <Box sx={{ mb: 2.5 }}>
-                          <Typography
-                            level="title-md"
-                            sx={{ mb: 1.5, fontWeight: 700, color: '#1f2937' }}
-                          >
-                            🎨 Orders by Color
-                          </Typography>
-                          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-                            {orderDetails?.byColor.map((item, index) => (
-                              <Box
-                                key={index}
-                                sx={{
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'space-between',
-                                  p: 1.5,
-                                  bgcolor: '#ffffffff',
-                                  borderRadius: 8,
-                                  border: '1px solid #e5e7eb',
-                                  transition: 'all 0.2s ease',
-                                  '&:hover': {
-                                    transform: 'translateX(5px)',
-                                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-                                  },
-                                }}
-                              >
-                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                                  <Box
-                                    sx={{
-                                      width: 32,
-                                      height: 25,
-                                      borderRadius: '50%',
-                                      bgcolor: item.hex,
-                                      border: item.color === 'White' ? '2px solid #d1d5db' : 'none',
-                                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
-                                    }}
-                                  />
-                                  <Typography level="title-sm" sx={{ fontWeight: 600, color:"#000" }}>
-                                    {item.color}
-                                  </Typography>
-                                </Box>
-                                <Chip
-                                  size="lg"
-                                  variant="solid"
-                                  sx={{
-                                    bgcolor: '#1fc87e',
-                                    color: '#ffffff',
-                                    fontWeight: 700,
-                                    minWidth: 50,
-                                  }}
-                                >
-                                  {item.count}
-                                </Chip>
-                              </Box>
-                            ))}
-                          </Box>
-                        </Box>
-
-                        <Divider sx={{ my: 2 }} />
-
-                        {/* By Size Section */}
-                        <Box>
-                          <Typography
-                            level="title-md"
-                            sx={{ mb: 1.5, fontWeight: 700, color: '#1f2937' }}
-                          >
-                            📏 Orders by Size
-                          </Typography>
-                          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-                            {orderDetails?.bySize.map((item, index) => (
-                              <Box
-                                key={index}
-                                sx={{
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'space-between',
-                                  p: 1.5,
-                                  bgcolor: '#ffffff',
-                                  borderRadius: 8,
-                                  border: '1px solid #e5e7eb',
-                                  transition: 'all 0.2s ease',
-                                  '&:hover': {
-                                    transform: 'translateX(5px)',
-                                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-                                  },
-                                }}
-                              >
-                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                                  <Box
-                                    sx={{
-                                      width: 32,
-                                      height: 25,
-                                      borderRadius: 6,
-                                      bgcolor: '#f0fdf4',
-                                      display: 'flex',
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      border: '2px solid #86efac',
-                                    }}
-                                  >
-                                    <Typography
-                                      level="title-sm"
-                                      sx={{ fontWeight: 700, color: '#15803d' }}
-                                    >
-                                      {item.size}
-                                    </Typography>
-                                  </Box>
-                                  <Typography level="title-sm" sx={{ fontWeight: 600, color:"#000", }}>
-                                    Size {item.size}
-                                  </Typography>
-                                </Box>
-                                <Chip
-                                  size="lg"
-                                  variant="solid"
-                                  sx={{
-                                    bgcolor: '#0cba6b',
-                                    color: '#ffffff',
-                                    fontWeight: 700,
-                                    minWidth: 50,
-                                  }}
-                                >
-                                  {item.count}
-                                </Chip>
-                              </Box>
-                            ))}
-                          </Box>
-                        </Box>
-
-                        {/* Footer Stats */}
-                        <Box
-                          sx={{
-                            mt: 2.5,
-                            p: 2,
-                            bgcolor: '#f8fafc',
-                            borderRadius: 8,
-                            display: 'flex',
-                            justifyContent: 'space-around',
-                          }}
-                        >
-                          <Box sx={{ textAlign: 'center' }}>
-                            <Typography level="body-xs" sx={{ color: '#6b7280', mb: 0.5 }}>
-                              Colors
-                            </Typography>
-                            <Typography level="h4" sx={{ color: '#1fc87e', fontWeight: 700 }}>
-                              {orderDetails?.byColor.length || 0}
-                            </Typography>
-                          </Box>
-                          <Divider orientation="vertical" />
-                          <Box sx={{ textAlign: 'center' }}>
-                            <Typography level="body-xs" sx={{ color: '#6b7280', mb: 0.5 }}>
-                              Sizes
-                            </Typography>
-                            <Typography level="h4" sx={{ color: '#0cba6b', fontWeight: 700 }}>
-                              {orderDetails?.bySize.length || 0}
-                            </Typography>
-                          </Box>
-                        </Box>
-                      </Box>
-                    </Box>
-                  </Modal >
                 </Grid>
 
                 <Grid xs={12} sm={6} lg={3}>
                   <Card
+                    onClick={() => handleKPIClick("fullyOnRisk")}
                     sx={{
                       background:
-                        "linear-gradient(135deg, #fa3245 0%, #f86998 100%)", // Premium ERP red gradient
+                        "linear-gradient(135deg, #fa3245 0%, #f86998 100%)",
                       color: "white",
                       boxShadow: "0 10px 25px rgba(250, 49, 69, 0.18)",
-                      position: "relative",
                       transition: "all 0.3s ease",
+                      cursor: "pointer",
                       "&:hover": {
                         transform: "translateY(-5px)",
                         boxShadow: "0 18px 40px rgba(250, 49, 69, 0.28)",
@@ -1515,8 +1018,7 @@ console.log(`useecft : ${weekNum}`);
                         level="body-lg"
                         sx={{
                           fontWeight: 700,
-                          color: "#ffd4db", // Soft pink for highlight
-                          // mb:1,
+                          color: "#ffd4db",
                         }}
                       >
                         Orders Fully on Risk
@@ -1547,12 +1049,14 @@ console.log(`useecft : ${weekNum}`);
 
                 <Grid xs={12} sm={6} lg={3}>
                   <Card
+                    onClick={() => handleKPIClick("delayed")}
                     sx={{
                       background:
                         "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
                       color: "#7c2d12",
                       boxShadow: "0 10px 25px rgba(252, 182, 159, 0.3)",
                       transition: "all 0.3s ease",
+                      cursor: "pointer",
                       "&:hover": {
                         transform: "translateY(-5px)",
                         boxShadow: "0 15px 35px rgba(252, 182, 159, 0.4)",
@@ -1563,8 +1067,8 @@ console.log(`useecft : ${weekNum}`);
                       <Typography
                         level="body-lg"
                         sx={{
-                          fontWeight: 600, color: "#9a3412",
-                          //  mb: 1
+                          fontWeight: 600,
+                          color: "#9a3412",
                         }}
                       >
                         Delayed Orders
@@ -1586,12 +1090,14 @@ console.log(`useecft : ${weekNum}`);
 
                 <Grid xs={12} sm={6} lg={3}>
                   <Card
+                    onClick={() => handleKPIClick("atRisk")}
                     sx={{
                       background:
                         "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
                       color: "#0c4a6e",
                       boxShadow: "0 10px 25px rgba(79, 172, 254, 0.3)",
                       transition: "all 0.3s ease",
+                      cursor: "pointer",
                       "&:hover": {
                         transform: "translateY(-5px)",
                         boxShadow: "0 15px 35px rgba(79, 172, 254, 0.4)",
@@ -1602,15 +1108,15 @@ console.log(`useecft : ${weekNum}`);
                       <Typography
                         level="body-lg"
                         sx={{
-                          fontWeight: 600, color: "#075985",
-                          // mb: 1
+                          fontWeight: 600,
+                          color: "#075985",
                         }}
                       >
-                          At Risk (>2 Process Delays)
+                        At Risk (>2 Process Delays)
                       </Typography>
                       <Typography
                         level="h1"
-                        sx={{ fontWeight: 700, mb: 1, color: "#ffff" }}
+                        sx={{ fontWeight: 700, mb: 1, color: "#ffffff" }}
                       >
                         {currentData.kpi.atRisk}%
                       </Typography>
@@ -1629,22 +1135,28 @@ console.log(`useecft : ${weekNum}`);
                 </Grid>
               </Grid>
 
-              {/* Process Planning Section - Table Style */}
+              <CascadingFilterModal
+                open={filterModalOpen}
+                onClose={handleCloseFilterModal}
+                kpiType={activeKPI}
+              />
+
+              {/* Process Planning Section - CLICKABLE ROWS */}
               <Card
                 variant="outlined"
                 sx={{
                   mb: 3,
                   borderColor: "#e2e8f0",
-                  // backgroundColor: "white",
                   boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
                 }}
               >
                 <CardContent>
                   <Typography
                     level="h4"
-                    sx={{ mb: 0.5, 
-                      // color: "#0f172a",
-                       fontWeight: 700 }}
+                    sx={{
+                      mb: 0.5,
+                      fontWeight: 700,
+                    }}
                   >
                     Process Planning
                   </Typography>
@@ -1653,9 +1165,7 @@ console.log(`useecft : ${weekNum}`);
                     <Table
                       sx={{
                         "& thead th": {
-                          // backgroundColor: "#f8fafc",
                           fontWeight: 700,
-                          // color: "#475569",
                           borderBottom: "2px solid #e2e8f0",
                           py: 1,
                         },
@@ -1663,8 +1173,12 @@ console.log(`useecft : ${weekNum}`);
                           py: 1,
                           borderBottom: "1px solid #f1f5f9",
                         },
-                        "& tbody tr:hover": {
-                          backgroundColor: "#cecaca1d",
+                        "& tbody tr": {
+                          cursor: "pointer",
+                          transition: "all 0.3s ease",
+                          "&:hover": {
+                            backgroundColor: "#f0f9ff",
+                          },
                         },
                       }}
                     >
@@ -1681,8 +1195,6 @@ console.log(`useecft : ${weekNum}`);
                         </tr>
                       </thead>
                       <tbody>
-                        {/* {getVisibleProcesses().map((processName) => {
-                           */}
                         {[
                           "Sourcing",
                           "Fabric Store",
@@ -1705,7 +1217,10 @@ console.log(`useecft : ${weekNum}`);
                             : getStatusConfig("on-track");
 
                           return (
-                            <tr key={processName}>
+                            <tr
+                              key={processName}
+                              onClick={() => openProcessDetails(processName)}
+                            >
                               <td>
                                 <Box
                                   sx={{
@@ -1730,9 +1245,9 @@ console.log(`useecft : ${weekNum}`);
                                   </Box>
                                   <Typography
                                     level="body-md"
-                                    sx={{ fontWeight: 600,
-                                      // color: "#0f172a"
-                                     }}
+                                    sx={{
+                                      fontWeight: 600,
+                                    }}
                                   >
                                     {processName}
                                   </Typography>
@@ -1749,7 +1264,6 @@ console.log(`useecft : ${weekNum}`);
                                     variant="outlined"
                                     sx={{
                                       borderColor: "#cbd5e1",
-                                      // color: "#475569",
                                       fontWeight: 600,
                                     }}
                                   >
@@ -1790,8 +1304,7 @@ console.log(`useecft : ${weekNum}`);
                                       level="body-xs"
                                       sx={{ color: "#8b7564ff" }}
                                     >
-                                      {processData ? processData.progress : 0}
-                                      %
+                                      {processData ? processData.progress : 0}%
                                     </Typography>
                                   </Box>
                                   <LinearProgress
@@ -1818,10 +1331,20 @@ console.log(`useecft : ${weekNum}`);
                 </CardContent>
               </Card>
 
+              {/* Process Details Modal */}
+              <ProcessDetailsModal
+                open={processDetailModalOpen}
+                onClose={closeProcessDetails}
+                processName={selectedProcessDetail}
+              />
+
               <Box sx={{ mb: 1 }}>
-                <Typography level="h4" sx={{ 
-                  // color: "#0f172a",
-                   fontWeight: 700 }}>
+                <Typography
+                  level="h4"
+                  sx={{
+                    fontWeight: 700,
+                  }}
+                >
                   Production Status by Process
                 </Typography>
                 <Typography level="body-sm" sx={{ color: "#64748b", mt: 0.5 }}>
@@ -1829,10 +1352,13 @@ console.log(`useecft : ${weekNum}`);
                 </Typography>
               </Box>
 
-              {/* 4 Process Cards in Same Row */}
+              {/* Process Cards */}
               <Grid container spacing={3} sx={{ mb: 2 }}>
                 {currentData.processes
-                  .filter((process) => selectedProcess === "All" || process.name === selectedProcess)
+                  .filter(
+                    (process) =>
+                      selectedProcess === "All" || process.name === selectedProcess
+                  )
                   .map((process) => {
                     const processColors = getProcessColor(process.name);
                     const statusConfig = getStatusConfig(process.status);
@@ -1841,7 +1367,6 @@ console.log(`useecft : ${weekNum}`);
                       <Grid key={process.name} xs={12} sm={6} md={3}>
                         <Card
                           sx={{
-                            // background: "white",
                             cursor: "pointer",
                             border: `2px solid ${processColors.primary}20`,
                             boxShadow: `0 4px 12px ${processColors.primary}15`,
@@ -1854,14 +1379,17 @@ console.log(`useecft : ${weekNum}`);
                             },
                           }}
                           onClick={() => {
-                            if (process.name === "Sourcing") handleCardClick("/sourcing");
-                            else if (process.name === "Fabric Store") handleCardClick("/FabricDash");
-                            else if (process.name === "Cutting") handleCardClick("/CuttingDashboard");
-                            else if (process.name === "VAP / Printing") handleCardClick("/vaprinting");
+                            if (process.name === "Sourcing")
+                              handleCardClick("/sourcing");
+                            else if (process.name === "Fabric Store")
+                              handleCardClick("/FabricDash");
+                            else if (process.name === "Cutting")
+                              handleCardClick("/CuttingDashboard");
+                            else if (process.name === "VAP / Printing")
+                              handleCardClick("/vaprinting");
                           }}
                         >
                           <CardContent>
-                            {/* Top bar: Icon left, Name right */}
                             <Box
                               sx={{
                                 display: "flex",
@@ -1871,7 +1399,6 @@ console.log(`useecft : ${weekNum}`);
                                 width: "100%",
                               }}
                             >
-                              {/* Icon Top Left */}
                               <Box
                                 sx={{
                                   width: 34,
@@ -1886,7 +1413,6 @@ console.log(`useecft : ${weekNum}`);
                               >
                                 {getProcessIconOg(process.name)}
                               </Box>
-                              {/* Process Name Top Right */}
                               <Typography
                                 level="title-md"
                                 sx={{
@@ -1899,8 +1425,13 @@ console.log(`useecft : ${weekNum}`);
                               </Typography>
                             </Box>
 
-                            {/* Orders Count Centered */}
-                            <Box sx={{ display: "flex", justifyContent: "center", mb: 1 }}>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                mb: 1,
+                              }}
+                            >
                               <Typography
                                 level="h1"
                                 sx={{
@@ -1912,12 +1443,20 @@ console.log(`useecft : ${weekNum}`);
                               </Typography>
                             </Box>
 
-                            {/* Progress Bar below */}
                             <Box>
-                              <Box sx={{ display: "flex", justifyContent: "center", mb: 1 }}>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  mb: 1,
+                                }}
+                              >
                                 <Typography
                                   level="body-sm"
-                                  sx={{ color: processColors.text, fontWeight: 700 }}
+                                  sx={{
+                                    color: processColors.text,
+                                    fontWeight: 700,
+                                  }}
                                 >
                                   {process.progress}%
                                 </Typography>
@@ -1928,7 +1467,7 @@ console.log(`useecft : ${weekNum}`);
                                 sx={{
                                   "--LinearProgress-thickness": "8px",
                                   "--LinearProgress-progressColor": getLinearBarColor(
-                                    processColors.primary
+                                    process.progress
                                   ),
                                   borderRadius: "4px",
                                   backgroundColor: `${processColors.primary}20`,
@@ -1938,26 +1477,25 @@ console.log(`useecft : ${weekNum}`);
                           </CardContent>
                         </Card>
                       </Grid>
-
                     );
                   })}
               </Grid>
-
 
               {/* Risk Alert Section */}
               <Card
                 sx={{
                   background: "linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)",
                   border: "2px solid #ef4444",
-                  boxShadow: "0 8px 20px rgba(239, 68, 68, 0.2)", cursor: 'pointer',
+                  boxShadow: "0 8px 20px rgba(239, 68, 68, 0.2)",
+                  cursor: "pointer",
                   "&:hover": {
                     transform: "translateY(-5px)",
                     boxShadow: `0 12px 24px #475569 25`,
-                    borderColor: '#1fc87e',
+                    borderColor: "#1fc87e",
                   },
                 }}
                 onClick={() => {
-                  handleClickRoute('/risksummary');
+                  handleClickRoute("/risksummary");
                 }}
               >
                 <CardContent>
@@ -1967,10 +1505,11 @@ console.log(`useecft : ${weekNum}`);
                         width: 48,
                         height: 48,
                         borderRadius: "12px",
-                        background: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
+                        background:
+                          "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
                         display: "flex",
                         alignItems: "center",
-                        justifyContent: "center"
+                        justifyContent: "center",
                       }}
                     >
                       <Warning sx={{ fontSize: 28, color: "#ffffff" }} />
@@ -1988,12 +1527,10 @@ console.log(`useecft : ${weekNum}`);
                   <Box sx={{ overflowX: "auto" }}>
                     <Table
                       sx={{
-                        // backgroundColor: "white",
                         borderRadius: "12px",
                         overflow: "hidden",
                         "& thead th": {
                           backgroundColor: "#fef2f2",
-                          // 991b1b
                           fontWeight: 700,
                           color: "#09609eff",
                           borderBottom: "2px solid #fecaca",
@@ -2004,14 +1541,12 @@ console.log(`useecft : ${weekNum}`);
                           py: 2,
                           textAlign: "center",
                           borderBottom: "1px solid #fee2e2",
-                          fontWeight: 600,backgroundColor: "#ffffffff",
+                          fontWeight: 600,
+                          backgroundColor: "#ffffffff",
                         },
                         "& tbody tr:hover": {
                           backgroundColor: "#fef2f2",
                         },
-                        // "& tbody tr":{
-                        //   backgroundColor: "#000000ff",
-                        // }
                       }}
                     >
                       <thead>
@@ -2022,43 +1557,47 @@ console.log(`useecft : ${weekNum}`);
                         </tr>
                       </thead>
                       <tbody>
-                        {currentData.riskAlerts && currentData.riskAlerts.map((alert, index) => (
-                          <tr key={index}>
-                            <td>
-                              <Typography level="body-sm" sx={{ fontWeight: 700, color: "#0f172a" }}>
-                                {alert.customer}
-                              </Typography>
-                            </td>
-                            <td>
-                              <Chip
-                                size="sm"
-                                variant="solid"
-                                sx={{
-                                  backgroundColor: "#ef4444",
-                                  color: "white",
-                                  fontWeight: 700,
-                                }}
-                              >
-                                {alert.delivery}
-                              </Chip>
-                            </td>
-                            <td>
-                              <Typography level="body-sm" sx={{ color: "#dc2626", fontWeight: 600 }}>
-                                {alert.action}
-                              </Typography>
-                            </td>
-                          </tr>
-                        ))}
+                        {currentData.riskAlerts &&
+                          currentData.riskAlerts.map((alert, index) => (
+                            <tr key={index}>
+                              <td>
+                                <Typography
+                                  level="body-sm"
+                                  sx={{ fontWeight: 700, color: "#0f172a" }}
+                                >
+                                  {alert.customer}
+                                </Typography>
+                              </td>
+                              <td>
+                                <Chip
+                                  size="sm"
+                                  variant="solid"
+                                  sx={{
+                                    backgroundColor: "#ef4444",
+                                    color: "white",
+                                    fontWeight: 700,
+                                  }}
+                                >
+                                  {alert.delivery}
+                                </Chip>
+                              </td>
+                              <td>
+                                <Typography
+                                  level="body-sm"
+                                  sx={{ color: "#dc2626", fontWeight: 600 }}
+                                >
+                                  {alert.action}
+                                </Typography>
+                              </td>
+                            </tr>
+                          ))}
                       </tbody>
                     </Table>
                   </Box>
                 </CardContent>
               </Card>
             </Box>
-
           </Box>
-
-          {/* </Box> */}
         </Box>
       </Box>
     </CssVarsProvider>
