@@ -377,11 +377,11 @@
 //   .inpu:focus {
 //     transform: scale(1.05);
 //     box-shadow: 6px 6px 10px rgba(0,0,0,1),
-//     1px 1px 10px rgba(255, 255, 255, 0.6),
-//     inset 2px 2px 10px rgba(0,0,0,1),
-//     inset -1px -1px 5px rgba(255, 255, 255, 0.6);
-//   }
-//  `
+// //     1px 1px 10px rgba(255, 255, 255, 0.6),
+// //     inset 2px 2px 10px rgba(0,0,0,1),
+// //     inset -1px -1px 5px rgba(255, 255, 255, 0.6);
+// //   }
+// //  `
 
 
 

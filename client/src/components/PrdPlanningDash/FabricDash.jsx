@@ -22,6 +22,7 @@ import Sidebar from "../Sidebar";
 import { CssVarsProvider, extendTheme } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
 import ReplyIcon from '@mui/icons-material/Reply';
+import ScrollToTop from "../ScrollToTop";
 
 const theme = extendTheme({
     colorSchemes: {
@@ -123,7 +124,7 @@ const deliveryWeek = `W${deliveryWeekNumber}`;
     return (
         <CssVarsProvider theme={theme}>
             <CssBaseline />
-
+            <ScrollToTop />
             <Box sx={{ display: "flex", minHeight: "100dvh" }}>
                 <Sidebar />
                 <Box sx={{ flexGrow: 1, p: 1 }}>

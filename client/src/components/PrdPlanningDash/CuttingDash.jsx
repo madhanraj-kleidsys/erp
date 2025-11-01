@@ -39,6 +39,7 @@ import { CssVarsProvider, extendTheme } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
 import Header from "../Header";
 import Sidebar from "../Sidebar";
+import ScrollToTop from "../ScrollToTop";
 
 const theme = extendTheme({
   colorSchemes: {
@@ -138,7 +139,7 @@ export default function CuttingDashboard() {
   return (
     <CssVarsProvider theme={theme}>
       <CssBaseline />
-
+      <ScrollToTop />
       <Box sx={{ display: "flex", minHeight: "100dvh" }}>
         <Sidebar />
         <Box sx={{ flexGrow: 1, p: 1 }}>

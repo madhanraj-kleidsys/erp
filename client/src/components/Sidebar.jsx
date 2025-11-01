@@ -828,7 +828,7 @@ function ExpandableDock({ headerContent, children }) {
       <div
         style={{
           position: "fixed",
-          inset: "auto 0 20px 0",
+          inset: "auto 0 10px 0",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -842,12 +842,12 @@ function ExpandableDock({ headerContent, children }) {
           className="dock-trigger"
           style={{
             width: "min(90vw, 420px)",
-            height: 56,
+            height: 50,
             pointerEvents: "auto",
-            background: "rgba(15, 23, 42, 0.85)",
+            background: "rgba(255, 255, 255, 0)",
             backdropFilter: "blur(12px)",
             WebkitBackdropFilter: "blur(12px)",
-            color: "#fff",
+            color: "#524e4eff",
             padding: "12px 20px",
             borderRadius: 16,
             boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1)",
@@ -873,11 +873,12 @@ function ExpandableDock({ headerContent, children }) {
         >
           <Search size={20} strokeWidth={2.5} />
           <span>Search & Navigate</span>
+          {/* background: "rgba(255, 255, 255, 0.1)", */}
           <kbd
             style={{
               marginLeft: "auto",
               padding: "4px 8px",
-              background: "rgba(255, 255, 255, 0.1)",
+              background: "rgba(255, 255, 255, 1)",
               borderRadius: 6,
               fontSize: 12,
               fontFamily: "monospace",
@@ -1132,14 +1133,6 @@ export default function Sidebar() {
       <ExpandableDock
         headerContent={
           <div style={{ display: "flex", alignItems: "center", gap: 12, width: "100%" }}>
-            {/* <TextSpotlight
-              textClassName="text-xl md:text-3xl font-semibold"
-              text="Hover over me and wa oss the text."
-              spotlightColor="255, 255, 255"
-              animateOnPhone={true}
-              spotlightArea={90}
-              spotlightSize={100}
-            /> */}
 
             <Search size={18} color="var(--joy-palette-text-primary, #000)" strokeWidth={2.5} />
             <div style={{ fontWeight: 700, fontSize: 15, color: "var(--joy-palette-text-primary, #000)" }}>

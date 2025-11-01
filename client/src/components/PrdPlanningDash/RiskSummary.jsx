@@ -33,6 +33,7 @@ import Header from "../Header";
 import Sidebar from "../Sidebar";
 import ReplyIcon from '@mui/icons-material/Reply';
 import { CssVarsProvider, extendTheme } from "@mui/joy/styles";
+import ScrollToTop from "../ScrollToTop";
 
 import {
     BarChart,
@@ -257,6 +258,7 @@ export default function RiskExceptionDashboard({ selectedWeek = "W44" }) {
 
     return (
         <CssVarsProvider>
+            <ScrollToTop />
             <Box sx={{ display: "flex", minHeight: "100dvh" }}>
                 <Sidebar />
                 <Box sx={{ flexGrow: 1, p: 1 }}>

@@ -62,14 +62,44 @@ const theme = extendTheme({
 
 // Mock data from your JSON
 const mockOrderData = [
-  { Buyer: "H&M HENNES & MAURITZ GBC AB", StyleCode: "ASTERTANK", Combo: "51-136 PINK DUSTY LIGHT", Size: "L", OPDQty: 50 },
-  { Buyer: "H&M HENNES & MAURITZ GBC AB", StyleCode: "ASTERTANK", Combo: "51-136 PINK DUSTY LIGHT", Size: "M", OPDQty: 218 },
-  { Buyer: "H&M HENNES & MAURITZ GBC AB", StyleCode: "ASTERTANK", Combo: "51-136 PINK DUSTY LIGHT", Size: "S", OPDQty: 388 },
-  { Buyer: "H&M HENNES & MAURITZ GBC AB", StyleCode: "ASTERTANK", Combo: "51-136 PINK DUSTY LIGHT", Size: "XL", OPDQty: 50 },
-  { Buyer: "H&M HENNES & MAURITZ GBC AB", StyleCode: "ASTERTANK", Combo: "51-136 PINK DUSTY LIGHT", Size: "XS", OPDQty: 208 },
-  { Buyer: "H&M HENNES & MAURITZ GBC AB", StyleCode: "ASTERTANK", Combo: "51-136 PINK DUSTY LIGHT", Size: "XXS", OPDQty: 80 },
-  { Buyer: "H&M HENNES & MAURITZ GBC AB", StyleCode: "ASTERTANK", Combo: "17-222 BROWN DARK", Size: "L", OPDQty: 64 },
-  { Buyer: "H&M HENNES & MAURITZ GBC AB", StyleCode: "ASTERTANK", Combo: "17-222 BROWN DARK", Size: "M", OPDQty: 286 },
+  { Buyer: "H&M HENNES & MAURITZ", StyleCode: ["ASTERTANK"], Combo: ["51-136 PINK DUSTY LIGHT"], Size: "L", OPDQty: 50 },
+  { Buyer: "H&M HENNES & MAURITZ", StyleCode: ["AZURLSTOP"], Combo: ["51-136 PINK DUSTY LIGHT"], Size: "M", OPDQty: 218 },
+  { Buyer: "H&M HENNES & MAURITZ", StyleCode: ["BELLATEE"], Combo: ["51-136 PINK DUSTY LIGHT"], Size: "S", OPDQty: 388 },
+  { Buyer: "H&M HENNES & MAURITZ", StyleCode: ["BOSSTOP"], Combo: ["51-136 PINK DUSTY LIGHT"], Size: "XL", OPDQty: 50 },
+  { Buyer: "H&M HENNES & MAURITZ", StyleCode: ["CILLALSTEE"], Combo: ["51-136 PINK DUSTY LIGHT"], Size: "XS", OPDQty: 208 },
+
+  { Buyer: "VINGINO", StyleCode: ["BOYSTANK2PACK"], Combo: ["51-136 PINK DUSTY LIGHT"], Size: "XS", OPDQty: 208 },
+
+  { Buyer: "GROUPE AUCHAN", StyleCode: ["S26WKNTEE0009"], Combo: ["51-136 PINK DUSTY LIGHT"], Size: "XS", OPDQty: 8 },
+  { Buyer: "GROUPE AUCHAN", StyleCode: ["S26WKNTEE0031"], Combo: ["51-136 PINK DUSTY LIGHT"], Size: "XS", OPDQty: 2 },
+
+  { Buyer: "MAX HOLDINGS - INVESTMENTS LTD", StyleCode: ["1203B"], Combo: ["51-1 LIGHT"], Size: "XS", OPDQty: 18 },
+  { Buyer: "MAX HOLDINGS - INVESTMENTS LTD", StyleCode: ["1204B"], Combo: ["51-136 PINK"], Size: "XS", OPDQty: 2 },
+  { Buyer: "MAX HOLDINGS - INVESTMENTS LTD", StyleCode: ["1217B"], Combo: ["5-136 LIGHT"], Size: "XS", OPDQty: 58 },
+
+  { Buyer: "KMART AUSTRALIA LIMITED", StyleCode: ["026NS26LSL014"], Combo: ["51-136 PINK DUSTY LIGHT"], Size: "XS", OPDQty: 80 },
+  { Buyer: "KMART AUSTRALIA LIMITED", StyleCode: ["06NS26DPL080"], Combo: ["51-136 PINK DUSTY LIGHT"], Size: "XS", OPDQty: 68 },
+
+];
+
+const allOrderData = [
+  {
+    Buyer: "H&M HENNES & MAURITZ",
+    StyleCode: ["ASTERTANK", "AZURLSTOP", "BELLATEE", "BOSSTOP", "CILLALSTEE", "EQVALERIETOP", "EQSUETEE", "GSRT", "JAML", "JOANNA", "JUNELSTOP", "LICBEATRIZDRESS", "LICMARSTEE", "LICPALMITA3PACK"],
+    Combo: ["51-136 PINK DUSTY LIGHT", "17-222 BROWN DARK", "09-090 BLACK DARK", "10-201 WHITE LIGHT", "49-203 RED DARK"], Size: "L", OPDQty: 50
+  },
+
+  { Buyer: "VINGINO", StyleCode: ["BOYSTANK2PACK"], Combo: ["001 - REAL WHITE", "944 - DEEP BLACK"], Size: "M", OPDQty: 218 },
+
+  { Buyer: "GROUPE AUCHAN", StyleCode: ["S26WKNTEE0009", "S26WKNTEE0031"], Combo: "51-red LIGHT", Size: "S", OPDQty: 388 },
+
+  {
+    Buyer: "MAX HOLDINGS - INVESTMENTS LTD",
+    StyleCode: ["1203B", "1204B", "1217B", "TGTNOOSLEGGING", "LDCS", "C25WUBNFSECOM202", "C25WUBNFSATE406", "C25WUBNFSATE404", "C25WUBNFSATE400"],
+    Combo: ["MORNING GLORY", "IVORY", "WHITE", "ANTHRACITE-BLACK", "BLACKENED PEARL", "RAIN FOREST", "ASPHALT", "ALLOY", "WINDSURFER"], Size: "XL", OPDQty: 50
+  },
+
+  { Buyer: "KMART AUSTRALIA LIMITED", StyleCode: ["026NS26LSL014", "06NS26DPL080"], Combo: "51-136 BLANC LIGHT", Size: "XS", OPDQty: 208 },
 ];
 
 // Process Order Details Mock Data
@@ -102,7 +132,7 @@ const processOrderDetailsMock = {
 
 const customers = [
   "All Customers",
-  "H&M HENNES & MAURITZ GBC AB",
+  "H&M HENNES & MAURITZ",
   "VINGINO",
   "GROUPE AUCHAN",
   "MAX HOLDINGS - INVESTMENTS LTD",
@@ -111,7 +141,7 @@ const customers = [
 
 const stylesByCustomer = {
   "All Customers": ["ALL Styles"],
-  "H&M HENNES & MAURITZ GBC AB": [
+  "H&M HENNES & MAURITZ": [
     "ASTERTANK",
     "AZURLSTOP",
     "BELLATEE",
@@ -270,93 +300,93 @@ const CascadingFilterModal = ({ open, onClose, kpiType }) => {
   const [orderCount, setOrderCount] = useState(0);
   const [filteredOrders, setFilteredOrders] = useState([]);
 
-  useEffect(() => {
-    const uniqueBuyers = [...new Set(mockOrderData.map((d) => d.Buyer))];
-    setBuyers(uniqueBuyers);
-  }, []);
+  // useEffect(() => {
+  //   const uniqueBuyers = [...new Set(mockOrderData.map((d) => d.Buyer))];
+  //   setBuyers(uniqueBuyers);
+  // }, []);
 
-  useEffect(() => {
-    if (selectedBuyer) {
-      const filteredStyles = [
-        ...new Set(
-          mockOrderData
-            .filter((d) => d.Buyer === selectedBuyer)
-            .map((d) => d.StyleCode)
-        ),
-      ];
-      setStyles(filteredStyles);
-      setSelectedStyle("");
-      setCombos([]);
-      setSelectedCombo("");
-      setSizes([]);
-      setSelectedSize("");
-      setOrderCount(0);
-      setFilteredOrders([]);
-    } else {
-      setStyles([]);
-    }
-  }, [selectedBuyer]);
+  // useEffect(() => {
+  //   if (selectedBuyer) {
+  //     const filteredStyles = [
+  //       ...new Set(
+  //         mockOrderData
+  //           .filter((d) => d.Buyer === selectedBuyer)
+  //           .map((d) => d.StyleCode)
+  //       ),
+  //     ];
+  //     setStyles(filteredStyles);
+  //     setSelectedStyle("");
+  //     setCombos([]);
+  //     setSelectedCombo("");
+  //     setSizes([]);
+  //     setSelectedSize("");
+  //     setOrderCount(0);
+  //     setFilteredOrders([]);
+  //   } else {
+  //     setStyles([]);
+  //   }
+  // }, [selectedBuyer]);
 
-  useEffect(() => {
-    if (selectedBuyer && selectedStyle) {
-      const filteredCombos = [
-        ...new Set(
-          mockOrderData
-            .filter((d) => d.Buyer === selectedBuyer && d.StyleCode === selectedStyle)
-            .map((d) => d.Combo)
-        ),
-      ];
-      setCombos(filteredCombos);
-      setSelectedCombo("");
-      setSizes([]);
-      setSelectedSize("");
-      setOrderCount(0);
-      setFilteredOrders([]);
-    } else {
-      setCombos([]);
-    }
-  }, [selectedStyle, selectedBuyer]);
+  // useEffect(() => {
+  //   if (selectedBuyer && selectedStyle) {
+  //     const filteredCombos = [
+  //       ...new Set(
+  //         mockOrderData
+  //           .filter((d) => d.Buyer === selectedBuyer && d.StyleCode === selectedStyle)
+  //           .map((d) => d.Combo)
+  //       ),
+  //     ];
+  //     setCombos(filteredCombos);
+  //     setSelectedCombo("");
+  //     setSizes([]);
+  //     setSelectedSize("");
+  //     setOrderCount(0);
+  //     setFilteredOrders([]);
+  //   } else {
+  //     setCombos([]);
+  //   }
+  // }, [selectedStyle, selectedBuyer]);
 
-  useEffect(() => {
-    if (selectedBuyer && selectedStyle && selectedCombo) {
-      const filteredSizes = [
-        ...new Set(
-          mockOrderData
-            .filter(
-              (d) =>
-                d.Buyer === selectedBuyer &&
-                d.StyleCode === selectedStyle &&
-                d.Combo === selectedCombo
-            )
-            .map((d) => d.Size)
-        ),
-      ];
-      setSizes(filteredSizes);
-      setSelectedSize("");
-      setOrderCount(0);
-      setFilteredOrders([]);
-    } else {
-      setSizes([]);
-    }
-  }, [selectedCombo, selectedStyle, selectedBuyer]);
+  // useEffect(() => {
+  //   if (selectedBuyer && selectedStyle && selectedCombo) {
+  //     const filteredSizes = [
+  //       ...new Set(
+  //         mockOrderData
+  //           .filter(
+  //             (d) =>
+  //               d.Buyer === selectedBuyer &&
+  //               d.StyleCode === selectedStyle &&
+  //               d.Combo === selectedCombo
+  //           )
+  //           .map((d) => d.Size)
+  //       ),
+  //     ];
+  //     setSizes(filteredSizes);
+  //     setSelectedSize("");
+  //     setOrderCount(0);
+  //     setFilteredOrders([]);
+  //   } else {
+  //     setSizes([]);
+  //   }
+  // }, [selectedCombo, selectedStyle, selectedBuyer]);
 
-  useEffect(() => {
-    if (selectedBuyer && selectedStyle && selectedCombo && selectedSize) {
-      const orders = mockOrderData.filter(
-        (d) =>
-          d.Buyer === selectedBuyer &&
-          d.StyleCode === selectedStyle &&
-          d.Combo === selectedCombo &&
-          d.Size === selectedSize
-      );
-      const totalCount = orders.reduce((sum, order) => sum + order.OPDQty, 0);
-      setOrderCount(totalCount);
-      setFilteredOrders(orders);
-    } else {
-      setOrderCount(0);
-      setFilteredOrders([]);
-    }
-  }, [selectedSize, selectedCombo, selectedStyle, selectedBuyer]);
+  // useEffect(() => {
+  //   if (selectedBuyer && selectedStyle && selectedCombo && selectedSize) {
+  //     const orders = mockOrderData.filter(
+  //       (d) =>
+  //         d.Buyer === selectedBuyer &&
+  //         d.StyleCode === selectedStyle &&
+  //         d.Combo === selectedCombo &&
+  //         d.Size === selectedSize
+  //     );
+  //     const totalCount = orders.reduce((sum, order) => sum + order.OPDQty, 0);
+  //     setOrderCount(totalCount);
+  //     setFilteredOrders(orders);
+  //   } else {
+  //     setOrderCount(0);
+  //     setFilteredOrders([]);
+  //   }
+  // }, [selectedSize, selectedCombo, selectedStyle, selectedBuyer]);
 
   const getKPITitle = () => {
     switch (kpiType) {
@@ -671,11 +701,35 @@ const ProductionDashboard = () => {
   const navigate = useNavigate();
   const [selectedWeek, setSelectedWeek] = useState(getCurrentWeek());
   const [selectedCustomer, setSelectedCustomer] = useState(customers[0]);
-  const [selectedStyle, setSelectedStyle] = useState("");
+  // const [selectedStyle, setSelectedStyle] = useState(""); // Default: "" or styleOptions[0]
+  // const [selectedColor, setSelectedColor] = useState(""); // Default: "" or styleOptions[0]
+
+  const [selectedStyles, setSelectedStyles] = useState(allOrderData.map(row =>
+    Array.isArray(row.StyleCode) ? row.StyleCode[0] : row.StyleCode
+  ));
+  const [selectedColors, setSelectedColors] = useState(allOrderData.map(row =>
+    Array.isArray(row.Combo) ? row.Combo[0] : row.Combo
+  ));
+
+
+  const defaultStyleOptions = Array.isArray(allOrderData[0].StyleCode)
+    ? allOrderData[0].StyleCode
+    : [allOrderData[0].StyleCode];
+
+  const defaultColorOptions = Array.isArray(allOrderData[0].Combo)
+    ? allOrderData[0].Combo
+    : [allOrderData[0].Combo];
+
+  const [selectedStyle, setSelectedStyle] = useState(defaultStyleOptions[0]);
+  const [selectedColor, setSelectedColor] = useState(defaultColorOptions[0]);
+
   const [selectedProcess, setSelectedProcess] = useState("All");
   const [selectedStatus, setSelectedStatus] = useState("On-time");
   const [weekSearch, setWeekSearch] = useState("");
   const [filterOpen, setFilterOpen] = useState(false);
+
+  const [showAllOrdersTable, setShowAllOrdersTable] = useState(false);
+  const [showCustomerTable, setShowCustomerTable] = useState(false);
 
   const [activeKPI, setActiveKPI] = useState(null);
   const [filterModalOpen, setFilterModalOpen] = useState(false);
@@ -685,6 +739,23 @@ const ProductionDashboard = () => {
   const [processDetailModalOpen, setProcessDetailModalOpen] = useState(false);
 
   const weeks = generateWeeks();
+
+  // const filteredOrders = allOrderData.filter(row =>
+  //   (selectedStyle === "" || row.StyleCode === selectedStyle) &&
+  //   (selectedColor === "" || row.Combo === selectedColor)
+  // );
+
+
+  const filteredOrders = allOrderData.filter(row =>
+    (Array.isArray(row.StyleCode)
+      ? row.StyleCode.includes(selectedStyle)
+      : row.StyleCode === selectedStyle) &&
+    (Array.isArray(row.Combo)
+      ? row.Combo.includes(selectedColor)
+      : row.Combo === selectedColor)
+  );
+
+
 
   useEffect(() => {
     setSelectedStyle(stylesByCustomer[selectedCustomer][0]);
@@ -734,10 +805,37 @@ const ProductionDashboard = () => {
     navigate(processRoute);
   };
 
+  // const handleKPIClick = (kpiType) => {
+  //   setActiveKPI(kpiType);
+  //   if (selectedCustomer === "All Customers") {
+  //     setShowAllOrdersTable(true);
+  //   }
+  //   else {
+  //     setFilterModalOpen(true);
+  //   }
+  //   // setActiveKPI(kpiType);
+  //   // setFilterModalOpen(true);
+  // };
+
   const handleKPIClick = (kpiType) => {
     setActiveKPI(kpiType);
-    setFilterModalOpen(true);
+    if (selectedCustomer === "All Customers") {
+      setShowAllOrdersTable(true);
+    } else {
+      setShowCustomerTable(true);
+    }
   };
+
+  const closeCustomerTable = () => {
+    setShowCustomerTable(false);
+    setActiveKPI(null);
+  };
+
+
+  const closeAllOrdersTable = () => {
+    setShowAllOrdersTable(false);
+    setActiveKPI(null);
+  }
 
   const handleCloseFilterModal = () => {
     setFilterModalOpen(false);
@@ -1597,6 +1695,203 @@ const ProductionDashboard = () => {
                 </CardContent>
               </Card>
             </Box>
+
+            {showAllOrdersTable && (
+              <Modal open={showAllOrdersTable} onClose={closeAllOrdersTable}>
+                <Box sx={{ p: 3, bgcolor: "#f7fafc", borderRadius: 3, minWidth: 520 }}  >
+                  <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
+                    <Typography level="h3" sx={{ fontWeight: 700, color: "#1976d2" }}>
+                      {activeKPI === "total" && "All Customer (Total Orders)"}
+                      {activeKPI === "fullyOnRisk" && "All Customer (Order Fully On Risk)"}
+                      {activeKPI === "delayed" && "All Customer (Delayed Orders)"}
+                      {activeKPI === "atRisk" && "All Customer (At Risk)"}
+                    </Typography>
+                    <IconButton variant="plain" onClick={closeAllOrdersTable}>
+                      <CloseIcon />
+                    </IconButton>
+                  </Box>
+
+                  <Table sx={{
+                    "& thead th": {
+                      backgroundColor: "#e3f2fd",
+                      color: "#1565c0",
+                      fontWeight: 700,
+                      fontSize: "1rem",
+                      borderBottom: "2px solid #90caf9"
+                    },
+                    "& tbody tr": {
+                      "&:nth-of-type(even)": { backgroundColor: "#f0f4fc" }
+                    },
+                    "& tbody td": {
+                      fontSize: "1rem",
+                      borderBottom: "1px solid #e3e3e3"
+                    }
+                  }}>
+                    <thead>
+                      <tr>
+                        <th>Customer</th>
+                        <th>Style</th>
+                        <th>Color</th>
+                        <th>Order Qty</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      {allOrderData.map((row, idx) => {
+                        return (
+                          <tr key={idx}>
+                            <td>
+                              <Chip variant="solid" sx={{ backgroundColor: "#1976d2", color: "#fff", fontWeight: 500 }}>
+                                {row.Buyer}
+                              </Chip>
+                            </td>
+                            <td>
+                              {/* Style Dropdown for this row */}
+                              <Select
+                                value={selectedStyles[idx]}
+                                onChange={(event, newValue) => {
+                                  const updated = [...selectedStyles];
+                                  updated[idx] = newValue;
+                                  setSelectedStyles(updated);
+                                }}
+                                size="sm"
+                                variant="soft"
+                                sx={{ minWidth: 150 }}
+                              >
+                                {(Array.isArray(row.StyleCode) ? row.StyleCode : [row.StyleCode]).map(style => (
+                                  <Option key={style} value={style}>{style}</Option>
+                                ))}
+                              </Select>
+                            </td>
+                            <td>
+                              {/* Color/Combo Dropdown for this row */}
+                              <Select
+                                value={selectedColors[idx]}
+                                onChange={(event, newValue) => {
+                                  const updated = [...selectedColors];
+                                  updated[idx] = newValue;
+                                  setSelectedColors(updated);
+                                }}
+                                size="sm"
+                                variant="soft"
+                                sx={{ minWidth: 180 }}
+                              >
+                                {(Array.isArray(row.Combo) ? row.Combo : [row.Combo]).map(color => (
+                                  <Option key={color} value={color}>{color}</Option>
+                                ))}
+                              </Select>
+                            </td>
+                            <td>
+                              <Typography sx={{ fontWeight: 700, color: "#0d943c", borderRadius: 2, px: 1 }}>
+                                {row.OPDQty}
+                              </Typography>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+
+                  </Table>
+                </Box>
+              </Modal>
+            )}
+
+            {/* Show the customer-specific orders table */}
+            {showCustomerTable && (
+              <Modal open={showCustomerTable} onClose={closeCustomerTable}>
+                <Box sx={{ p: 3, bgcolor: "#f7fafc", borderRadius: 3, minWidth: 520 }}>
+                  <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
+                    <Typography level="h3" sx={{ fontWeight: 700, color: "#1c3879" }}>
+                      {/* {activeKPI === "total"
+                        ? `${selectedCustomer} - Total Orders`
+                        : activeKPI === "fullyOnRisk"
+                          ? `${selectedCustomer} - Orders Fully On Risk`
+                          : activeKPI === "delayed"
+                            ? `${selectedCustomer} - Delayed Orders`
+                            : activeKPI === "atRisk"
+                              ? `${selectedCustomer} - At Risk Orders`
+                              : ""} */}
+
+                      <Box component="span" sx={{ color: "#1976d2" }}>{selectedCustomer}</Box>
+                      {" "}
+                      <Box
+                        component="span"
+                        sx={{
+                          color:
+                            activeKPI === "total"
+                              ? "#388e3c"
+                              : activeKPI === "fullyOnRisk"
+                                ? "#d32f2f"
+                                : activeKPI === "delayed"
+                                  ? "#fbc02d"
+                                  : activeKPI === "atRisk"
+                                    ? "#075985"
+                                    : "#222",
+                        }}
+                      >
+                        {activeKPI === "total"
+                          ? " - Total Orders"
+                          : activeKPI === "fullyOnRisk"
+                            ? " - Orders Fully On Risk"
+                            : activeKPI === "delayed"
+                              ? " - Delayed Orders"
+                              : activeKPI === "atRisk"
+                                ? " - At Risk Orders"
+                                : ""}
+                      </Box>
+
+                    </Typography>
+                    <IconButton variant="plain" onClick={closeCustomerTable}>
+                      <CloseIcon />
+                    </IconButton>
+                  </Box>
+                  <Table sx={{
+                    "& thead th": {
+                      backgroundColor: "#dbeafe", color: "#1d3766", fontWeight: 700,
+                    },
+                    "& tbody tr": { "&:nth-of-type(even)": { backgroundColor: "#f1f5f9" } },
+                  }}>
+                    <thead>
+                      <tr>
+                        <th>Customer</th>
+                        <th>Style</th>
+                        <th>Color</th>
+                        <th>Order Qty</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {mockOrderData
+                        .filter((row) => row.Buyer === selectedCustomer)
+                        .map((row, idx) => (
+                          <tr key={idx}>
+                            <td>
+                              <Chip variant="solid" sx={{ backgroundColor: "#1c3879", color: "#fff" }}>
+                                {row.Buyer}
+                              </Chip>
+                            </td>
+                            <td>
+                              <Chip variant="soft" sx={{ backgroundColor: "#ffe082", color: "#7c4700" }}>
+                                {row.StyleCode}
+                              </Chip>
+                            </td>
+                            <td>
+                              <Chip variant="soft" sx={{ backgroundColor: "#c8e6c9", color: "#256029" }}>
+                                {row.Combo}
+                              </Chip>
+                            </td>
+                            <td>
+                              <Typography sx={{ fontWeight: 700, color: "#1c7300" }}>
+                                {row.OPDQty}
+                              </Typography>
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </Table>
+                </Box>
+              </Modal>
+            )}
+
           </Box>
         </Box>
       </Box>
