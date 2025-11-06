@@ -483,7 +483,6 @@ export default function LoginPage({ onLogin }) {
 
   return (
     <>
-
       <StyledWrapper>
         {/* <PixelCard variant="pink"> */}
 
@@ -845,7 +844,6 @@ export default function LoginPage({ onLogin }) {
         </Box>
         {/* </PixelCard> */}
       </StyledWrapper>
-
     </>
   );
 }

@@ -208,10 +208,8 @@ export default function CuttingDashboard() {
             </Sheet>
             <style>{keyframes}</style>
 
-            <Box sx={{ minHeight: "100vh", p: { xs: 2, sm: 3, md: 3 } }}>
-
+            <Box sx={{ minHeight: "100vh", mt: -3, p: { xs: 2, sm: 3, md: 3 } }}>
               {/* KPI Cards - Animated */}
-              {/* KPI Cards - Professional & Compact */}
               <Grid container spacing={2.5} sx={{ mb: 1 }}>
                 {/* Cut Plan vs Actual */}
                 <Grid xs={12} sm={6} lg={3}>
@@ -219,8 +217,7 @@ export default function CuttingDashboard() {
                     sx={{
                       p: 2.5,
                       height: "100%",
-                      background: "linear-gradient(135deg, #a0b0e0ff 0%, #2f2accc6 100%)",
-                      //  background: "linear-gradient(135deg, #E8F5E8 0%, #4CAF50 100%)",
+                      background: "linear-gradient(135deg, #7490e4ff 0%, #2f2accbd 100%)",
                       backgroundSize: "200% 200%",
                       animation: "gradientShift 10s ease infinite",
                       transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
@@ -233,27 +230,27 @@ export default function CuttingDashboard() {
                     }}
                   >
                     <Box sx={{ position: "relative", zIndex: 1 }}>
-                      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
-                        <SpeedIcon sx={{ color: "#fff", fontSize: 24, animation: "pulse 2s ease-in-out infinite" }} />
-                        <Typography level="title-md" sx={{ fontWeight: 600, color: "#fff" }}>
+                      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 6, p: 0.5 }}>
+                        <SpeedIcon sx={{ color: "#fff", fontSize: 30, animation: "pulse 2s ease-in-out infinite" }} />
+                        <Typography level="title-md" sx={{ fontWeight: 600, color: "#fff", fontSize: 25 }}>
                           Cut Performance
                         </Typography>
                       </Box>
                       <Box sx={{ display: "flex", justifyContent: "space-around", mb: 2 }}>
                         <Box sx={{ textAlign: "center" }}>
-                          <Typography level="h2" sx={{ fontWeight: 700, color: "#fff", mb: 0.5, fontSize: "1.8rem" }}>
+                          <Typography level="h2" sx={{ fontWeight: 700, color: "#fff", mb: 0.5, fontSize: 25 }}>
                             {CUT_PLAN_ACTUAL[0].value}
                           </Typography>
-                          <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", fontWeight: 500 }}>
+                          <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", fontWeight: 500, fontSize: 20 }}>
                             Planned
                           </Typography>
                         </Box>
                         <Box sx={{ width: 1.5, bgcolor: "rgba(255,255,255,0.3)" }} />
                         <Box sx={{ textAlign: "center" }}>
-                          <Typography level="h2" sx={{ fontWeight: 700, color: "#fff", mb: 0.5, fontSize: "1.8rem" }}>
+                          <Typography level="h2" sx={{ fontWeight: 700, color: "#fff", mb: 0.5, fontSize: 25 }}>
                             {CUT_PLAN_ACTUAL[1].value}
                           </Typography>
-                          <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", fontWeight: 500 }}>
+                          <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", fontWeight: 500, fontSize: 20 }}>
                             Actual
                           </Typography>
                         </Box>
@@ -272,15 +269,15 @@ export default function CuttingDashboard() {
                           }}
                         />
                       </Box>
-                      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 1, alignItems: "center" }}>
-                        <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", fontWeight: 500 }}>
-                          {actualPercent}% Complete
-                        </Typography>
-                        <Chip size="sm" sx={{ bgcolor: "rgba(5, 150, 105, 0.9)", color: "#fff", fontWeight: 600, fontSize: "0.7rem" }}>
+                      {/* <Box sx={{ display: "flex", justifyContent: "space-between", mt: 1, alignItems: "center" }}> */}
+                      <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", fontWeight: 500, fontSize: 20, textAlign: "center", mt: 4 }}>
+                        {actualPercent}% Complete
+                      </Typography>
+                      {/* <Chip size="sm" sx={{ bgcolor: "rgba(5, 150, 105, 0.9)", color: "#fff", fontWeight: 600, fontSize: "0.7rem" }}>
                           <TrendingUpIcon sx={{ fontSize: 12, mr: 0.5 }} />
                           87%
-                        </Chip>
-                      </Box>
+                        </Chip> */}
+                      {/* </Box> */}
                     </Box>
 
                   </Card>
@@ -306,8 +303,8 @@ export default function CuttingDashboard() {
                   >
                     <Box sx={{ position: "relative", zIndex: 1 }}>
                       <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
-                        <LayersIcon sx={{ color: "#fff", fontSize: 24, animation: "float 4s ease-in-out infinite" }} />
-                        <Typography level="title-md" sx={{ fontWeight: 600, color: "#fff" }}>
+                        <LayersIcon sx={{ color: "#fff", fontSize: 30, animation: "float 4s ease-in-out infinite" }} />
+                        <Typography level="title-md" sx={{ fontWeight: 600, color: "#fff",fontSize:25 }}>
                           Ready Panels
                         </Typography>
                       </Box>
@@ -316,7 +313,7 @@ export default function CuttingDashboard() {
                           <Typography level="h2" sx={{ fontWeight: 700, color: "#fff", mb: 0.5, fontSize: "1.8rem" }}>
                             {READY_PANELS}
                           </Typography>
-                          <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", fontWeight: 500 }}>
+                          <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", fontWeight: 500,fontSize:20 }}>
                             Ready
                           </Typography>
                         </Box>
@@ -325,7 +322,7 @@ export default function CuttingDashboard() {
                           <Typography level="h2" sx={{ fontWeight: 700, color: "#fff", mb: 0.5, fontSize: "1.8rem" }}>
                             {REQUIREMENT_PANELS}
                           </Typography>
-                          <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", fontWeight: 500 }}>
+                          <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", fontWeight: 500,fontSize:20 }}>
                             Required
                           </Typography>
                         </Box>
@@ -344,9 +341,15 @@ export default function CuttingDashboard() {
                           }}
                         />
                       </Box>
-                      <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", fontWeight: 500, mt: 1 }}>
+                      <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", fontWeight: 500, mt: 3, fontSize:20,textAlign:"center" }}>
                         {readyPercent}% Ready
                       </Typography>
+                      <Box textAlign="center" sx={{ mt:3,display: "flex", alignItems: "center", gap: 0.8, p: 1, bgcolor: "rgba(255,255,255,0.15)", borderRadius: 1 }}>
+                        <TrendingUpIcon sx={{ color: "#fff", fontSize: 25, ml: 9 }} />
+                        <Typography level="body-xs" sx={{ color: "#fff", fontWeight: 600, fontSize: 20, }}>
+                          80% Ready Current week
+                        </Typography>
+                      </Box>
                     </Box>
                   </Card>
                 </Grid>
@@ -357,7 +360,7 @@ export default function CuttingDashboard() {
                     sx={{
                       p: 2.5,
                       height: "100%",
-                      background: "linear-gradient(135deg, #be185d 0%, #db2777 50%, #ec4899 100%)", // Professional rose/pink
+                      background: "linear-gradient(135deg, #be185d 0%, #db2777 50%, #ec4899 100%)",
                       backgroundSize: "200% 200%",
                       animation: "gradientShift 14s ease infinite",
                       transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
@@ -370,29 +373,30 @@ export default function CuttingDashboard() {
                     }}
                   >
                     <Box sx={{ position: "relative", zIndex: 1 }}>
-                      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
-                        <LinearScaleIcon sx={{ color: "#fff", fontSize: 24, animation: "pulse 3s ease-in-out infinite" }} />
-                        <Typography level="title-md" sx={{ fontWeight: 600, color: "#fff" }}>
+                      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 6}}>
+                        {/* <LinearScaleIcon sx={{ color: "#fff", fontSize: 30, animation: "pulse 3s ease-in-out infinite" }} /> */}
+                        <ContentCutIcon sx={{ fontSize:35,color:"#fff",animation:"float 4s ease-in-out infinite"}} />
+                        <Typography level="title-md" sx={{ fontWeight: 600, color: "#fff",fontSize:25 }}>
                           Balance to Cut
                         </Typography>
                       </Box>
-                      <Typography level="h1" sx={{ color: "#fff", fontWeight: 700, mb: 1.5, fontSize: "2.2rem" }}>
+                      <Typography level="h1" sx={{ color: "#fff", fontWeight: 700, mb: 1.5, fontSize:35,textAlign:"center" }}>
                         {BALANCE_TO_CUT}
                       </Typography>
-                      <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", mb: 2, fontWeight: 500 }}>
+                      <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", mb: 2, fontWeight: 500,fontSize:19,textAlign:"center" }}>
                         Units Remaining
                       </Typography>
-                      <Box sx={{
+                      <Box sx={{mt:3,
                         display: "flex",
                         alignItems: "center",
                         gap: 1,
-                        p: 1.5,
+                        p: 1,
                         bgcolor: "rgba(255,255,255,0.15)",
                         borderRadius: 1.5,
                         backdropFilter: "blur(10px)"
                       }}>
-                        <FlashOnIcon sx={{ color: "#fbbf24", fontSize: 18 }} />
-                        <Typography level="body-xs" sx={{ color: "#fff", fontWeight: 600 }}>
+                        <FlashOnIcon sx={{ color: "#fbbf24", fontSize: 25,ml:11 }} />
+                        <Typography level="body-xs" sx={{ color: "#fff", fontWeight: 600 ,fontSize:20}}>
                           Priority Processing
                         </Typography>
                       </Box>
@@ -405,16 +409,17 @@ export default function CuttingDashboard() {
                   <Card sx={{ p: 1.2, height: "100%", borderRadius: 8 }}>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
                       <AssessmentIcon sx={{ color: "#475569", fontSize: 16 }} />
-                      <Typography level="body-sm" sx={{ fontWeight: 600, fontSize: 20
+                      <Typography level="body-sm" sx={{
+                        fontWeight: 600, fontSize: 20
                         // , color: "#1e293b"
-                       }}>
+                      }}>
                         Filter & Search
                       </Typography>
                     </Box>
                     <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
                       <Box>
                         <Typography level="body-xs" sx={{ mb: 0.35, fontWeight: 600, fontSize: 11 }}>
-                           {/*-------------- COLOR FOR ALL ----- color: "#475569", */}
+                          {/*-------------- COLOR FOR ALL ----- color: "#475569", */}
                           Line
                         </Typography>
                         <Select
@@ -441,7 +446,7 @@ export default function CuttingDashboard() {
                         </Select>
                       </Box>
                       <Box>
-                        <Typography level="body-xs" sx={{ mb: 0.35, fontWeight: 600,fontSize: 11 }}>
+                        <Typography level="body-xs" sx={{ mb: 0.35, fontWeight: 600, fontSize: 11 }}>
                           Style
                         </Typography>
                         <Select
@@ -502,9 +507,10 @@ export default function CuttingDashboard() {
                   }}>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 3 }}>
                       <TimelineIcon sx={{ fontSize: 28, color: "#6366f1" }} />
-                      <Typography level="title-lg" sx={{ fontWeight: 700, 
+                      <Typography level="title-lg" sx={{
+                        fontWeight: 700,
                         // color: "#000000ff"
-                         }}>
+                      }}>
                         Daily Cutting Trend
                       </Typography>
                     </Box>
@@ -717,7 +723,7 @@ export default function CuttingDashboard() {
                       color: "#fff",
                       animation: "fadeAlert 1.5s cubic-bezier(.13,.45,.23,.68)"
                     }}>
-                      <Typography level="body-xs" sx={{ fontWeight: 700, fontSize:16,color:"#ffffffff" }}>
+                      <Typography level="body-xs" sx={{ fontWeight: 700, fontSize: 16, color: "#ffffffff" }}>
                         ⚠️ Immediate action required! Late starts are putting {UNITS_AT_RISK} units at risk of delayed delivery.
                       </Typography>
                     </Box>

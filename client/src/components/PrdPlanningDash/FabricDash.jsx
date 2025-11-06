@@ -1,5 +1,5 @@
 import React from "react";
-import {useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
     Box, Grid, Typography, Card, Select, Option, Button, Sheet
 } from "@mui/joy";
@@ -24,6 +24,8 @@ import CssBaseline from "@mui/joy/CssBaseline";
 import ReplyIcon from '@mui/icons-material/Reply';
 import ScrollToTop from "../ScrollToTop";
 
+import poPdf from '../../assets/po.pdf';
+
 const theme = extendTheme({
     colorSchemes: {
         light: {
@@ -43,7 +45,7 @@ const FABRIC_STATUS = [
 ];
 
 
-    const keyframes = `
+const keyframes = `
   @keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -107,11 +109,11 @@ const SUPPLIER_PENDING = [
 ];
 // { selectedWeek = "W40" }
 export default function FabricStoreDashboard() {
-const location = useLocation();
-const {selectedWeek} = location.state || {selectedWeek: "default err" };
-const weekNumber = parseInt(selectedWeek.replace(/\D/g,""),10);
-const deliveryWeekNumber = weekNumber + 3;
-const deliveryWeek = `W${deliveryWeekNumber}`;
+    const location = useLocation();
+    const { selectedWeek } = location.state || { selectedWeek: "default err" };
+    const weekNumber = parseInt(selectedWeek.replace(/\D/g, ""), 10);
+    const deliveryWeekNumber = weekNumber + 3;
+    const deliveryWeek = `W${deliveryWeekNumber}`;
 
     const [customer, setCustomer] = React.useState(CUSTOMERS[0]);
     const [article, setArticle] = React.useState(ARTICLES[0]);
@@ -129,40 +131,19 @@ const deliveryWeek = `W${deliveryWeekNumber}`;
                 <Sidebar />
                 <Box sx={{ flexGrow: 1, p: 1 }}>
                     <Header />
-                    {/* <Box sx={{
-                        position: 'sticky',
-                        top: 0,
-                        zIndex: 110, */}
-                    {/* // pt: 1, pb: 2, flex: 1, display: "flex", flexDirection: "column", minWidth: 0, gap: 2  */}
-                    {/* }}> */}
                     <Box sx={{ pt: 1, pb: 1, flex: 1, display: "flex", flexDirection: "column", minWidth: 0, gap: 2 }}>
 
                         {/* Title Bar */}
                         <Sheet
-                            sx={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                                px: { xs: 2, md: 4 },
-                                p: { xs: 3, md: 2 },
-                                borderRadius: 12,
-                                background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)",
-                                color: "#ffffff"
-                            }}>
+                            sx={{display: "flex",justifyContent: "space-between",alignItems: "center",px: { xs: 2, md: 4 },p: { xs: 3, md: 2 },borderRadius: 12,background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)",color: "#ffffff" }}>
                             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }} >
-                              <button onClick={()=> window.history.back()} style={{border:'none',display:'flex',alignItems:'center',background:"none"}} >
-                                <ReplyIcon sx={{ fontSize: 50, color: "#fff", marginRight: 0.5,cursor:"pointer" }} />
-                              </button>
+                                <button onClick={() => window.history.back()} style={{ border: 'none', display: 'flex', alignItems: 'center', background: "none" }} >
+                                    <ReplyIcon sx={{ fontSize: 50, color: "#fff", marginRight: 0.5, cursor: "pointer" }} />
+                                </button>
 
                                 <InventoryIcon sx={{ color: "#fff", fontSize: 35, animation: "float 4s ease-in-out infinite" }} />
-                             
-                                <Box sx={{
-                                    display:"flex",
-                                    flexDirection:"column",
-                                    alignItems:"center",
-                                    justifyContent:"center",
-                                    gap:1,width:"100%"
-                                }}>
+
+                                <Box sx={{display: "flex",flexDirection: "column",alignItems: "center",justifyContent: "center",gap: 1, width: "100%"}}>
                                     <Typography level="h3" sx={{ fontWeight: 700, color: "#fff" }}>
                                         Fabric Store Dashboard
                                     </Typography>
@@ -197,215 +178,12 @@ const deliveryWeek = `W${deliveryWeekNumber}`;
                         </Sheet>
                         <style>{keyframes}</style>
 
-                        <Box sx={{ minHeight: "100vh",
+                        <Box sx={{mt: -3, minHeight: "100vh",
                             // bgcolor: "#f1f5f9", 
-                            p: { xs: 2, sm: 3, md: 3 } }}>
+                            p: { xs: 2, sm: 3, md: 3 }}}>
 
                             {/* KPI Cards */}
-                            {/* <Grid container spacing={3} sx={{ mb: 2 }}>
-                                Fabric Received Status
-
-                                <Grid xs={12} sm={6} lg={3}>
-                                    <Card
-                                        sx={{
-                                            p: 1.5,
-                                            height: "100%", borderRadius: 8,
-                                            background: "linear-gradient(135deg, #10b981 0%, #059669 100%)", // Green gradient for success/completion
-                                            transition: "all 0.3s ease",
-                                            "&:hover": {
-                                                transform: "translateY(-4px)",
-                                                boxShadow: "0 12px 24px rgba(16, 185, 129, 0.3)",
-                                            },
-                                        }}
-                                    >
-                                        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-                                            <InventoryIcon sx={{ color: "#fff", fontSize: 18 }} />
-                                            <Typography level="title-md" sx={{ fontWeight: 600, color: "#fff" }}>
-                                                Fabric Status
-                                            </Typography>
-                                        </Box>
-                                        <Box sx={{ display: "flex", justifyContent: "space-around", mb: 1 }}>
-                                            <Box sx={{ textAlign: "center" }}>
-                                                <Typography level="h1" sx={{ fontWeight: 700, color: "#fff", mb: 0.5 }}>
-                                                    {FABRIC_STATUS[0].value}
-                                                </Typography>
-                                                <Typography level="body-sm" sx={{ color: "rgba(255,255,255,0.9)" }}>
-                                                    Fabric Received
-                                                </Typography>
-                                            </Box>
-                                            <Box sx={{ width: '2px', bgcolor: 'rgba(255,255,255,0.3)', mx: 2 }} />  
-                                            <Box sx={{ textAlign: "center" }}>
-                                                <Typography level="h1" sx={{ fontWeight: 700, color: "#fff", mb: 0.5 }}>
-                                                    {FABRIC_STATUS[1].value}
-                                                </Typography>
-                                                <Typography level="body-sm" sx={{ color: "rgba(255,255,255,0.9)" }}>
-                                                    Pending Receipt
-                                                </Typography>
-                                            </Box>
-                                        </Box>
-                                        <Box sx={{ width: "100%", height: 10, bgcolor: "rgba(255, 255, 255, 0.46)", borderRadius: 5, overflow: "hidden" }}>
-                                            <Box
-                                                sx={{
-                                                    width: `${receivedPercent}%`,
-                                                    height: "100%",
-                                                    bgcolor: "#ffffffff",
-                                                    transition: "width 0.8s ease",
-                                                    borderRadius: 5
-                                                }}
-                                            />
-                                        </Box>
-                                        <Typography level="body-lg" sx={{ color: "rgba(255,255,255,0.9)", mt: 1, textAlign: "center" }}>
-                                            {receivedPercent}% Received
-                                        </Typography>
-                                    </Card>
-                                </Grid>
-
-                                Inspection Completed
-                                <Grid xs={12} sm={6} lg={3}>
-                                    <Card
-                                        sx={{
-                                            p: 3,
-                                            height: "100%", borderRadius: 16,
-                                            background: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
-                                            transition: "all 0.3s ease",
-                                            "&:hover": {
-                                                transform: "translateY(-4px)",
-                                                boxShadow: "0 12px 24px rgba(245, 158, 11, 0.3)",
-                                            },
-                                        }}
-                                    >
-                                        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
-                                            <CheckCircleIcon sx={{ color: "#fff", fontSize: 28 }} />
-                                            <Typography level="title-md" sx={{ fontWeight: 600, color: "#fff" }}>
-                                                Inspection Status
-                                            </Typography>
-                                        </Box>
-                                        <Typography level="h1" sx={{ color: "#fff", fontWeight: 700, mb: 1 }}>
-                                            {INSPECTION_COMPLETED}
-                                        </Typography>
-                                        <Typography level="body-sm" sx={{ color: "rgba(255,255,255,0.9)", mb: 2 }}>
-                                            Total Inspections Completed
-                                        </Typography>
-                                        <Box sx={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: 1,
-                                            p: 1.5,
-                                            bgcolor: "rgba(255,255,255,0.2)",
-                                            borderRadius: 2
-                                        }}>
-                                            <TrendingUpIcon sx={{ color: "#fff", fontSize: 20 }} />
-                                            <Typography level="sm" sx={{ color: "#fff", fontWeight: 600 }}>
-                                                12% increase this week
-                                            </Typography>
-                                        </Box>
-                                    </Card>
-                                </Grid>
-
-                                Balance to Receive
-                                <Grid xs={12} sm={6} lg={3}>
-                                    <Card
-                                        sx={{
-                                            p: 3,
-                                            height: "100%", borderRadius: 16,
-                                            background: "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)",
-                                            transition: "all 0.3s ease",
-                                            "&:hover": {
-                                                transform: "translateY(-4px)",
-                                                boxShadow: "0 12px 24px rgba(59, 130, 246, 0.3)",
-                                            },
-                                        }}
-                                    >
-                                        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
-                                            <CategoryIcon sx={{ color: "#fff", fontSize: 28 }} />
-                                            <Typography level="title-md" sx={{ fontWeight: 600, color: "#fff" }}>
-                                                Balance to Receive
-                                            </Typography>
-                                        </Box>
-                                        <Typography level="h1" sx={{ color: "#fff", fontWeight: 700, mb: 1 }}>
-                                            {BALANCE_TO_RECEIVE}
-                                        </Typography>
-                                        <Typography level="body-sm" sx={{ color: "rgba(255,255,255,0.9)", mb: 2 }}>
-                                            Units Pending Receipt
-                                        </Typography>
-                                        <Box sx={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: 1,
-                                            p: 1.5,
-                                            bgcolor: "rgba(255,255,255,0.2)",
-                                            borderRadius: 2
-                                        }}>
-                                            <CalendarTodayIcon sx={{ color: "#fff", fontSize: 20 }} />
-                                            <Typography level="body-sm" sx={{ color: "#fff", fontWeight: 600 }}>
-                                                Expected by W45
-                                            </Typography>
-                                        </Box>
-                                    </Card>
-                                </Grid>
-
-                                Drill Down
-                                <Grid xs={12} sm={6} lg={3}>
-                                    <Card sx={{ p: 3, height: "100%", borderRadius: 16, }}>
-                                        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 3 }}>
-                                            <AssessmentIcon sx={{ color: "#8b5cf6", fontSize: 28 }} />
-                                            <Typography level="title-md" sx={{ fontWeight: 600 }}>
-                                                Drill Down
-                                            </Typography>
-                                        </Box>
-                                        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                                            <Box>
-                                                <Typography level="body-xs" sx={{ mb: 0.5, fontWeight: 600, color: "neutral.700" }}>
-                                                    Customer
-                                                </Typography>
-                                                <Select
-                                                    value={customer}
-                                                    onChange={(e, val) => setCustomer(val)}
-                                                    sx={{ width: "100%" }}
-                                                >
-                                                    {CUSTOMERS.map(c => <Option key={c} value={c}>{c}</Option>)}
-                                                </Select>
-                                            </Box>
-                                            <Box>
-                                                <Typography level="body-xs" sx={{ mb: 0.5, fontWeight: 600, color: "neutral.700" }}>
-                                                    Article
-                                                </Typography>
-                                                <Select
-                                                    value={article}
-                                                    onChange={(e, val) => setArticle(val)}
-                                                    sx={{ width: "100%" }}
-                                                >
-                                                    {ARTICLES.map(a => <Option key={a} value={a}>{a}</Option>)}
-                                                </Select>
-                                            </Box>
-                                            <Box>
-                                                <Typography level="body-xs" sx={{ mb: 0.5, fontWeight: 600, color: "neutral.700" }}>
-                                                    Fabric PO
-                                                </Typography>
-                                                <Select
-                                                    value={fabricPO}
-                                                    onChange={(e, val) => setFabricPO(val)}
-                                                    sx={{ width: "100%" }}
-                                                >
-                                                    {FABRIC_PO.map(f => <Option key={f} value={f}>{f}</Option>)}
-                                                </Select>
-                                            </Box>
-                                            <Button
-                                                variant="solid"
-                                                sx={{
-                                                    bgcolor: "#8b5cf6",
-                                                    "&:hover": { bgcolor: "#7c3aed" }
-                                                }}
-                                            >
-                                                Open Fabric PO
-                                            </Button>
-                                        </Box>
-                                    </Card>
-                                </Grid>
-
-                            </Grid> */}
-
-                            <Grid container spacing={1} sx={{ mb: 2 }}>
+                            <Grid container spacing={1} sx={{ mb: 1 }}>
                                 {/* Fabric Received Status */}
                                 <Grid xs={12} sm={6} lg={3}>
                                     <Card
@@ -421,41 +199,35 @@ const deliveryWeek = `W${deliveryWeekNumber}`;
                                             },
                                         }}
                                     >
-                                        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-                                            <InventoryIcon sx={{ color: "#fff", fontSize: 20 }} />
-                                            <Typography level="body-sm" sx={{ fontWeight: 600, color: "#fff", fontSize: 13 }}>
+                                        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 3, p: 0.5 }}>
+                                            <InventoryIcon sx={{ color: "#fff", fontSize: 30 }} />
+                                            <Typography level="body-sm" sx={{ fontWeight: 500, color: "#fff", fontSize: 25 }}>
                                                 Fabric Status
                                             </Typography>
                                         </Box>
                                         <Box sx={{ display: "flex", justifyContent: "space-around", mb: 1 }}>
                                             <Box textAlign="center">
-                                                <Typography level="h4" sx={{ fontWeight: 600, color: "#fff", mb: 0.3, fontSize: 15 }}>
+                                                <Typography level="h4" sx={{ fontWeight: 600, color: "#fff", mb: 0.3, fontSize: 25 }}>
                                                     {FABRIC_STATUS[0].value}
                                                 </Typography>
-                                                <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.8)", fontSize: 11 }}>
+                                                <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.8)", fontSize: 20 }}>
                                                     Fabric Received
                                                 </Typography>
                                             </Box>
                                             <Box sx={{ width: '1px', bgcolor: 'rgba(255,255,255,0.3)', mx: 1 }} />
                                             <Box textAlign="center">
-                                                <Typography level="h4" sx={{ fontWeight: 600, color: "#fff", mb: 0.3, fontSize: 15 }}>
+                                                <Typography level="h4" sx={{ fontWeight: 600, color: "#fff", mb: 0.3, fontSize: 25 }}>
                                                     {FABRIC_STATUS[1].value}
                                                 </Typography>
-                                                <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.8)", fontSize: 11 }}>
+                                                <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.8)", fontSize: 20 }}>
                                                     Pending Receipt
                                                 </Typography>
                                             </Box>
                                         </Box>
-                                        <Box sx={{ width: "100%", height: 6, bgcolor: "rgba(255,255,255,0.33)", borderRadius: 3 }}>
-                                            <Box sx={{
-                                                width: `${receivedPercent}%`,
-                                                height: "100%",
-                                                bgcolor: "#fff",
-                                                borderRadius: 3,
-                                                transition: "width 0.5s"
-                                            }} />
+                                        <Box sx={{ width: "80%", height: 6, bgcolor: "rgba(255,255,255,0.33)", borderRadius: 3,alignItems:"center",justifyContent:"center",ml:4 }}>
+                                            <Box sx={{ width: `${receivedPercent}%`, height: "100%", bgcolor: "#fff", borderRadius: 3, transition: "width 0.5s" }} />
                                         </Box>
-                                        <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.87)", mt: 0.5, fontSize: 11 }}>
+                                        <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.87)", mt: 1, fontSize: 20, textAlign: "center" }}>
                                             {receivedPercent}% Received
                                         </Typography>
                                     </Card>
@@ -476,23 +248,21 @@ const deliveryWeek = `W${deliveryWeekNumber}`;
                                             },
                                         }}
                                     >
-                                        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-                                            <CheckCircleIcon sx={{ color: "#fff", fontSize: 20 }} />
-                                            <Typography level="body-sm" sx={{ fontWeight: 600, color: "#fff", fontSize: 13 }}>
+                                        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2, p: 0.5 }}>
+                                            <CheckCircleIcon sx={{ color: "#fff", fontSize: 30 }} />
+                                            <Typography level="body-sm" sx={{ fontWeight: 500, color: "#fff", fontSize: 25 }}>
                                                 Inspection Status
                                             </Typography>
                                         </Box>
-                                        <Typography level="h4" sx={{ color: "#fff", fontWeight: 700, mb: 0.5, fontSize: 17 }}>
+                                        <Typography level="h4" sx={{ color: "#fff", fontWeight: 700, mb: 0.5, fontSize: 35, textAlign: "center" }}>
                                             {INSPECTION_COMPLETED}
                                         </Typography>
-                                        <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", mb: 1, fontSize: 11 }}>
+                                        <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", mb: 1, fontSize: 19, textAlign: "center" }}>
                                             Total Inspections Completed
                                         </Typography>
-                                        <Box sx={{
-                                            display: "flex", alignItems: "center", gap: 0.8, p: 1, bgcolor: "rgba(255,255,255,0.15)", borderRadius: 1
-                                        }}>
-                                            <TrendingUpIcon sx={{ color: "#fff", fontSize: 17 }} />
-                                            <Typography level="body-xs" sx={{ color: "#fff", fontWeight: 600, fontSize: 11 }}>
+                                        <Box textAlign="center" sx={{ display: "flex", alignItems: "center", gap: 0.8, p: 1, bgcolor: "rgba(255,255,255,0.15)", borderRadius: 1 }}>
+                                            <TrendingUpIcon sx={{ color: "#fff", fontSize: 25 ,ml:9}} />
+                                            <Typography level="body-xs" sx={{ color: "#fff", fontWeight: 600, fontSize: 20, }}>
                                                 12% increase this week
                                             </Typography>
                                         </Box>
@@ -514,23 +284,23 @@ const deliveryWeek = `W${deliveryWeekNumber}`;
                                             },
                                         }}
                                     >
-                                        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-                                            <CategoryIcon sx={{ color: "#fff", fontSize: 20 }} />
-                                            <Typography level="body-sm" sx={{ fontWeight: 600, color: "#fff", fontSize: 13 }}>
+                                        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2,p:0.5 }}>
+                                            <CategoryIcon sx={{ color: "#fff", fontSize: 30 }} />
+                                            <Typography level="body-sm" sx={{ fontWeight: 600, color: "#fff", fontSize: 25 }}>
                                                 Balance to Receive
                                             </Typography>
                                         </Box>
-                                        <Typography level="h4" sx={{ color: "#fff", fontWeight: 700, mb: 0.5, fontSize: 17 }}>
+                                        <Typography level="h4" sx={{ color: "#fff", fontWeight: 700, mb: 0.5, fontSize: 35,textAlign:"center" }}>
                                             {BALANCE_TO_RECEIVE}
                                         </Typography>
-                                        <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", mb: 1, fontSize: 11 }}>
+                                        <Typography level="body-xs" sx={{ color: "rgba(255,255,255,0.9)", mb: 1, fontSize: 19,textAlign:"center" }}>
                                             Units Pending Receipt
                                         </Typography>
-                                        <Box sx={{
+                                        <Box textAlign="center" sx={{
                                             display: "flex", alignItems: "center", gap: 0.8, p: 1, bgcolor: "rgba(255,255,255,0.15)", borderRadius: 1
                                         }}>
-                                            <CalendarTodayIcon sx={{ color: "#fff", fontSize: 16 }} />
-                                            <Typography level="body-xs" sx={{ color: "#fff", fontWeight: 600, fontSize: 11 }}>
+                                            <CalendarTodayIcon sx={{ color: "#fff", fontSize: 25,ml:13 }} />
+                                            <Typography level="body-xs" sx={{ color: "#fff", fontWeight: 600, fontSize: 20, }}>
                                                 Expected by W45
                                             </Typography>
                                         </Box>
@@ -541,14 +311,14 @@ const deliveryWeek = `W${deliveryWeekNumber}`;
                                 <Grid xs={12} sm={6} lg={3}>
                                     <Card sx={{ p: 1.5, height: "100%", borderRadius: 8 }}>
                                         <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-                                            <AssessmentIcon sx={{ color: "#8b5cf6", fontSize: 20 }} />
-                                            <Typography level="body-sm" sx={{ fontWeight: 600, fontSize: 13 }}>
+                                            <AssessmentIcon sx={{ color: "#8b5cf6", fontSize: 30 }} />
+                                            <Typography level="body-sm" sx={{ fontWeight: 600, fontSize: 20 }}>
                                                 Drill Down
                                             </Typography>
                                         </Box>
                                         <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
                                             <Box>
-                                                <Typography level="body-xs" sx={{ mb: 0.4, fontWeight: 600, color: "neutral.700", fontSize: 11 }}>
+                                                <Typography level="body-xs" sx={{ mb: 0.4, fontWeight: 600, color: "neutral.700", fontSize: 12 }}>
                                                     Customer
                                                 </Typography>
                                                 <Select
@@ -561,7 +331,7 @@ const deliveryWeek = `W${deliveryWeekNumber}`;
                                                 </Select>
                                             </Box>
                                             <Box>
-                                                <Typography level="body-xs" sx={{ mb: 0.4, fontWeight: 600, color: "neutral.700", fontSize: 11 }}>
+                                                <Typography level="body-xs" sx={{ mb: 0.4, fontWeight: 600, color: "neutral.700", fontSize: 12 }}>
                                                     Article
                                                 </Typography>
                                                 <Select
@@ -574,7 +344,7 @@ const deliveryWeek = `W${deliveryWeekNumber}`;
                                                 </Select>
                                             </Box>
                                             <Box>
-                                                <Typography level="body-xs" sx={{ mb: 0.4, fontWeight: 600, color: "neutral.700", fontSize: 11 }}>
+                                                <Typography level="body-xs" sx={{ mb: 0.4, fontWeight: 600, color: "neutral.700", fontSize: 12 }}>
                                                     Fabric PO
                                                 </Typography>
                                                 <Select
@@ -595,6 +365,7 @@ const deliveryWeek = `W${deliveryWeekNumber}`;
                                                     fontWeight: 600,
                                                     "&:hover": { bgcolor: "#7c3aed" }
                                                 }}
+                                                onClick={() => window.open(poPdf, '_blank')}
                                             >
                                                 Open Fabric PO
                                             </Button>
@@ -602,8 +373,6 @@ const deliveryWeek = `W${deliveryWeekNumber}`;
                                     </Card>
                                 </Grid>
                             </Grid>
-
-
 
                             {/* Charts Section */}
                             <Grid container spacing={1}>

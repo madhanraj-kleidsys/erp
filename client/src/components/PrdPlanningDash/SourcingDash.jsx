@@ -540,7 +540,7 @@ color: "#000000ff", */}
               </Grid>
 
               {/* Enhanced Charts Row */}
-              <Grid container spacing={3} sx={{ mb: 1 }}>
+              <Grid container spacing={3} sx={{ mb:1,mt:-6}}>
                 {/* Enhanced Bar Chart */}
                 <Grid xs={12} md={6}>
                   <Card sx={{
